@@ -15,20 +15,20 @@ CHAR
   = [\x01-\x7F]
 
 CR
-  = \x0D
+  = "\x0D"
 
 CRLF
   = CR LF
 
 CTL
   = [\x00-\x1F]
-  / \x7F
+  / "\x7F"
 
 DIGIT
   = [\x30-\x39]
 
 DQUOTE
-  = \x22
+  = [\x22]
 
 HEXDIG
   = DIGIT
@@ -40,10 +40,10 @@ HEXDIG
   / "F"
 
 HTAB
-  = \x09
+  = "\x09"
 
 LF
-  = \x0A
+  = "\x0A"
 
 LWSP
   = (WSP / CRLF WSP)*
@@ -52,7 +52,7 @@ OCTET
   = [\x00-\xFF]
 
 SP
-  = \x20
+  = "\x20"
 
 VCHAR
   = [\x21-\x7E]
