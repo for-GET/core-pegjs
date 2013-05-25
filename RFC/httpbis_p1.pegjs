@@ -3,6 +3,9 @@
  *
  * http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging
  *
+ * <uri_host> element has been renamed to <hostname> as a dirty workaround for
+ * element being re-defined with another meaning in RFC/3986_uri
+ *
  * @append RFC/3986_uri
  * @append RFC/5324_abnf
  */
@@ -16,11 +19,15 @@ HTTP_version
   } }
 
 HTTP_name
-  = \x48 \x54 \x54 \x50
+  = "\x48\x54\x54\x50"
 
 
 /* 2.7.  Uniform Resource Identifiers */
-// FIXME
+absolute_path
+  = ("/" segment)+
+
+partial_URI
+  = relative_part ("?" query)?
 
 http_URI
   = "http:" "//" authority path_abempty ("?" query)?
@@ -30,7 +37,7 @@ https_URI
 
 
 /* 3.  Message Format */
-HTTP-message
+HTTP_message
   = start_line
     (header_field CRLF)*
     CRLF
@@ -155,7 +162,7 @@ special
   / ","
   / ";"
   / ":"
-  / "\"
+  / "\\"
   / DQUOTE
   / "/"
   / "["
@@ -166,21 +173,21 @@ special
   / "}"
 
 quoted_string
-  = DQUOTE (qdtext /quoted_pair)* DQUOTE
+  = DQUOTE (qdtext / quoted_pair)* DQUOTE
 
 qdtext
   = HTAB
   / SP
-  / \x21
+  / "\x21"
   / [\x23-\x5B]
   / [\x5D-\x7E]
-  / obs-text
+  / obs_text
 
 obs_text
   = [\x80-\xFF]
 
 quoted_pair
-  = "\" (HTAB / SP / VCHAR / obs-text)
+  = "\\" (HTAB / SP / VCHAR / obs_text)
 
 comment
   = "(" (ctext / quoted_cpair / comment)* ")"
@@ -194,7 +201,7 @@ ctext
   / obs_text
 
 quoted_cpair
-  = "\" (HTAB / SP / VCHAR / obs_text)
+  = "\\" (HTAB / SP / VCHAR / obs_text)
 
 
 /* 3.3.  Message Body */
@@ -265,13 +272,13 @@ absolute_form
 authority_form
   = authority
 
-asterisk-form
+asterisk_form
   = "*"
 
 
 /* 5.4.  Host */
 host
-  = uri_host (":" port)?
+  = hostname (":" port)?
 
 
 /* 5.7.1.  Via */

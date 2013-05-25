@@ -3,6 +3,9 @@
  *
  * http://tools.ietf.org/html/rfc3986
  *
+ * <host> element has been renamed to <hostname> as a dirty workaround for
+ * element being re-defined with another meaning in HTTPbis
+ *
  * @append RFC/5324_abnf
  */
 
@@ -66,7 +69,7 @@ scheme
 
 /* 3.2.  Authority */
 authority
-  = (userinfo "@")? host (":" port)?
+  = (userinfo "@")? hostname (":" port)?
 
 /* 3.2.1.  User Information */
 userinfo
@@ -74,7 +77,7 @@ userinfo
 
 
 /* 3.2.2.  Host */
-host
+hostname
   = IP_literal
   / IPv4address
   / reg_name
