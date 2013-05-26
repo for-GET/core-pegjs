@@ -4,6 +4,7 @@
  * http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics
  *
  * @append RFC/httpbis_p1.pegjs
+ * @append RFC/3986_uri.pegjs
  * @append RFC/5646_language.pegjs
  * @append RFC/5322_imf.pegjs
  * @append RFC/5324_abnf.pegjs

@@ -6,6 +6,11 @@
  * @append RFC/5324_abnf.pegjs
  */
 
+/* 3.2.1.  Quoted characters */
+quoted_pair
+  = "\\" (VCHAR / WSP)
+  / obs_qp
+
 /* 3.2.2.  Folding White Space and Comments */
 FWS
   // Folding white space
@@ -107,13 +112,15 @@ obs_NO_WS_CTL
 obs_ctext
   = obs_NO_WS_CTL
 
+obs_qp
+  = "\\" ("\x00" / obs_NO_WS_CTL / LF / CR)
+
 /*
 FIXME
 obs-qtext       =   obs-NO-WS-CTL
 
 obs-utext       =   %d0 / obs-NO-WS-CTL / VCHAR
 
-obs-qp          =   "\" (%d0 / obs-NO-WS-CTL / LF / CR)
 
 obs-body        =   *((*LF *CR *((%d0 / text) *LF *CR)) / CRLF)
 
