@@ -1,0 +1,33 @@
+{
+  "name": "core-pegjs",
+  "version": "0.0.1",
+  "author": "Andrei Neculau <@andreineculau>",
+  "description": "Core PEGjs",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/andreineculau/core-pegjs.git"
+  },
+  "keywords": [
+    "PEG",
+    "RFC",
+    "ISO",
+    "ABNF"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": "~0.8.21"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "pegjs": "~0.7.0",
+    "testem": "~0.2.70",
+    "mocha": "~1.8.1",
+    "chai": "~1.5.0",
+    "growl": "~1.7.0"
+  },
+  "scripts": {
+    "prepublish": "make"
+  },
+  "main": "index"
+}
