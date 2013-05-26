@@ -3,10 +3,10 @@
  *
  * http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics
  *
- * @append RFC/httpbis_p1
- * @append RFC/5646_language
- * @append RFC/5322_imf
- * @append RFC/5324_abnf
+ * @append RFC/httpbis_p1.pegjs
+ * @append RFC/5646_language.pegjs
+ * @append RFC/5322_imf.pegjs
+ * @append RFC/5324_abnf.pegjs
  */
 
 /* 3.1.1.1.  Media Type */

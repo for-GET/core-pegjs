@@ -3,7 +3,7 @@
  *
  * http://tools.ietf.org/html/rfc5322
  *
- * @append RFC/5324_abnf
+ * @append RFC/5324_abnf.pegjs
  */
 
 /* 3.2.2.  Folding White Space and Comments */

@@ -6,8 +6,8 @@
  * <uri_host> element has been renamed to <hostname> as a dirty workaround for
  * element being re-defined with another meaning in RFC/3986_uri
  *
- * @append RFC/3986_uri
- * @append RFC/5324_abnf
+ * @append RFC/3986_uri.pegjs
+ * @append RFC/5324_abnf.pegjs
  */
 
 /* 2.6.  Protocol Versioning */
