@@ -1,6 +1,6 @@
 # core-pegjs
 
-A library of core [PEGjs](https://github.com/dmajda/pegjs) modules (RFC, ISO, etc.)
+A collection of core [PEGjs](https://github.com/dmajda/pegjs) grammars (RFC, ISO, etc.)
 
 
 ## Status
