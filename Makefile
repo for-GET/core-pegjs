@@ -27,5 +27,6 @@ lib/%.js: lib/%.pegjs
 	@pegjs $(input) $(output)
 
 clean:
-# @git clean -xdf
-# @rm -f $(PEGjs)
+	@rm -f  $(PEG) $(PEGjs)
+
+prepublish: clean all

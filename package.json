@@ -27,7 +27,7 @@
     "growl": "~1.7.0"
   },
   "scripts": {
-    "prepublish": "make"
+    "prepublish": "make prepublish"
   },
   "main": "index"
 }
