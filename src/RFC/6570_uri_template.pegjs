@@ -86,7 +86,7 @@ modifier_level4
 
 /* 2.4.1.  Prefix Values */
 prefix
-  = ":" max-length
+  = ":" max_length
 
 max_length
   // positive integer < 10000
