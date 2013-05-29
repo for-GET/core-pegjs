@@ -12,7 +12,12 @@ language_tag
   / grandfathered // grandfathered tags
 
 langtag
-  = language ("-" script)? ("-" region)? ("-" variant)* ("-" extension)* ("-" privateuse)?
+  = language
+    ("-" script)?
+    ("-" region)?
+    ("-" variant)*
+    ("-" extension)*
+    ("-" privateuse)?
 
 language
   = $(ALPHA ALPHA ALPHA?)                                     // shortest ISO 639 code
@@ -23,7 +28,7 @@ language
 
 extlang
   = $(ALPHA ALPHA ALPHA)                                   // selected ISO 639 codes
-    (hyphen_ALPHA_3_ (hyphen_ALPHA_3_ hyphen_ALPHA_3_?)?)? // permanently reserved
+    (hyphen_ALPHA_3_ hyphen_ALPHA_3_?)? // permanently reserved
 
 hyphen_ALPHA_3_
   = "-" $(ALPHA ALPHA ALPHA)
