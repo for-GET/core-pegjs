@@ -20,7 +20,7 @@
   "dependencies": {
   },
   "devDependencies": {
-    "pegjs": "~0.7.0",
+    "pegjs": "git://github.com/dmajda/pegjs.git#798ed6a8a4",
     "testem": "~0.2.70",
     "mocha": "~1.8.1",
     "chai": "~1.5.0",
