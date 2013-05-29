@@ -11,10 +11,11 @@ quoted_pair
   = "\\" (VCHAR / WSP)
   / obs_qp
 
+
 /* 3.2.2.  Folding White Space and Comments */
 FWS
   // Folding white space
-  = (WSP* CRLF)? WSP+
+  = $((WSP* CRLF)? WSP+)
   / obs_FWS
 
 ctext
@@ -75,7 +76,7 @@ month
   / "Dec"
 
 year
-  = FWS DIGIT DIGIT DIGIT DIGIT+ FWS
+  = FWS $(DIGIT DIGIT DIGIT DIGIT+) FWS
   / obs_year
 
 time
@@ -97,15 +98,15 @@ second
   / obs_second
 
 zone
-  = FWS ("+" / "-") DIGIT DIGIT DIGIT DIGIT
+  = FWS ("+" / "-") $(DIGIT DIGIT DIGIT DIGIT)
   / obs_zone
 
 
 /* 4.1.  Miscellaneous Obsolete Tokens */
 obs_NO_WS_CTL
   = [\x01-\x08] // US-ASCII control
-  "\x0B"        // characters that do not
-  "\x0C"        // include the carriage
+  / "\x0B"      // characters that do not
+  / "\x0C"      // include the carriage
   / [\x0E-\x1F] // return, line feed, and
   / "\x7F"      // white space characters
 
@@ -115,25 +116,30 @@ obs_ctext
 obs_qp
   = "\\" ("\x00" / obs_NO_WS_CTL / LF / CR)
 
-/*
-FIXME
-obs-qtext       =   obs-NO-WS-CTL
+obs_qtext
+  = obs_NO_WS_CTL
 
-obs-utext       =   %d0 / obs-NO-WS-CTL / VCHAR
+obs_utext
+  = "\x00"
+  / obs_NO_WS_CTL
+  / VCHAR
 
+obs_body
+  = $((LF* CR* (("\x00" / text) LF* CR*)*) / CRLF)*
 
-obs-body        =   *((*LF *CR *((%d0 / text) *LF *CR)) / CRLF)
+obs_unstruct
+  = $((LF* CR* (obs_utext LF* CR*)*) / FWS)*
 
-obs-unstruct    =   *((*LF *CR *(obs-utext *LF *CR)) / FWS)
-obs-phrase      =   word *(word / "." / CFWS)
+obs_phrase
+  = $(word (word / "." / CFWS)*)
 
-obs-phrase-list =   [phrase / CFWS] *("," [phrase / CFWS])
-*/
+obs_phrase_list
+   = (phrase / CFWS)? ("," (phrase / CFWS)?)*
 
 
 /* 4.2.  Obsolete Folding White Space */
 obs_FWS
-  = WSP+ (CRLF WSP+)*
+  = $(WSP+ (CRLF WSP+)*)
 
 
 /* 4.3.  Obsolete Date and Time */
@@ -156,19 +162,20 @@ obs_second
   = CFWS? DIGIT DIGIT CFWS?
 
 obs_zone
-  =
-/*
-FIXME
-obs-zone        =   "UT" / "GMT" /     ; Universal Time
-; North American UT
-; offsets
-"EST" / "EDT" /    ; Eastern:  - 5/ - 4
-"CST" / "CDT" /    ; Central:  - 6/ - 5
-"MST" / "MDT" /    ; Mountain: - 7/ - 6
-"PST" / "PDT" /    ; Pacific:  - 8/ - 7
-;
-%d65-73 /          ; Military zones - "A"
-%d75-90 /          ; through "I" and "K"
-%d97-105 /         ; through "Z", both
-%d107-122          ; upper and lower case
-*/
+  // Universal Time
+  = "UT"
+  / "GMT"
+  // North American UT
+  // offsets
+  / "EST" // Eastern:  - 5/ - 4
+  / "EDT"
+  / "CST" // Central:  - 6/ - 5
+  / "CDT"
+  / "MST" // Mountain: - 7/ - 6
+  / "MDT"
+  / "PST" // Pacific:  - 8/ - 7
+  / "PDT"
+  / [\x41-\x49] // Military zones - "A"
+  / [\x4B-\x5A] // through "I" and "K"
+  / [\x61-\x65] // through "Z", both
+  / [\x6B-\x7A] // upper and lower case

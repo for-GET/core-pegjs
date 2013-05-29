@@ -15,32 +15,32 @@ langtag
   = language ("-" script)? ("-" region)? ("-" variant)* ("-" extension)* ("-" privateuse)?
 
 language
-  = ALPHA ALPHA ALPHA?                                     // shortest ISO 639 code
-    ("-" extlang)?                                         // sometimes followed by
-                                                           // extended language subtags
-  / ALPHA ALPHA ALPHA ALPHA                                // or reserved for future use
-  / ALPHA ALPHA ALPHA ALPHA ALPHA (ALPHA (ALPHA ALPHA?)?)? // or registered language subtag
+  = $(ALPHA ALPHA ALPHA?)                                     // shortest ISO 639 code
+    ("-" extlang)?                                            // sometimes followed by
+                                                              // extended language subtags
+  / $(ALPHA ALPHA ALPHA ALPHA)                                // or reserved for future use
+  / $(ALPHA ALPHA ALPHA ALPHA ALPHA (ALPHA (ALPHA ALPHA?)?)?) // or registered language subtag
 
 extlang
-  = ALPHA ALPHA ALPHA                                      // selected ISO 639 codes
+  = $(ALPHA ALPHA ALPHA)                                   // selected ISO 639 codes
     (hyphen_ALPHA_3_ (hyphen_ALPHA_3_ hyphen_ALPHA_3_?)?)? // permanently reserved
 
 hyphen_ALPHA_3_
-  = "-" ALPHA ALPHA ALPHA
+  = "-" $(ALPHA ALPHA ALPHA)
 
 script
-  = ALPHA ALPHA ALPHA ALPHA // ISO 15924 code
+  = $(ALPHA ALPHA ALPHA ALPHA) // ISO 15924 code
 
 region
-  = ALPHA ALPHA       // ISO 3166-1 code
-  / DIGIT DIGIT DIGIT // UN M.49 code
+  = $(ALPHA ALPHA)       // ISO 3166-1 code
+  / $(DIGIT DIGIT DIGIT) // UN M.49 code
 
 variant
-  = alphanum alphanum alphanum alphanum alphanum (alphanum (alphanum alphanum?)?)? // registered variants
-  / DIGIT alphanum alphanum alphanum
+  = $(alphanum alphanum alphanum alphanum alphanum (alphanum (alphanum alphanum?)?)?) // registered variants
+  / $(DIGIT alphanum alphanum alphanum)
 
 extension
-  = singleton ("-" alphanum alphanum (alphanum (alphanum (alphanum (alphanum (alphanum alphanum?)?)?)?)?)?)+
+  = singleton ("-" $(alphanum alphanum (alphanum (alphanum (alphanum (alphanum (alphanum alphanum?)?)?)?)?)?))+
 
 // Single alphanumerics
 // "x" reserved for private use
@@ -52,7 +52,7 @@ singleton
   / [\x79-\x7A] // y - z
 
 privateuse
-  = "x" ("-" alphanum (alphanum (alphanum (alphanum (alphanum (alphanum (alphanum alphanum?)?)?)?)?)?)?)+
+  = "x" ("-" $(alphanum (alphanum (alphanum (alphanum (alphanum (alphanum (alphanum alphanum?)?)?)?)?)?)?))+
 
 grandfathered
   = irregular // non-redundant tags registered

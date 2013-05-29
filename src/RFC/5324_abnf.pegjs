@@ -46,7 +46,7 @@ LF
   = "\x0A"
 
 LWSP
-  = (WSP / CRLF WSP)*
+  = $(WSP / CRLF WSP)*
 
 OCTET
   = [\x00-\xFF]

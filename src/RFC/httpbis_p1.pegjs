@@ -12,11 +12,7 @@
 
 /* 2.6.  Protocol Versioning */
 HTTP_version
-  = HTTP_name "/" major:[0-9] "." minor:[0-9]
-  { return {
-    major: major,
-    minor: minor
-  } }
+  = HTTP_name "/" [0-9] "." [0-9]
 
 HTTP_name
   = "\x48\x54\x54\x50"
@@ -52,12 +48,7 @@ start_line
 
 /* 3.1.1.  Request Line */
 request_line
-  = method:method SP request_target:request_target SP HTTP_version:HTTP_version CRLF
-  { return {
-    method: method,
-    request_target: request_target,
-    HTTP_version: HTTP_version
-  } }
+  = method SP request_target SP HTTP_version CRLF
 
 method
   = token
@@ -65,24 +56,17 @@ method
 
 /* 3.1.2.  Status Line */
 status_line
-  = HTTP_version:HTTP_version SP status_code:status_code SP reason_phrase:reason_phrase CRLF
-  { return {
-    HTTP_version: HTTP_version,
-    status_code: status_code,
-    reason_phrase: reason_phrase
-  } }
+  = HTTP_version SP status_code SP reason_phrase CRLF
 
 status_code
-  = status_code:(DIGIT DIGIT DIGIT)
-  { return status_code.join(""); }
+  = $(DIGIT DIGIT DIGIT)
 
 reason_phrase
-  = reason_phrase:( HTAB
-    / SP
-    / VCHAR
-    / obs_text
-    )*
-  { return reason_phrase.join(""); }
+  = $( HTAB
+     / SP
+     / VCHAR
+     / obs_text
+     )*
 
 
 /* 3.2.  Header Fields */
@@ -96,29 +80,29 @@ field_value
   = (field_content / obs_fold)*
 
 field_content
-  = ( HTAB
-    / SP
-    / VCHAR
-    / obs_text
-    )*
+  = $( HTAB
+     / SP
+     / VCHAR
+     / obs_text
+     )*
 
 obs_fold
   // obsolete line folding
-  = CRLF (SP / HTAB)
+  = $(CRLF (SP / HTAB))
 
 
 /* 3.2.3.  Whitespace */
 OWS
   // optional whitespace
-  = ( SP
-    / HTAB
-    )*
+  = $( SP
+     / HTAB
+     )*
 
 RWS
   // required whitespace
-  = ( SP
-    / HTAB
-    )+
+  = $( SP
+     / HTAB
+     )+
 
 BWS
   // "bad" whitespace
@@ -131,7 +115,7 @@ word
   / quoted_string
 
 token
-  = tchar+
+  = $(tchar+)
 
 tchar
   // any VCHAR, except special
@@ -173,7 +157,7 @@ special
   / "}"
 
 quoted_string
-  = DQUOTE (qdtext / quoted_pair)* DQUOTE
+  = DQUOTE $(qdtext / quoted_pair)* DQUOTE
 
 qdtext
   = HTAB
@@ -190,7 +174,7 @@ quoted_pair
   = "\\" (HTAB / SP / VCHAR / obs_text)
 
 comment
-  = "(" (ctext / quoted_cpair / comment)* ")"
+  = "(" $(ctext / quoted_cpair / comment)* ")"
 
 ctext
   = HTAB
@@ -206,7 +190,7 @@ quoted_cpair
 
 /* 3.3.  Message Body */
 message_body
-  = OCTET*
+  = $(OCTET*)
 
 
 /* 3.3.1.  Transfer-Encoding */
@@ -216,7 +200,7 @@ transfer_encoding
 
 /* 3.3.2.  Content-Length */
 content_length
-  = DIGIT+
+  = $(DIGIT+)
 
 
 /* 4.  Transfer Codings */

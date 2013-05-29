@@ -143,7 +143,7 @@ rfc850_date
 
 date2
   // e.g., 02-Jun-82
-  = day "-" month "-" DIGIT DIGIT
+  = day "-" month "-" $(DIGIT DIGIT)
 
 day_name_l
   = "Monday"
@@ -159,7 +159,7 @@ asctime_date
 
 date3
   // e.g., Jun  2
-  = month SP (DIGIT DIGIT / SP DIGIT)
+  = month SP $(DIGIT DIGIT / SP DIGIT)
 
 
 /* 7.1.1.2.  Date */
@@ -178,7 +178,7 @@ retry_after
   / delta_seconds
 
 delta_seconds
-  = DIGIT+
+  = $(DIGIT+)
 
 
 /* 7.1.4.  Vary */

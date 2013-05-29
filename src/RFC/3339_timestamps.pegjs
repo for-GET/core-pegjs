@@ -8,32 +8,32 @@
 
 /* 5.6. Internet Date/Time Format */
 date_fullyear
-  = DIGIT DIGIT DIGIT DIGIT
+  = $(DIGIT DIGIT DIGIT DIGIT)
 
 date_month
   // 01-12
-  = DIGIT DIGIT
+  = $(DIGIT DIGIT)
 
 date_mday
   // 01-28, 01-29, 01-30, 01-31 based on
   // month/year
-  = DIGIT DIGIT
+  = $(DIGIT DIGIT)
 
 time_hour
   // 00-23
-  = DIGIT DIGIT
+  = $(DIGIT DIGIT)
 
 time_minute
   // 00-59
-  = DIGIT DIGIT
+  = $(DIGIT DIGIT)
 
 time_second
   // 00-58, 00-59, 00-60 based on leap second
   // rules
-  = DIGIT DIGIT
+  = $(DIGIT DIGIT)
 
 time_secfrac
-  = "." DIGIT+
+  = "." $(DIGIT+)
 
 time_numoffset
   = ("+" / "-") time_hour ":" time_minute
@@ -59,7 +59,7 @@ date_time
 /* Date */
 date_century
   // 00-99
-  = DIGIT DIGIT
+  = $(DIGIT DIGIT)
 
 date_decade
   // 0-9
@@ -77,7 +77,7 @@ date_fullyear
 
 date_month
   // 01-12
-  = DIGIT DIGIT
+  = $(DIGIT DIGIT)
 
 date_wday
   // 1-7
@@ -86,16 +86,16 @@ date_wday
 
 date_mday
   // 01-28, 01-29, 01-30, 01-31 based on
-  //month/year
-  = DIGIT DIGIT
+  // month/year
+  = $(DIGIT DIGIT)
 
 date_yday
   // 001-365, 001-366 based on year
-  = DIGIT DIGIT DIGIT
+  = $(DIGIT DIGIT DIGIT)
 
 date_week
   // 01-52, 01-53 based on year
-  = DIGIT DIGIT
+  = $(DIGIT DIGIT)
 
 datepart_fullyear
   = date_century? date_year "-"?
@@ -162,19 +162,19 @@ date
 /* Time */
 time_hour
   // 00-24
-  = DIGIT DIGIT
+  = $(DIGIT DIGIT)
 
 time_minute
   // 00-59
-  = DIGIT DIGIT
+  = $(DIGIT DIGIT)
 
 time_second
   // 00-58, 00-59, 00-60 based on
   // leap-second rules
-  = DIGIT DIGIT
+  = $(DIGIT DIGIT)
 
 time_fraction
-  = ("," / ".") DIGIT+
+  = ("," / ".") $(DIGIT+)
 
 time_numoffset
   = ("+" / "-") time_hour (":"? time_minute)?

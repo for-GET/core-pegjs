@@ -69,7 +69,7 @@ varspec
   = varname modifier_level4?
 
 varname
-  = varchar ("."? varchar)*
+  = $(varchar ("."? varchar)*)
 
 varchar
   = ALPHA
@@ -90,7 +90,7 @@ prefix
 
 max_length
   // positive integer < 10000
-  = [\x31-\x39] DIGIT? DIGIT? DIGIT?
+  = $([\x31-\x39] DIGIT? DIGIT? DIGIT?)
 
 
 /* 2.4.2.  Composite Values */

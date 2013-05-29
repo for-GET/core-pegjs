@@ -11,7 +11,7 @@
 
 /* 2.1.  Percent-Encoding */
 pct_encoded
-  = "%" HEXDIG HEXDIG
+  = $("%" HEXDIG HEXDIG)
 
 
 /* 2.2.  Reserved Characters */
@@ -65,15 +65,17 @@ hier_part
 
 /* 3.1.  Scheme */
 scheme
-  = ALPHA (ALPHA / DIGIT / "+" / "-" / ".")*
+  = $(ALPHA (ALPHA / DIGIT / "+" / "-" / ".")*)
+
 
 /* 3.2.  Authority */
 authority
   = (userinfo "@")? hostname (":" port)?
 
+
 /* 3.2.1.  User Information */
 userinfo
-  = (unreserved / pct_encoded / sub_delims / ":")*
+  = $(unreserved / pct_encoded / sub_delims / ":")*
 
 
 /* 3.2.2.  Host */
@@ -86,18 +88,19 @@ IP_literal
   = "[" (IPv6address / IPvFuture) "]"
 
 IPvFuture
-  = "v" HEXDIG+ "." (unreserved / sub_delims / ":")+
+  = "v" $(HEXDIG+) "." $(unreserved / sub_delims / ":")+
 
 IPv6address
-  =                                                            h16_ h16_ h16_ h16_ h16_ h16_ ls32
-  /                                                       "::"      h16_ h16_ h16_ h16_ h16_ ls32
-  / (                                               h16)? "::"           h16_ h16_ h16_ h16_ ls32
-  / (                               h16_?           h16)? "::"                h16_ h16_ h16_ ls32
-  / (                         (h16_ h16_?)?         h16)? "::"                     h16_ h16_ ls32
-  / (                   (h16_ (h16_ h16_?)?)?       h16)? "::"                          h16_ ls32
-  / (             (h16_ (h16_ (h16_ h16_?)?)?)?     h16)? "::"                               ls32
-  / (       (h16_ (h16_ (h16_ (h16_ h16_?)?)?)?)?   h16)? "::"                               h16
-  / ( (h16_ (h16_ (h16_ (h16_ (h16_ h16_?)?)?)?)?)? h16)? "::"
+  = $(                                                            h16_ h16_ h16_ h16_ h16_ h16_ ls32
+     /                                                       "::"      h16_ h16_ h16_ h16_ h16_ ls32
+     / (                                               h16)? "::"           h16_ h16_ h16_ h16_ ls32
+     / (                               h16_?           h16)? "::"                h16_ h16_ h16_ ls32
+     / (                         (h16_ h16_?)?         h16)? "::"                     h16_ h16_ ls32
+     / (                   (h16_ (h16_ h16_?)?)?       h16)? "::"                          h16_ ls32
+     / (             (h16_ (h16_ (h16_ h16_?)?)?)?     h16)? "::"                               ls32
+     / (       (h16_ (h16_ (h16_ (h16_ h16_?)?)?)?)?   h16)? "::"                               h16
+     / ( (h16_ (h16_ (h16_ (h16_ (h16_ h16_?)?)?)?)?)? h16)? "::"
+     )
 
 ls32
   // least_significant 32 bits of address
@@ -109,20 +112,21 @@ h16_
 
 h16
   // 16 bits of address represented in hexadecimal
-  = HEXDIG (HEXDIG (HEXDIG HEXDIG?)?)?
+  = $(HEXDIG (HEXDIG (HEXDIG HEXDIG?)?)?)
 
 IPv4address
   = dec_octet "." dec_octet "." dec_octet "." dec_octet
 
 dec_octet
-  = DIGIT                 // 0-9
-  / [\x31-\x39] DIGIT     // 10-99
-  / "1" DIGIT DIGIT       // 100-199
-  / "2" [\x30-\x34] DIGIT // 200-249
-  / "25" [\x30-\x35]      // 250-255
+  = $( DIGIT                 // 0-9
+     / [\x31-\x39] DIGIT     // 10-99
+     / "1" DIGIT DIGIT       // 100-199
+     / "2" [\x30-\x34] DIGIT // 200-249
+     / "25" [\x30-\x35]      // 250-255
+     )
 
 reg_name
-  = (unreserved / pct_encoded / sub_delims)*
+  = $(unreserved / pct_encoded / sub_delims)*
 
 
 /* 3.2.3.  Port */
@@ -154,14 +158,14 @@ path_empty
   =
 
 segment
-  = pchar*
+  = $(pchar*)
 
 segment_nz
-  = pchar+
+  = $(pchar+)
 
 segment_nz_nc
   // non_zero_length segment without any colon ":"
-  = ( unreserved / pct_encoded / sub_delims / "@")+
+  = $(unreserved / pct_encoded / sub_delims / "@")+
 
 pchar
   = unreserved
@@ -173,18 +177,19 @@ pchar
 
 /* 3.4.  Query */
 query
-  = (pchar / "/" / "?")*
+  = $(pchar / "/" / "?")*
 
 
 /* 3.5.  Fragment */
 fragment
-  = (pchar / "/" / "?")*
+  = $(pchar / "/" / "?")*
 
 
 /* 4.1.  URI Reference */
 URI_reference
   = URI
   / relative_ref
+
 
 /* 4.2.  Relative Reference */
 relative_ref
