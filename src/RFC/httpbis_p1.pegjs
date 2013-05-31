@@ -244,7 +244,7 @@ last_chunk
   = "0"+ chunk_ext? CRLF
 
 chunk_ext
-  = (";" chunk-ext_name ("=" chunk_ext_val)?)*
+  = (";" chunk_ext_name ("=" chunk_ext_val)?)*
 
 chunk_ext_name
   = token
@@ -321,9 +321,9 @@ host
 
 /* 5.7.1.  Via */
 Via
-  = ("," OWS)* Via_item (OWS "," (OWS Via_item)?)*
+  = ("," OWS)* Via_item_ (OWS "," (OWS Via_item_)?)*
 
-Via_item
+Via_item_
   = received_protocol RWS received_by (RWS comment)?
 
 received_protocol

@@ -5,6 +5,7 @@
  *
  * #append RFC/2396_uri.pegjs is obsoleted by RFC/3986_uri.pegjs
  * @append RFC/3986_uri.pegjs
+ * @append RFC/5322_imf.pegjs
  * @append RFC/5234_abnf.pegjs
  */
 
@@ -31,7 +32,7 @@ addr_spec
 
 local_part
   = dot_atom_text
-  / quoted-string
+  / quoted_string
 
 domain
   = dot_atom_text

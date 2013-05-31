@@ -7,6 +7,11 @@
  *
  * #append RFC/2396_uri.pegjs is obsoleted by RFC/3986_uri.pegjs
  * @append RFC/3986_uri.pegjs
+ * @append RFC/5322_imf.pegjs
+ * @append RFC/4647_language_matching.pegjs
+ * @append RFC/5646_language.pegjs
+ * @append RFC/httpbis_p1.pegjs
+ * @append RFC/httpbis_p2.pegjs
  * @append RFC/5234_abnf.pegjs
  */
 

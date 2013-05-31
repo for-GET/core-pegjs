@@ -3,6 +3,7 @@
  *
  * http://tools.ietf.org/html/rfc6874
  *
+ * @append RFC/3986_uri.pegjs
  * @append RFC/5234_abnf.pegjs
  */
 

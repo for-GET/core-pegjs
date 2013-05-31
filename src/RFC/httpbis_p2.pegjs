@@ -102,9 +102,9 @@ qvalue
 
 /* 5.3.2.  Accept */
 Accept
-  = (("," / Accept_item) (OWS "," (OWS Accept_item)?)*)?
+  = (("," / Accept_item_) (OWS "," (OWS Accept_item_)?)*)?
 
-Accept_item =
+Accept_item_
   = media_range accept_params?
 
 media_range
@@ -122,17 +122,17 @@ accept_ext
 
 /* 5.3.3.  Accept-Charset */
 Accept_Charset
-  = ("," OWS)* Accept_Charset_item (OWS "," (OWS Accept_Charset_item)?)*
+  = ("," OWS)* Accept_Charset_item_ (OWS "," (OWS Accept_Charset_item_)?)*
 
-Accept_Charset_item
+Accept_Charset_item_
   = (charset / "*") weight?
 
 
 /* 5.3.4.  Accept-Encoding */
 Accept_Encoding
-  = (("," / Accept_Encoding_item) (OWS "," (OWS Accept_Encoding_item)?)*)?
+  = (("," / Accept_Encoding_item_) (OWS "," (OWS Accept_Encoding_item_)?)*)?
 
-Accept_Encoding_item
+Accept_Encoding_item_
   = codings weight?
 
 codings
@@ -143,9 +143,9 @@ codings
 
 /* 5.3.5.  Accept-Language */
 Accept_Language
-  = ("," OWS)* Accept_Language_item (OWS "," (OWS Accept_Language_item)?)*
+  = ("," OWS)* Accept_Language_item_ (OWS "," (OWS Accept_Language_item_)?)*
 
-Accept_Language_item
+Accept_Language_item_
   = language_range weight?
 
 
