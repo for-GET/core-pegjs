@@ -5,7 +5,7 @@
  *
  * #append RFC/2396_uri.pegjs is obsoleted by RFC/3986_uri.pegjs
  * @append RFC/3986_uri.pegjs
- * @append RFC/5324_abnf.pegjs
+ * @append RFC/5234_abnf.pegjs
  */
 
 /* 2.  Syntax of a 'mailto' URI */

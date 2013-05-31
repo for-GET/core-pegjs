@@ -7,7 +7,7 @@
  * @append RFC/3986_uri.pegjs
  * @append RFC/5646_language.pegjs
  * @append RFC/5322_imf.pegjs
- * @append RFC/5324_abnf.pegjs
+ * @append RFC/5234_abnf.pegjs
  */
 
 /* 3.1.1.1.  Media Type */
