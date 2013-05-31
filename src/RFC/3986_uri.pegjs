@@ -131,7 +131,7 @@ reg_name
 
 /* 3.2.3.  Port */
 port
-  = DIGIT?
+  = $(DIGIT*)
 
 
 /* 3.3.  Path */
