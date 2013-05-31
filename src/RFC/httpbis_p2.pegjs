@@ -6,6 +6,7 @@
  * @append RFC/httpbis_p1.pegjs
  * @append RFC/3986_uri.pegjs
  * @append RFC/5646_language.pegjs
+ * @append RFC/4647_language_matching.pegjs
  * @append RFC/5322_imf.pegjs
  * @append RFC/5234_abnf.pegjs
  */
@@ -66,11 +67,27 @@ content_location
 
 
 /* 5.1.1.  Expect */
-// FIXME
+Expect
+  = ("," OWS)* expectation (OWS "," (OWS expectation)?)*
+
+expectation
+  = expect_name (BWS "=" BWS expect_value)?
+    (OWS ";" (OWS expect_param)?)*
+
+expect_param
+  = expect_name (BWS "=" BWS expect_value)?
+
+expect_name
+  = token
+
+expect_value
+  = token
+  / quoted_string
 
 
 /* 5.1.2.  Max-Forwards */
-// FIXME
+Max_Forwards
+  = $(DIGIT+)
 
 
 /* 5.3.1.  Quality Values */
@@ -78,28 +95,63 @@ weight
   = OWS ";" OWS "q=" qvalue
 
 qvalue
-  = "0" ("." DIGIT? DIGIT? DIGIT?)?
-  / "1" ("." "0"? "0"? "0"?)?
+  = $( "0" ("." DIGIT? DIGIT? DIGIT?)?
+     / "1" ("." "0"? "0"? "0"?)?
+     )
 
 
 /* 5.3.2.  Accept */
-// FIXME
+Accept
+  = (("," / Accept_item) (OWS "," (OWS Accept_item)?)*)?
+
+Accept_item =
+  = media_range accept_params?
+
+media_range
+  = ( "*/*"
+    / (type "/" "*")
+    / (type "/" subtype)
+    ) (OWS ";" OWS parameter)*
+
+accept_params
+  = weight accept_ext*
+
+accept_ext
+  = OWS ";" OWS token ("=" word)?
 
 
 /* 5.3.3.  Accept-Charset */
-// FIXME
+Accept_Charset
+  = ("," OWS)* Accept_Charset_item (OWS "," (OWS Accept_Charset_item)?)*
+
+Accept_Charset_item
+  = (charset / "*") weight?
 
 
 /* 5.3.4.  Accept-Encoding */
-// FIXME
+Accept_Encoding
+  = (("," / Accept_Encoding_item) (OWS "," (OWS Accept_Encoding_item)?)*)?
+
+Accept_Encoding_item
+  = codings weight?
+
+codings
+  = content_coding
+  / "identity"
+  / "*"
 
 
 /* 5.3.5.  Accept-Language */
-// FIXME
+Accept_Language
+  = ("," OWS)* Accept_Language_item (OWS "," (OWS Accept_Language_item)?)*
+
+Accept_Language_item
+  = language_range weight?
 
 
 /* 5.5.1.  From */
-// FIXME
+From
+  = mailbox
 
 
 /* 5.5.2.  Referer */
