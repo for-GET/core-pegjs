@@ -12,11 +12,6 @@ The PEGs part of this library MUST have no `actions` (code), in order to make th
 Such libraries are exemplified by [API-PEGjs](https://github.com/andreineculau/api-pegjs).
 
 
-## Status
-
-Not published to NPM until [these issues are closed](https://github.com/andreineculau/core-pegjs/issues?milestone=1&state=open).
-
-
 ## Extension
 
 PEGjs doesn't allow for composability (referencing other grammars).
