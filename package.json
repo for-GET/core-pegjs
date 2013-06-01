@@ -18,18 +18,13 @@
     "node": "~0.8"
   },
   "dependencies": {
-    "glob": "~3.2.1",
-    "coffee-script": "~1.6.2"
+    "glob": "~3.2.1"
   },
   "devDependencies": {
     "pegjs": "git://github.com/dmajda/pegjs.git#798ed6a8a4",
-    "testem": "~0.2.70",
-    "mocha": "~1.8.1",
-    "chai": "~1.5.0",
-    "growl": "~1.7.0"
+    "coffee-script": "~1.6.2"
   },
   "scripts": {
     "prepublish": "make prepublish"
-  },
-  "main": "index"
+  }
 }
