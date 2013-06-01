@@ -1,6 +1,6 @@
 {
   "name": "core-pegjs",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "Andrei Neculau <@andreineculau>",
   "description": "Core PEGjs",
   "repository": {
