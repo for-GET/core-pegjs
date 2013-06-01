@@ -2,9 +2,13 @@ SOURCES := $(wildcard src/*/*.pegjs)
 PEG := $(patsubst src%, lib%, $(SOURCES))
 PEGjs := $(PEG:.pegjs=.js)
 
-.PHONY: all pegs js
+.PHONY: all pegs js clean prepublish
 
-all: pegs
+all: index.js pegs
+
+index.js: index.coffee
+	@$(eval input := $<)
+	coffee -c $(input)
 
 pegs: $(PEG)
 
