@@ -8,7 +8,7 @@ all: index.js pegs
 
 index.js: index.coffee
 	@$(eval input := $<)
-	coffee -c $(input)
+	@coffee -c $(input)
 
 pegs: $(PEG)
 
