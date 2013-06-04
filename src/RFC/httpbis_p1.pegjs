@@ -48,7 +48,7 @@ start_line
 
 /* 3.1.1.  Request Line */
 request_line
-  = method SP request_target SP HTTP_version CRLF
+  = method SP $(request_target) SP HTTP_version CRLF
 
 method
   = token
