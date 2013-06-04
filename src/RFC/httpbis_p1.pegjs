@@ -196,7 +196,7 @@ message_body
 
 
 /* 3.3.1.  Transfer_Encoding */
-transfer_encoding
+Transfer_Encoding
   = ("," OWS)* transfer_coding (OWS "," (OWS transfer_coding)?)*
 
 
@@ -315,7 +315,7 @@ asterisk_form
 
 
 /* 5.4.  Host */
-host
+Host
   = hostname (":" port)?
 
 

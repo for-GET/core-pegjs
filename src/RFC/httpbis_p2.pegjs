@@ -37,7 +37,7 @@ charset
 
 
 /* 3.1.1.5.  Content-Type */
-content_type
+Content_Type
   = media_type
 
 
@@ -47,7 +47,7 @@ content_coding
 
 
 /* 3.1.2.2.  Content-Encoding */
-content_encoding
+Content_Encoding
   = ("," OWS)* content_coding (OWS "," (OWS content_coding)?)*
 
 
@@ -56,12 +56,12 @@ content_encoding
 
 
 /* 3.1.3.2.  Content-Language */
-content_language
+Content_Language
   = ("," OWS)* language_tag (OWS "," (OWS language_tag)?)*
 
 
 /* 3.1.4.2.  Content-Location */
-content_location
+Content_Location
   = absolute_URI
   / partial_URI
 
@@ -155,13 +155,13 @@ From
 
 
 /* 5.5.2.  Referer */
-referer
+Referer
   = absolute_URI
   / partial_URI
 
 
 /* 5.5.3.  User-Agent */
-user_agent
+User_Agent
   = product (RWS (product / comment))*
 
 product
@@ -215,17 +215,17 @@ date3
 
 
 /* 7.1.1.2.  Date */
-date
+Date
   = HTTP_date
 
 
 /* 7.1.2.  Location */
-location
+Location
   = URI_reference
 
 
 /* 7.1.3.  Retry-After */
-retry_after
+Retry_After
   = HTTP_date
   / delta_seconds
 
@@ -234,16 +234,16 @@ delta_seconds
 
 
 /* 7.1.4.  Vary */
-vary
+Vary
   = "*"
   / ("," OWS)* field_name (OWS "," (OWS field_name)?)*
 
 
 /* 7.4.1.  Allow */
-allow
+Allow
   = ("," OWS)* method (OWS "," (OWS method)?)*
 
 
 /* 7.4.2.  Server */
-server
+Server
   = product (RWS (product / comment))*
