@@ -182,12 +182,34 @@ HTTP_date
 IMF_fixdate
   = day_name "," SP date1 SP time_of_day SP GMT
 
+// day_name
+
 date1
   // e.g., 02 Jun 1982
   = day SP month SP year
 
+day
+  = $(DIGIT DIGIT)
+
+// month
+
+year
+  = $(DIGIT DIGIT DIGIT DIGIT)
+
 GMT
   = "GMT"
+
+time_of_day
+  = hour ":" minute ":" second
+
+hour
+  = $(DIGIT DIGIT)
+
+minute
+  = $(DIGIT DIGIT)
+
+second
+  = $(DIGIT DIGIT)
 
 obs_date
   = rfc850_date
