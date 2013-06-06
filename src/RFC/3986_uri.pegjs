@@ -143,16 +143,16 @@ path
   / path_empty    // zero characters
 
 path_abempty
-  = ("/" segment)*
+  = $("/" segment)*
 
 path_absolute
-  = "/" (segment_nz ("/" segment )*)?
+  = $("/" (segment_nz ("/" segment )*)?)
 
 path_noscheme
-  = segment_nz_nc ("/" segment)*
+  = $(segment_nz_nc ("/" segment)*)
 
 path_rootless
-  = segment_nz ("/" segment)*
+  = $(segment_nz ("/" segment)*)
 
 path_empty
   =
@@ -205,4 +205,3 @@ relative_part
 /* 4.3.  Absolute URI */
 absolute_URI
   = scheme ":" hier_part ("?" query)?
-

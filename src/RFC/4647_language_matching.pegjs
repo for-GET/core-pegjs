@@ -8,14 +8,14 @@
 
 /* 2.1.  Basic Language Range */
 language_range
-  = ALPHA_1_8_ ("-" alphanum_1_8_)*
+  = $(ALPHA_1_8_ ("-" alphanum_1_8_)*)
   / "*"
 
 ALPHA_1_8_
-  = ALPHA ALPHA? ALPHA? ALPHA? ALPHA? ALPHA? ALPHA? ALPHA?
+  = $(ALPHA ALPHA? ALPHA? ALPHA? ALPHA? ALPHA? ALPHA? ALPHA?)
 
 alphanum_1_8_
-  = alphanum alphanum? alphanum? alphanum? alphanum? alphanum? alphanum? alphanum?
+  = $(alphanum alphanum? alphanum? alphanum? alphanum? alphanum? alphanum? alphanum?)
 
 alphanum
   = ALPHA
