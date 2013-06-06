@@ -108,10 +108,13 @@ Accept_item_
   = media_range accept_params?
 
 media_range
-  = ( "*/*"
-    / (type "/" "*")
-    / (type "/" subtype)
-    ) (OWS ";" OWS parameter)*
+  = ( "*" "/" "*"
+    / type "/" "*"
+    / type "/" subtype
+    ) (OWS ";" OWS not_weight_parameter_ parameter)*
+
+not_weight_parameter_
+  = !("q=" value)
 
 accept_params
   = weight accept_ext*
