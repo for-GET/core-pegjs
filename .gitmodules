@@ -1,0 +1,3 @@
+[submodule ".coffee.mk"]
+	path = .coffee.mk
+	url = git://github.com/andreineculau/coffee.mk

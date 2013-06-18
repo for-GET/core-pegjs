@@ -23,4 +23,4 @@ This __is__ a __workaround__. As soon as https://github.com/dmajda/pegjs/issues/
 
 ## License
 
-MIT
+[Apache 2.0](LICENSE)

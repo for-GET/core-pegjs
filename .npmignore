@@ -1,5 +1,1 @@
-/Makefile
-/bin
-/src*
-/*.tgz
-*.coffee
+.coffee.mk/.npmignore

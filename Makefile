@@ -1,14 +1,10 @@
-SOURCES := $(wildcard src/*/*.pegjs)
+SOURCES := $(wildcard src/**/*.pegjs)
 PEG := $(patsubst src%, lib%, $(SOURCES))
 PEGjs := $(PEG:.pegjs=.js)
 
 .PHONY: all pegs js clean prepublish
 
 all: index.js pegs
-
-index.js: index.coffee
-	@$(eval input := $<)
-	@coffee -c $(input)
 
 pegs: $(PEG)
 
@@ -17,6 +13,12 @@ js: $(PEGjs)
 $(PEG): $(1)
 
 $(PEGjs): $(1)
+
+%.js: %.coffee
+	@$(eval input := $<)
+	@$(eval output := $@)
+	@mkdir -p `dirname $(output)`
+	@coffee -pc $(input) > $(output)
 
 lib/%.pegjs: src/%.pegjs
 	@$(eval input := $<)

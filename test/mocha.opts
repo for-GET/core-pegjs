@@ -1,0 +1,4 @@
+--growl
+--compilers coffee:coffee-script
+--reporter tap
+--recursive
