@@ -1,4 +1,4 @@
-# core-pegjs
+# Core PEGjs
 
 A collection of core [PEGjs](https://github.com/dmajda/pegjs) grammars (RFC, ISO, etc.)
 

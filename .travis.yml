@@ -1,1 +1,5 @@
-.coffee.mk/.travis.yml
+language: node_js
+install: make install
+node_js:
+- "0.8"
+- "0.10"

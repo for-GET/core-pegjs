@@ -1,4 +1,1 @@
---growl
---compilers coffee:coffee-script
---reporter tap
---recursive
+../.coffee.mk/test/mocha.opts
