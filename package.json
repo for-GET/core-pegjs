@@ -26,7 +26,13 @@
     "glob": "~3.2.1"
   },
   "devDependencies": {
+    "chai": "~1.5.0",
     "coffee-script": "~1.6.3",
-    "pegjs": "git://github.com/dmajda/pegjs.git#798ed6a8a4"
+    "coffeelint": "~0.5.6",
+    "growl": "~1.7.0",
+    "lodash": "~1.3.1",
+    "mocha": "~1.8.1",
+    "pegjs": "git://github.com/dmajda/pegjs.git#798ed6a8a4",
+    "testem": "~0.2.70"
   }
 }
