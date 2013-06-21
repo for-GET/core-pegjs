@@ -1,4 +1,4 @@
-# Core PEGjs
+# Core PEGjs [![Build Status][2]][1]
 
 A collection of core [PEGjs](https://github.com/dmajda/pegjs) grammars (RFC, ISO, etc.)
 
@@ -24,3 +24,7 @@ This __is__ a __workaround__. As soon as https://github.com/dmajda/pegjs/issues/
 ## License
 
 [Apache 2.0](LICENSE)
+
+
+  [1]: https://travis-ci.org/andreineculau/core-pegjs
+  [2]: https://travis-ci.org/andreineculau/core-pegjs.png
