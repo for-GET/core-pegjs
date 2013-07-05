@@ -1,62 +1,93 @@
 /*
  * RFC 5234 - Augmented BNF for Syntax Specifications: ABNF
  * http://tools.ietf.org/html/rfc5234
+ *
+ * @append RFC/5234_core_abnf.pegjs
  */
 
-ALPHA
-  = [\x41-\x5A]
-  / [\x61-\x7A]
+/* 4.  ABNF Definition of ABNF */
+rulelist
+  = ( rule
+    / c_wsp* c_nl
+    )+
 
-BIT
-  = "0"
-  / "1"
+// continues if next line starts
+// with white space
+rule
+  = rulename defined_as elements c_nl
 
-CHAR
-  = [\x01-\x7F]
+rulename
+  = $(ALPHA (ALPHA / DIGIT / "-")*)
 
-CR
-  = "\x0D"
+// basic rules definition and
+// incremental alternatives
+defined_as
+  = c_wsp* $("=" / "=/") c_wsp*
 
-CRLF
-  = CR LF
+elements
+  = alternation c_wsp*
 
-CTL
-  = [\x00-\x1F]
-  / "\x7F"
+c_wsp
+  = WSP
+  / c_nl WSP
 
-DIGIT
-  = [\x30-\x39]
+// comment or newline
+c_nl
+  = comment
+  / CRLF
 
-DQUOTE
-  = [\x22]
+comment
+  = ";" $(WSP / VCHAR)* CRLF
 
-HEXDIG
-  = DIGIT
-  / "A"
-  / "B"
-  / "C"
-  / "D"
-  / "E"
-  / "F"
+alternation
+  = concatenation (c_wsp* "/" c_wsp concatenation*)*
 
-HTAB
-  = "\x09"
+concatenation
+  = repetition (c_wsp+ repetition)*
 
-LF
-  = "\x0A"
+repetition
+  = repeat? element
 
-LWSP
-  = $(WSP / CRLF WSP)*
+repeat
+  = $(DIGIT+)
+  / $(DIGIT*) "*" $(DIGIT*)
 
-OCTET
-  = [\x00-\xFF]
+element
+  = rulename
+  / group
+  / option
+  / char_val
+  / num_val
+  / prose_val
 
-SP
-  = "\x20"
+group
+  = "(" c_wsp* alternation c_wsp* ")"
 
-VCHAR
-  = [\x21-\x7E]
+option
+  = "[" c_wsp* alternation c_wsp* "]"
 
-WSP
-  = SP
-  / HTAB
+// quoted string of SP and VCHAR
+// without DQUOTE
+char_val
+  = DQUOTE ([\x20-\x21] / [\x23-\x7E])* DQUOTE
+
+num_val
+  = "%" (bin_val / dec_val / hex_val)
+
+// series of concatenated bit values
+// or single ONEOF range
+bin_val
+  = "b" BIT+ (("." BIT+)+ / ("-" BIT+))?
+
+dec_val
+  = "d" DIGIT+ (("." DIGIT+)+ / ("-" DIGIT+))?
+
+hex_val
+  = "x" HEXDIG+ (("." HEXDIG+)+ / ("-" HEXDIG+))?
+
+// bracketed string of SP and VCHAR
+// without angles
+// prose description, to be used as
+// last resort
+prose_val
+  = "<" ([\x20-\x3D] / [\x3F-\x7E])* ">"
