@@ -3,7 +3,7 @@
  *
  * http://tools.ietf.org/html/rfc5646
  *
- * @append RFC/5234_abnf.pegjs
+ * @append RFC/5234_core_abnf.pegjs
  */
 
 language_tag
@@ -27,7 +27,7 @@ language
   / $(ALPHA ALPHA ALPHA ALPHA ALPHA (ALPHA (ALPHA ALPHA?)?)?) // or registered language subtag
 
 extlang
-  = $(ALPHA ALPHA ALPHA)                                   // selected ISO 639 codes
+  = $(ALPHA ALPHA ALPHA)                // selected ISO 639 codes
     (hyphen_ALPHA_3_ hyphen_ALPHA_3_?)? // permanently reserved
 
 hyphen_ALPHA_3_

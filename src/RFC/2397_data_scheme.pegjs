@@ -12,7 +12,7 @@
  * @append RFC/5646_language.pegjs
  * @append RFC/httpbis_p1.pegjs
  * @append RFC/httpbis_p2.pegjs
- * @append RFC/5234_abnf.pegjs
+ * @append RFC/5234_core_abnf.pegjs
  */
 
 /* 3. Syntax */

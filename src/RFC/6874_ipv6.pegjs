@@ -4,7 +4,7 @@
  * http://tools.ietf.org/html/rfc6874
  *
  * @append RFC/3986_uri.pegjs
- * @append RFC/5234_abnf.pegjs
+ * @append RFC/5234_core_abnf.pegjs
  */
 
 IP_literal

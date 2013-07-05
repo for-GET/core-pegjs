@@ -7,7 +7,7 @@
  * element being re_defined with another meaning in RFC/3986_uri
  *
  * @append RFC/3986_uri.pegjs
- * @append RFC/5234_abnf.pegjs
+ * @append RFC/5234_core_abnf.pegjs
  */
 
 /* 2.6.  Protocol Versioning */

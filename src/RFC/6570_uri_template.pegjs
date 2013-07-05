@@ -5,7 +5,7 @@
  *
  * @append RFC/3986_uri.pegjs
  * @append RFC/3987_iri.pegjs
- * @append RFC/5234_abnf.pegjs
+ * @append RFC/5234_core_abnf.pegjs
  */
 
 /* 2.  Syntax */

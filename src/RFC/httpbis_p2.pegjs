@@ -8,7 +8,7 @@
  * @append RFC/5646_language.pegjs
  * @append RFC/4647_language_matching.pegjs
  * @append RFC/5322_imf.pegjs
- * @append RFC/5234_abnf.pegjs
+ * @append RFC/5234_core_abnf.pegjs
  */
 
 /* 3.1.1.1.  Media Type */
