@@ -8,7 +8,6 @@
     "ABNF"
   ],
   "version": "0.0.5",
-  "author": "Andrei Neculau <@andreineculau>",
   "repository": {
     "type": "git",
     "url": "git://github.com/andreineculau/core-pegjs.git"
