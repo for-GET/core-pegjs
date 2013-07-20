@@ -9,6 +9,8 @@ PEGjs := $(PEG:.pegjs=.js)
 all: pegs
 	@$(MAKE) -f .coffee.mk/coffee.mk $@
 
+prepublish: clean all
+
 pegs: $(PEG)
 
 js: $(PEGjs)
