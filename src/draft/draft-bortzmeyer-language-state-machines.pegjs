@@ -2,25 +2,29 @@
  * draft-bortzmeyer-language-state-machines-01 - Cosmogol: a language to describe finite state machines
  * http://tools.ietf.org/html/draft-bortzmeyer-language-state-machines
  *
+ * Limitations & cleanup
+ * - names rule is reused more
+ * - regular_identifier accepts also - as ending character
+ * - comments are allowed only on new lines
+ *
  * @append RFC/5234_core_abnf.pegjs
  */
 
 state_machine
-  = ( statement
-    / comment_wsp*
-    )+
+  = statement+
 
 statement
-  = (declaration / transition / assignment) comment_wsp* ";" comment_wsp*
+  = comment_nl
+  / (transition / declaration / assignment) LWSP_ ";" LWSP_
 
 colon
-  = comment_wsp* ":" comment_wsp*
+  = LWSP_ ":" LWSP_
 comma
-  = comment_wsp* "," comment_wsp*
+  = LWSP_ "," LWSP_
 equal
-  = comment_wsp* "=" comment_wsp*
+  = LWSP_ "=" LWSP_
 arrow
-  = comment_wsp* "->" comment_wsp*
+  = LWSP_ "->" LWSP_
 
 declaration
   = names colon value
@@ -39,13 +43,12 @@ name
   / regular_identifier
 
 quoted_name
-  = DQUOTE identifier_chars+ DQUOTE
+  = DQUOTE $(identifier_chars+) DQUOTE
 
 // TODO: this grammar allows identifiers like foo----bar
 // (several dashes). Do we really want it?
 regular_identifier
-  = ALPHA
-  / ALPHA (ALPHA / DIGIT / "-")* (ALPHA / DIGIT)
+  = $(ALPHA (ALPHA / DIGIT / "-")*)
 
 transition
   = current_states colon messages arrow next_state (colon action)?
@@ -73,15 +76,16 @@ transition
 //  Marc Petit-Huguenin <marc@8x8.com>
 
 current_states
-  = name (comma name)*
+  = names
 messages
-  = name (comma name)*
-next_state = name
-action = name
+  = names
+next_state
+  = name
+action
+  = name
 
 value
-  = regular_identifier
-  / quoted_name
+  = name
 
 identifier_chars
   = ALPHA
@@ -96,7 +100,7 @@ identifier_chars
 // some (a bit arbitrary) chars
 
 comment
-  = "#" (WSP / VCHAR)* CRLF
+  = $("#" (WSP / VCHAR)* CRLF)
 
 comment_nl
   = comment
@@ -106,3 +110,6 @@ comment_wsp
   = ( WSP
     / comment_nl
     )*
+
+LWSP_
+  = $((WSP / CRLF / LF)*)
