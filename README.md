@@ -1,6 +1,6 @@
 # Core PEGjs [![Build Status][2]][1]
 
-A collection of core [PEGjs](https://github.com/dmajda/pegjs) grammars (RFC, ISO, etc.)
+A collection of core [PEGjs](https://github.com/dmajda/pegjs) grammars (IETF, ISO, etc.)
 
 Wherever there are ABNF specifications, the ABNF rules MUST simply ported to PEGjs without any semantic modification.
 
