@@ -2,7 +2,7 @@
  * RFC 5234 - Augmented BNF for Syntax Specifications: ABNF
  * http://tools.ietf.org/html/rfc5234
  *
- * @append RFC/5234_core_abnf.pegjs
+ * @append ietf/rfc5234_core_abnf.pegjs
  */
 
 /* 4.  ABNF Definition of ABNF */

@@ -3,7 +3,7 @@
  *
  * http://tools.ietf.org/html/rfc4647
  *
- * @append RFC/5234_core_abnf.pegjs
+ * @append ietf/rfc5234_core_abnf.pegjs
  */
 
 /* 2.1.  Basic Language Range */

@@ -6,7 +6,7 @@
  * <host> element has been renamed to <hostname> as a dirty workaround for
  * element being re-defined with another meaning in HTTPbis
  *
- * @append RFC/5234_core_abnf.pegjs
+ * @append ietf/rfc5234_core_abnf.pegjs
  */
 
 /* 2.1.  Percent-Encoding */

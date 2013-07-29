@@ -7,7 +7,7 @@
  * - regular_identifier accepts also - as ending character
  * - comments are allowed only on new lines
  *
- * @append RFC/5234_core_abnf.pegjs
+ * @append ietf/rfc5234_core_abnf.pegjs
  */
 
 state_machine

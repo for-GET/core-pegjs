@@ -3,7 +3,7 @@
  *
  * http://tools.ietf.org/html/rfc5646
  *
- * @append RFC/5234_core_abnf.pegjs
+ * @append ietf/rfc5234_core_abnf.pegjs
  */
 
 language_tag

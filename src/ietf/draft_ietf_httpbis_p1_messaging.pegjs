@@ -1,13 +1,13 @@
 /*
  * HTTPbis P1
  *
- * http://tools.ietf.org/html/draft-ietf_httpbis_p1-messaging
+ * http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging
  *
  * <uri_host> element has been renamed to <hostname> as a dirty workaround for
  * element being re_defined with another meaning in RFC/3986_uri
  *
- * @append RFC/3986_uri.pegjs
- * @append RFC/5234_core_abnf.pegjs
+ * @append ietf/rfc3986_uri.pegjs
+ * @append ietf/rfc5234_core_abnf.pegjs
  */
 
 /* 2.6.  Protocol Versioning */
