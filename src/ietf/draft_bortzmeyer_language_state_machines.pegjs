@@ -5,7 +5,9 @@
  * Limitations & cleanup
  * - names rule is reused more
  * - regular_identifier accepts also - as ending character
+ * - regular_identifier accepts also _
  * - comments are allowed only on new lines
+ * - identifier_chars are extended with TODOs
  *
  * @append ietf/rfc5234_core_abnf.pegjs
  */
@@ -48,7 +50,7 @@ quoted_name
 // TODO: this grammar allows identifiers like foo----bar
 // (several dashes). Do we really want it?
 regular_identifier
-  = $(ALPHA (ALPHA / DIGIT / "-")*)
+  = $((ALPHA / DIGIT) (("-" / "_")? (ALPHA / DIGIT))*)
 
 transition
   = current_states colon messages arrow next_state (colon action)?
@@ -87,6 +89,10 @@ action
 value
   = name
 
+// TODO: we should allow the dot!
+// TODO: allow the square brackets (RFC 2960)
+// TODO: allow parenthesis
+// TODO: allow slashes and < and > (draft on shim6)
 identifier_chars
   = ALPHA
   / DIGIT
@@ -96,6 +102,14 @@ identifier_chars
   / ","
   / ";"
   / SP
+  / "."
+  / "["
+  / "]"
+  / "("
+  / ")"
+  / "<"
+  / ">"
+  / "/"
 // All letters and digits and
 // some (a bit arbitrary) chars
 
