@@ -4,12 +4,14 @@ PEG := $(patsubst src%, lib%, $(SOURCES))
 PEGjs := $(PEG:.pegjs=.js)
 
 # PHONY
-.PHONY: all pegs js clean prepublish custom.mk
+.PHONY: all pegs js clean prepublish test custom.mk
 
 all: pegs
 	@$(MAKE) -f .coffee.mk/coffee.mk $@
 
 prepublish: clean all
+
+test: js
 
 pegs: $(PEG)
 
