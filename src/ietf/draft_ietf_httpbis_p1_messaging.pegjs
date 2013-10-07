@@ -3,8 +3,10 @@
  *
  * http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging
  *
- * <uri_host> element has been renamed to <hostname> as a dirty workaround for
+ * Limitations & cleanup
+ * - <uri_host> element has been renamed to <hostname> as a dirty workaround for
  * element being re_defined with another meaning in RFC/3986_uri
+ * - ignoring obsolete rules obs_*`
  *
  * @append ietf/rfc3986_uri.pegjs
  * @append ietf/rfc5234_core_abnf.pegjs
@@ -65,7 +67,10 @@ reason_phrase
   = $( HTAB
      / SP
      / VCHAR
+     /*
+     // Ignore obsolete
      / obs_text
+     */
      )*
 
 
@@ -77,20 +82,30 @@ field_name
   = token
 
 field_value
+  = field_content
+  /*
+  // Ignore obsolete
   = $( field_content
      / obs_fold
      )*
+  */
 
 field_content
   = $( HTAB
      / SP
      / VCHAR
+     /*
+     // Ignore obsolete
      / obs_text
+     */
      )*
 
+/*
+// Ignore obsolete
 obs_fold
   // obsolete line folding
   = $(CRLF (SP / HTAB))
+*/
 
 
 /* 3.2.3.  Whitespace */
@@ -167,13 +182,27 @@ qdtext
   / "\x21"
   / [\x23-\x5B]
   / [\x5D-\x7E]
+  /*
+  // Ignore obsolete
   / obs_text
+  */
 
+/*
+// Ignore obsolete
 obs_text
   = [\x80-\xFF]
+*/
 
 quoted_pair
-  = "\\" (HTAB / SP / VCHAR / obs_text)
+  = "\\"
+    ( HTAB
+    / SP
+    / VCHAR
+    /*
+    // Ignore obsolete
+    / obs_text
+    */
+    )
 
 comment
   = "(" $(ctext / quoted_cpair / comment)* ")"
@@ -184,10 +213,21 @@ ctext
   / [\x21-\x27]
   / [\x2A-\x5B]
   / [\x5D-\x7E]
+  /*
+  // Ignore obsolete
   / obs_text
+  */
 
 quoted_cpair
-  = "\\" (HTAB / SP / VCHAR / obs_text)
+  = "\\"
+    ( HTAB
+    / SP
+    / VCHAR
+    /*
+    // Ignore obsolete
+    / obs_text
+    */
+    )
 
 
 /* 3.3.  Message Body */
@@ -270,7 +310,10 @@ qdtext_nf
   / "\x21"
   / [\x23-\x5B]
   / [\x5D-\x7E]
+  /*
+  // Ignore obsolete
   / obs_text
+  */
 
 
 /* 4.1.1.  Trailer */

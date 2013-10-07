@@ -3,6 +3,9 @@
  *
  * http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics
  *
+ * Limitations & cleanup
+ * - ignoring obsolete rules obs_*`
+ *
  * @append ietf/draft_ietf_httpbis_p1_messaging.pegjs
  * @append ietf/rfc3986_uri.pegjs
  * @append ietf/rfc5646_language.pegjs
@@ -177,7 +180,10 @@ product_version
 /* 7.1.1.1.  Date/Time Formats */
 HTTP_date
   = IMF_fixdate
+  /*
+  // Ignore obsolete
   / obs_date
+  */
 
 IMF_fixdate
   = day_name "," SP date1 SP time_of_day SP GMT
@@ -211,9 +217,12 @@ minute
 second
   = $(DIGIT DIGIT)
 
+/*
+// Ignore obsolete
 obs_date
   = rfc850_date
   / asctime_date
+*/
 
 rfc850_date
   = day_name_l "," SP date2 SP time_of_day SP GMT
