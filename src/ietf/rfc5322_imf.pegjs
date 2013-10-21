@@ -6,13 +6,13 @@
  * @append ietf/rfc5234_core_abnf.pegjs
  */
 
-/* 3.2.1.  Quoted characters */
+/* http://tools.ietf.org/html/rfc5322#section-3.2.1 Quoted characters */
 quoted_pair
   = "\\" (VCHAR / WSP)
   / obs_qp
 
 
-/* 3.2.2.  Folding White Space and Comments */
+/* http://tools.ietf.org/html/rfc5322#section-3.2.2 Folding White Space and Comments */
 FWS
   // Folding white space
   = $((WSP* CRLF)? WSP+)
@@ -37,7 +37,7 @@ CFWS
   / FWS
 
 
-/* 3.2.3.  Atom */
+/* http://tools.ietf.org/html/rfc5322#section-3.2.3 Atom */
 atext
   = ALPHA / DIGIT // Printable US-ASCII
   / "!" / "#"     // characters not including
@@ -72,7 +72,7 @@ DQUOTE
 */
 
 
-/* 3.2.4.  Quoted Strings */
+/* http://tools.ietf.org/html/rfc5322#section-3.2.4 Quoted Strings */
 qtext
   = "\x21"      // Printable US-ASCII
   / [\x23-\x5B] // characters not including
@@ -89,7 +89,7 @@ quoted_string
     CFWS?
 
 
-/* 3.2.5.  Miscellaneous Tokens */
+/* http://tools.ietf.org/html/rfc5322#section-3.2.5 Miscellaneous Tokens */
 word
   = atom
   / quoted_string
@@ -103,7 +103,7 @@ unstructured
   / obs_unstruct
 
 
-/* 3.3.  Date and Time Specification */
+/* http://tools.ietf.org/html/rfc5322#section-3.3 Date and Time Specification */
 date_time
   = (day_of_week ",")? date time CFWS?
 
@@ -168,7 +168,7 @@ zone
   / obs_zone
 
 
-/* 3.4.  Address Specification */
+/* http://tools.ietf.org/html/rfc5322#section-3.4 Address Specification */
 address
   = mailbox
   / group
@@ -204,7 +204,7 @@ group_list
   / obs_group_list
 
 
-/* 3.4.1.  Addr-Spec Specification */
+/* http://tools.ietf.org/html/rfc5322#section-3.4.1 Addr-Spec Specification */
 addr_spec
   = local_part "@" domain
 
@@ -227,7 +227,7 @@ dtext
   / obs_dtext   // "[", "]", or "\"
 
 
-/* 3.5.  Overall Message Syntax */
+/* http://tools.ietf.org/html/rfc5322#section-3.5 Overall Message Syntax */
 /*
 FIXME
 message         =   (fields / obs-fields)
@@ -243,7 +243,7 @@ text
   / [\x0E-\x7F]
 
 
-/* 4.1.  Miscellaneous Obsolete Tokens */
+/* http://tools.ietf.org/html/rfc5322#section-4.1 Miscellaneous Obsolete Tokens */
 obs_NO_WS_CTL
   = [\x01-\x08] // US-ASCII control
   / "\x0B"      // characters that do not
@@ -278,12 +278,12 @@ obs_phrase_list
    = (phrase / CFWS)? ("," (phrase / CFWS)?)*
 
 
-/* 4.2.  Obsolete Folding White Space */
+/* http://tools.ietf.org/html/rfc5322#section-4.2 Obsolete Folding White Space */
 obs_FWS
   = $(WSP+ (CRLF WSP+)*)
 
 
-/* 4.3.  Obsolete Date and Time */
+/* http://tools.ietf.org/html/rfc5322#section-4.3 Obsolete Date and Time */
 obs_day_of_week
   = CFWS? day_name CFWS?
 
@@ -322,7 +322,7 @@ obs_zone
   / [\x6B-\x7A] // upper and lower case
 
 
-/* 4.4.  Obsolete Addressing */
+/* http://tools.ietf.org/html/rfc5322#section-4.4 Obsolete Addressing */
 obs_angle_addr
   = CFWS? "<" obs_route addr_spec ">" CFWS?
 

@@ -9,12 +9,12 @@
  * @append ietf/rfc5234_core_abnf.pegjs
  */
 
-/* 2.1.  Percent-Encoding */
+/* http://tools.ietf.org/html/rfc3986#section-2.1 Percent-Encoding */
 pct_encoded
   = $("%" HEXDIG HEXDIG)
 
 
-/* 2.2.  Reserved Characters */
+/* http://tools.ietf.org/html/rfc3986#section-2.2 Reserved Characters */
 reserved
   = gen_delims
   / sub_delims
@@ -42,7 +42,7 @@ sub_delims
   / "="
 
 
-/* 2.3.  Unreserved Characters */
+/* http://tools.ietf.org/html/rfc3986#section-2.3 Unreserved Characters */
 unreserved
   = ALPHA
   / DIGIT
@@ -52,7 +52,7 @@ unreserved
   / "~"
 
 
-/* 3.  Syntax Components */
+/* http://tools.ietf.org/html/rfc3986#section-3 Syntax Components */
 URI
   = scheme ":" hier_part ("?" query)? ("#" fragment)?
 
@@ -63,22 +63,22 @@ hier_part
   / path_empty
 
 
-/* 3.1.  Scheme */
+/* http://tools.ietf.org/html/rfc3986#section-3.1 Scheme */
 scheme
   = $(ALPHA (ALPHA / DIGIT / "+" / "-" / ".")*)
 
 
-/* 3.2.  Authority */
+/* http://tools.ietf.org/html/rfc3986#section-3.2 Authority */
 authority
   = (userinfo "@")? hostname (":" port)?
 
 
-/* 3.2.1.  User Information */
+/* http://tools.ietf.org/html/rfc3986#section-3.2.1 User Information */
 userinfo
   = $(unreserved / pct_encoded / sub_delims / ":")*
 
 
-/* 3.2.2.  Host */
+/* http://tools.ietf.org/html/rfc3986#section-3.2.2 Host */
 hostname
   = IP_literal
   / IPv4address
@@ -129,12 +129,12 @@ reg_name
   = $(unreserved / pct_encoded / sub_delims)*
 
 
-/* 3.2.3.  Port */
+/* http://tools.ietf.org/html/rfc3986#section-3.2.3 Port */
 port
   = $(DIGIT*)
 
 
-/* 3.3.  Path */
+/* http://tools.ietf.org/html/rfc3986#section-3.3 Path */
 path
   = path_abempty  // begins with "/" or is empty
   / path_absolute // begins with "/" but not "//"
@@ -175,23 +175,23 @@ pchar
   / "@"
 
 
-/* 3.4.  Query */
+/* http://tools.ietf.org/html/rfc3986#section-3.4 Query */
 query
   = $(pchar / "/" / "?")*
 
 
-/* 3.5.  Fragment */
+/* http://tools.ietf.org/html/rfc3986#section-3.5 Fragment */
 fragment
   = $(pchar / "/" / "?")*
 
 
-/* 4.1.  URI Reference */
+/* http://tools.ietf.org/html/rfc3986#section-4.1 URI Reference */
 URI_reference
   = URI
   / relative_ref
 
 
-/* 4.2.  Relative Reference */
+/* http://tools.ietf.org/html/rfc3986#section-4.2 Relative Reference */
 relative_ref
   = relative_part ("?" query)? ("#" fragment)?
 
@@ -202,6 +202,6 @@ relative_part
   / path_empty
 
 
-/* 4.3.  Absolute URI */
+/* http://tools.ietf.org/html/rfc3986#section-4.3 Absolute URI */
 absolute_URI
   = scheme ":" hier_part ("?" query)?

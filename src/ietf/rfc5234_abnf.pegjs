@@ -1,11 +1,12 @@
 /*
  * RFC 5234 - Augmented BNF for Syntax Specifications: ABNF
+ *
  * http://tools.ietf.org/html/rfc5234
  *
  * @append ietf/rfc5234_core_abnf.pegjs
  */
 
-/* 4.  ABNF Definition of ABNF */
+/* http://tools.ietf.org/html/rfc5234#section-4 ABNF Definition of ABNF */
 rulelist
   = ( rule
     / c_wsp* c_nl

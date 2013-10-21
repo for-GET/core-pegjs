@@ -6,7 +6,7 @@
  * @append ietf/rfc5234_core_abnf.pegjs
  */
 
-/* 5.6. Internet Date/Time Format */
+/* http://tools.ietf.org/html/rfc3339#section-5.6 Internet Date/Time Format */
 date_fullyear
   = $(DIGIT DIGIT DIGIT DIGIT)
 

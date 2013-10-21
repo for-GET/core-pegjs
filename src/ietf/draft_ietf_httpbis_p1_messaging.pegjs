@@ -12,7 +12,7 @@
  * @append ietf/rfc5234_core_abnf.pegjs
  */
 
-/* 2.6.  Protocol Versioning */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-2.6 Protocol Versioning */
 HTTP_version
   = HTTP_name "/" DIGIT "." DIGIT
 
@@ -20,7 +20,7 @@ HTTP_name
   = "HTTP"
 
 
-/* 2.7.  Uniform Resource Identifiers */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-2.7 Uniform Resource Identifiers */
 absolute_path
   = ("/" segment)+
 
@@ -34,7 +34,7 @@ https_URI
   = "https:" "//" authority path_abempty ("?" query)?
 
 
-/* 3.  Message Format */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-3 Message Format */
 HTTP_message
   = start_line
     (header_field CRLF)*
@@ -42,13 +42,13 @@ HTTP_message
     message_body?
 
 
-/* 3.1.  Start Line */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-3.1 Start Line */
 start_line
   = request_line
   / status_line
 
 
-/* 3.1.1.  Request Line */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-3.1.1 Request Line */
 request_line
   = method SP $(request_target) SP HTTP_version CRLF
 
@@ -56,7 +56,7 @@ method
   = token
 
 
-/* 3.1.2.  Status Line */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-3.1.2 Status Line */
 status_line
   = HTTP_version SP status_code SP reason_phrase CRLF
 
@@ -74,7 +74,7 @@ reason_phrase
      )*
 
 
-/* 3.2.  Header Fields */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-3.2 Header Fields */
 header_field
   = field_name ":" OWS field_value BWS
 
@@ -108,7 +108,7 @@ obs_fold
 */
 
 
-/* 3.2.3.  Whitespace */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-3.2.3 Whitespace */
 OWS
   // optional whitespace
   = $( SP
@@ -126,7 +126,7 @@ BWS
   = OWS
 
 
-/* 3.2.6.  Field value components */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-3.2.6 Field value components */
 word
   = token
   / quoted_string
@@ -230,22 +230,22 @@ quoted_cpair
     )
 
 
-/* 3.3.  Message Body */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-3.3 Message Body */
 message_body
   = $(OCTET*)
 
 
-/* 3.3.1.  Transfer_Encoding */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-3.3.1 Transfer_Encoding */
 Transfer_Encoding
   = ("," OWS)* transfer_coding (OWS "," (OWS transfer_coding)?)*
 
 
-/* 3.3.2.  Content_Length */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-3.3.2 Content_Length */
 content_length
   = $(DIGIT+)
 
 
-/* 4.  Transfer Codings */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-4 Transfer Codings */
 transfer_coding
   = "chunked"i
   / "compress"i
@@ -266,7 +266,7 @@ value
   = word
 
 
-/* 4.1.  Chunked Transfer Coding */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-4.1 Chunked Transfer Coding */
 chunked_body
   = chunk*
     last_chunk
@@ -316,11 +316,11 @@ qdtext_nf
   */
 
 
-/* 4.1.1.  Trailer */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-4.1.1 Trailer */
 Trailer = ("," OWS)* field_name (OWS "," (OWS field_name)?)*
 
 
-/* 4.3.  TE */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-4.3 TE */
 TE
   = (("," / t_codings) (OWS "," (OWS t_codings)?)*)?
 
@@ -337,7 +337,7 @@ rank
      )
 
 
-/* 5.3.  Request Target */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-5.3 Request Target */
 request_target
   = origin_form
   / absolute_form
@@ -357,12 +357,12 @@ asterisk_form
   = "*"
 
 
-/* 5.4.  Host */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-5.4 Host */
 Host
   = hostname (":" port)?
 
 
-/* 5.7.1.  Via */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-5.7.1 Via */
 Via
   = ("," OWS)* Via_item_ (OWS "," (OWS Via_item_)?)*
 
@@ -380,7 +380,7 @@ pseudonym
   = token
 
 
-/* 6.1.  Connection */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-6.1 Connection */
 Connection
   = ("," OWS)* connection_option (OWS "," (OWS connection_option)?)*
 
@@ -388,7 +388,7 @@ connection_option
   = token
 
 
-/* 6.7.  Upgrade */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-6.7 Upgrade */
 Upgrade
   = ("," OWS)* protocol (OWS "," (OWS protocol)?)*
 

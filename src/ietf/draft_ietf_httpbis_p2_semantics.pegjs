@@ -14,7 +14,7 @@
  * @append ietf/rfc5234_core_abnf.pegjs
  */
 
-/* 3.1.1.1.  Media Type */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-3.1.1.1 Media Type */
  media_type
    = type "/" subtype (OWS ";" OWS parameter)*
 
@@ -34,42 +34,42 @@ value
   = word
 
 
-/* 3.1.1.2.  Charset */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-3.1.1.2 Charset */
 charset
   = token
 
 
-/* 3.1.1.5.  Content-Type */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-3.1.1.5 Content-Type */
 Content_Type
   = media_type
 
 
-/* 3.1.2.1.  Content Codings */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-3.1.2.1 Content Codings */
 content_coding
   = token
 
 
-/* 3.1.2.2.  Content-Encoding */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-3.1.2.2 Content-Encoding */
 Content_Encoding
   = ("," OWS)* content_coding (OWS "," (OWS content_coding)?)*
 
 
-/* 3.1.3.1.  Language Tags */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-3.1.3.1 Language Tags */
 // REFERENCE
 
 
-/* 3.1.3.2.  Content-Language */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-3.1.3.2 Content-Language */
 Content_Language
   = ("," OWS)* language_tag (OWS "," (OWS language_tag)?)*
 
 
-/* 3.1.4.2.  Content-Location */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-3.1.4.2 Content-Location */
 Content_Location
   = absolute_URI
   / partial_URI
 
 
-/* 5.1.1.  Expect */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-5.1.1 Expect */
 Expect
   = ("," OWS)* expectation (OWS "," (OWS expectation)?)*
 
@@ -88,12 +88,12 @@ expect_value
   / quoted_string
 
 
-/* 5.1.2.  Max-Forwards */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-5.1.2 Max-Forwards */
 Max_Forwards
   = $(DIGIT+)
 
 
-/* 5.3.1.  Quality Values */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-5.3.1 Quality Values */
 weight
   = OWS ";" OWS "q=" qvalue
 
@@ -103,7 +103,7 @@ qvalue
      )
 
 
-/* 5.3.2.  Accept */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-5.3.2 Accept */
 Accept
   = (("," / Accept_item_) (OWS "," (OWS Accept_item_)?)*)?
 
@@ -126,7 +126,7 @@ accept_ext
   = OWS ";" OWS token ("=" word)?
 
 
-/* 5.3.3.  Accept-Charset */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-5.3.3 Accept-Charset */
 Accept_Charset
   = ("," OWS)* Accept_Charset_item_ (OWS "," (OWS Accept_Charset_item_)?)*
 
@@ -134,7 +134,7 @@ Accept_Charset_item_
   = (charset / "*") weight?
 
 
-/* 5.3.4.  Accept-Encoding */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-5.3.4 Accept-Encoding */
 Accept_Encoding
   = (("," / Accept_Encoding_item_) (OWS "," (OWS Accept_Encoding_item_)?)*)?
 
@@ -147,7 +147,7 @@ codings
   / "*"
 
 
-/* 5.3.5.  Accept-Language */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-5.3.5 Accept-Language */
 Accept_Language
   = ("," OWS)* Accept_Language_item_ (OWS "," (OWS Accept_Language_item_)?)*
 
@@ -155,18 +155,18 @@ Accept_Language_item_
   = language_range weight?
 
 
-/* 5.5.1.  From */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-5.5.1 From */
 From
   = mailbox
 
 
-/* 5.5.2.  Referer */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-5.5.2 Referer */
 Referer
   = absolute_URI
   / partial_URI
 
 
-/* 5.5.3.  User-Agent */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-5.5.3 User-Agent */
 User_Agent
   = product (RWS (product / comment))*
 
@@ -177,7 +177,7 @@ product_version
   = token
 
 
-/* 7.1.1.1.  Date/Time Formats */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-7.1.1.1 Date/Time Formats */
 HTTP_date
   = IMF_fixdate
   /*
@@ -248,17 +248,17 @@ date3
   = month SP $(DIGIT DIGIT / SP DIGIT)
 
 
-/* 7.1.1.2.  Date */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-7.1.1.2 Date */
 Date
   = HTTP_date
 
 
-/* 7.1.2.  Location */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-7.1.2 Location */
 Location
   = URI_reference
 
 
-/* 7.1.3.  Retry-After */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-7.1.3 Retry-After */
 Retry_After
   = HTTP_date
   / delta_seconds
@@ -267,17 +267,17 @@ delta_seconds
   = $(DIGIT+)
 
 
-/* 7.1.4.  Vary */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-7.1.4 Vary */
 Vary
   = "*"
   / ("," OWS)* field_name (OWS "," (OWS field_name)?)*
 
 
-/* 7.4.1.  Allow */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-7.4.1 Allow */
 Allow
   = ("," OWS)* method (OWS "," (OWS method)?)*
 
 
-/* 7.4.2.  Server */
+/* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-7.4.2 Server */
 Server
   = product (RWS (product / comment))*

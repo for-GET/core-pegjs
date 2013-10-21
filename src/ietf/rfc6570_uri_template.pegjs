@@ -8,12 +8,12 @@
  * @append ietf/rfc5234_core_abnf.pegjs
  */
 
-/* 2.  Syntax */
+/* http://tools.ietf.org/html/rfc6570#section-2 Syntax */
 URI_Template
   = (literals / expression)*
 
 
-/* 2.1.  Literals */
+/* http://tools.ietf.org/html/rfc6570#section-2.1 Literals */
 literals
   // any Unicode character except: CTL, SP,
   // DQUOTE, "'", "%" (aside from pct-encoded),
@@ -33,7 +33,7 @@ literals
   / pct_encoded
 
 
-/* 2.2.  Expressions */
+/* http://tools.ietf.org/html/rfc6570#section-2.2 Expressions */
 expression
   =  "{" operator? variable_list "}"
 
@@ -61,7 +61,7 @@ op_reserve
   / "|"
 
 
-/* 2.3.  Variables */
+/* http://tools.ietf.org/html/rfc6570#section-2.3 Variables */
 variable_list
   = varspec ("," varspec)*
 
@@ -78,13 +78,13 @@ varchar
   / pct_encoded
 
 
-/* 2.4.  Value Modifiers */
+/* http://tools.ietf.org/html/rfc6570#section-2.4 Value Modifiers */
 modifier_level4
   = prefix
   / explode
 
 
-/* 2.4.1.  Prefix Values */
+/* http://tools.ietf.org/html/rfc6570#section-2.4.1 Prefix Values */
 prefix
   = ":" max_length
 
@@ -93,6 +93,6 @@ max_length
   = $([\x31-\x39] DIGIT? DIGIT? DIGIT?)
 
 
-/* 2.4.2.  Composite Values */
+/* http://tools.ietf.org/html/rfc6570#section-2.4.2 Composite Values */
 explode
   = "*"

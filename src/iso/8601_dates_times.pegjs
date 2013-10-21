@@ -2,11 +2,12 @@
  * Data elements and interchange formats – Information interchange – Representation of dates and times
  *
  * https://en.wikipedia.org/wiki/ISO_8601
+ * http://tools.ietf.org/html/rfc3339
  *
  * @append ietf/rfc5234_core_abnf.pegjs
  */
 
- /* RFC3339 - Appendix A. ISO 8601 Collected ABNF */
+ /* http://tools.ietf.org/html/rfc3339#appendix-A ISO 8601 Collected ABNF */
  /* Date */
  date_century
    // 00-99

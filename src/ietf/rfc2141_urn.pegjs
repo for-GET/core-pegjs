@@ -8,13 +8,13 @@
  * @append ietf/rfc5234_core_abnf.pegjs
  */
 
-/* 2. Syntax */
+/* http://tools.ietf.org/html/rfc2141#section-2 Syntax */
 /*URN
   = "urn:" NID ":" NSS
 */
 
 
-/* 2.1 Namespace Identifier Syntax */
+/* http://tools.ietf.org/html/rfc2141#section-2.1 Namespace Identifier Syntax */
 /*
 <NID>         ::= <let-num> [ 1,31<let-num-hyp> ]
 
@@ -37,7 +37,7 @@
 */
 
 
-/* 2.2 Namespace Specific String Syntax */
+/* http://tools.ietf.org/html/rfc2141#section-2.2 Namespace Specific String Syntax */
 /*
 <NSS>         ::= 1*<URN chars>
 
@@ -54,13 +54,13 @@
 */
 
 
-/* 2.3 Reserved characters */
+/* http://tools.ietf.org/html/rfc2141#section-2.3 Reserved characters */
 /*
 <reserved>    ::= '%" | "/" | "?" | "#"
 */
 
 
-/* 2.4 Excluded characters */
+/* http://tools.ietf.org/html/rfc2141#section-2.4 Excluded characters */
 /*
 <excluded> ::= octets 1-32 (1-20 hex) | "\" | """ | "&" | "<"
 | ">" | "[" | "]" | "^" | "`" | "{" | "|" | "}" | "~"

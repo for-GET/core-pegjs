@@ -1,9 +1,10 @@
 /*
  * RFC 5234 - Augmented BNF for Syntax Specifications: ABNF
+ *
  * http://tools.ietf.org/html/rfc5234
  */
 
-/* Appendix B.  Core ABNF of ABNF */
+/* http://tools.ietf.org/html/rfc5234#appendix-B Core ABNF of ABNF */
 ALPHA
   = [\x41-\x5A]
   / [\x61-\x7A]

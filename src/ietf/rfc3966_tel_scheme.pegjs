@@ -8,7 +8,7 @@
  * @append ietf/rfc5234_core_abnf.pegjs
  */
 
-/* 3.  URI Syntax */
+/* http://tools.ietf.org/html/rfc3966#section-3 URI Syntax */
 telephone_uri
   = "tel:" telephone_subscriber
 

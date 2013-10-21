@@ -9,7 +9,7 @@
  * @append ietf/rfc5234_core_abnf.pegjs
  */
 
-/* 2.  Syntax of a 'mailto' URI */
+/* http://tools.ietf.org/html/rfc6068#section-2 Syntax of a 'mailto' URI */
 mailtoURI
   = "mailto:" to? hfields?
 

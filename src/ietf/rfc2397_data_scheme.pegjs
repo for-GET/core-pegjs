@@ -15,7 +15,7 @@
  * @append ietf/rfc5234_core_abnf.pegjs
  */
 
-/* 3. Syntax */
+/* http://tools.ietf.org/html/rfc2397#section-3 Syntax */
 dataurl
   = "data:" mediatype? ";base64"? "," data
 
