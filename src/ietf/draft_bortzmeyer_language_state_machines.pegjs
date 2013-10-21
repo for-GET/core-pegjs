@@ -4,11 +4,7 @@
  * http://tools.ietf.org/html/draft-bortzmeyer-language-state-machines
  *
  * Limitations & cleanup
- * - names rule is reused more
- * - regular_identifier accepts also - as ending character
- * - regular_identifier accepts also _
- * - comments are allowed only on new lines
- * - identifier_chars are extended with TODOs
+ * - based on https://github.com/andreineculau/cosmogol-abnf
  *
  * @append ietf/rfc5234_core_abnf.pegjs
  */
@@ -19,16 +15,16 @@ state_machine
 
 statement
   = comment_nl
-  / (transition / declaration / assignment) LWSP_ ";" LWSP_
+  / (transition / declaration / assignment) LWSP ";" LWSP
 
 colon
-  = LWSP_ ":" LWSP_
+  = LWSP ":" LWSP
 comma
-  = LWSP_ "," LWSP_
+  = LWSP "," LWSP
 equal
-  = LWSP_ "=" LWSP_
+  = LWSP "=" LWSP
 arrow
-  = LWSP_ "->" LWSP_
+  = LWSP "->" LWSP
 
 declaration
   = names colon value
@@ -49,8 +45,6 @@ name
 quoted_name
   = DQUOTE $(identifier_chars+) DQUOTE
 
-// TODO: this grammar allows identifiers like foo----bar
-// (several dashes). Do we really want it?
 regular_identifier
   = $((ALPHA / DIGIT) (("-" / "_")? (ALPHA / DIGIT))*)
 
@@ -91,10 +85,6 @@ action
 value
   = name
 
-// TODO: we should allow the dot!
-// TODO: allow the square brackets (RFC 2960)
-// TODO: allow parenthesis
-// TODO: allow slashes and < and > (draft on shim6)
 identifier_chars
   = ALPHA
   / DIGIT
@@ -121,11 +111,3 @@ comment
 comment_nl
   = comment
   / CRLF
-
-comment_wsp
-  = ( WSP
-    / comment_nl
-    )*
-
-LWSP_
-  = $((WSP / CRLF / LF)*)
