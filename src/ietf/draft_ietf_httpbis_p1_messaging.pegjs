@@ -28,10 +28,10 @@ partial_URI
   = relative_part ("?" query)?
 
 http_URI
-  = "http:" "//" authority path_abempty ("?" query)?
+  = "http:" "//" authority path_abempty ("?" query)? ("#" fragment)?
 
 https_URI
-  = "https:" "//" authority path_abempty ("?" query)?
+  = "https:" "//" authority path_abempty ("?" query)? ("#" fragment)?
 
 
 /* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-3 Message Format */
