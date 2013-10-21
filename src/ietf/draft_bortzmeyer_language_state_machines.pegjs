@@ -1,5 +1,6 @@
 /*
  * draft-bortzmeyer-language-state-machines-01 - Cosmogol: a language to describe finite state machines
+ *
  * http://tools.ietf.org/html/draft-bortzmeyer-language-state-machines
  *
  * Limitations & cleanup
@@ -12,6 +13,7 @@
  * @append ietf/rfc5234_core_abnf.pegjs
  */
 
+/* http://tools.ietf.org/html/draft-bortzmeyer-language-state-machines-01#section-4 Grammar */
 state_machine
   = statement+
 

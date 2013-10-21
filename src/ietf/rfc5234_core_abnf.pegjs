@@ -1,5 +1,5 @@
 /*
- * RFC 5234 - Augmented BNF for Syntax Specifications: ABNF
+ * Augmented BNF for Syntax Specifications: ABNF
  *
  * http://tools.ietf.org/html/rfc5234
  */

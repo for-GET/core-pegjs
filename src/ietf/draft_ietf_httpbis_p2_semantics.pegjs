@@ -1,5 +1,5 @@
 /*
- * HTTP P2
+ * HTTPbis P2
  *
  * http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics
  *
