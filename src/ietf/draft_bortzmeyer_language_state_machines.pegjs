@@ -11,20 +11,19 @@
 
 /* http://tools.ietf.org/html/draft-bortzmeyer-language-state-machines-01#section-4 Grammar */
 state_machine
-  = statement+
+  = comment_nl* statement (statement / comment_nl)+
 
 statement
-  = comment_nl
-  / (transition / declaration / assignment) LWSP ";" LWSP
+  = (transition / declaration / assignment) CRLFWSP ";" CRLFWSP
 
 colon
-  = LWSP ":" LWSP
+  = CRLFWSP ":" CRLFWSP
 comma
-  = LWSP "," LWSP
+  = CRLFWSP "," CRLFWSP
 equal
-  = LWSP "=" LWSP
+  = CRLFWSP "=" CRLFWSP
 arrow
-  = LWSP "->" LWSP
+  = CRLFWSP "->" CRLFWSP
 
 declaration
   = names colon value
@@ -106,8 +105,11 @@ identifier_chars
 // some (a bit arbitrary) chars
 
 comment
-  = $("#" (WSP / VCHAR)* CRLF)
+  = $("#" (WSP / VCHAR)* CR? LF)
 
 comment_nl
   = comment
-  / CRLF
+  / CR? LF
+
+CRLFWSP
+  = (CR? LF)* WSP*
