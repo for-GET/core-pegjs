@@ -23,19 +23,19 @@
     "prepublish": "make prepublish"
   },
   "dependencies": {
-    "glob": "~3.2.1"
+    "glob": "~3.2.6"
   },
   "optionalDependencies": {
     "coffee-script": "~1.6.3",
     "pegjs": "git://github.com/andreineculau/pegjs.git#master"
   },
   "devDependencies": {
-    "chai": "~1.7.2",
-    "coffeelint": "~0.5.6",
+    "chai": "~1.8.1",
+    "coffeelint": "~0.6.1",
     "growl": "~1.7.0",
-    "lodash": "~1.3.1",
-    "mocha": "~1.12.0",
-    "testem": "~0.3.18"
+    "lodash": "~2.2.1",
+    "mocha": "~1.13.0",
+    "testem": "~0.5.4"
   },
   "publishConfig": {
     "optionalDependencies": {}
