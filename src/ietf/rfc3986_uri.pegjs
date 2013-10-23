@@ -115,14 +115,14 @@ h16
   = $(HEXDIG (HEXDIG (HEXDIG HEXDIG?)?)?)
 
 IPv4address
-  = dec_octet "." dec_octet "." dec_octet "." dec_octet
+  = $(dec_octet "." dec_octet "." dec_octet "." dec_octet)
 
 dec_octet
-  = $( DIGIT                 // 0-9
-     / [\x31-\x39] DIGIT     // 10-99
-     / "1" DIGIT DIGIT       // 100-199
+  = $( "25" [\x30-\x35]      // 250-255
      / "2" [\x30-\x34] DIGIT // 200-249
-     / "25" [\x30-\x35]      // 250-255
+     / "1" DIGIT DIGIT       // 100-199
+     / [\x31-\x39] DIGIT     // 10-99
+     / DIGIT                 // 0-9
      )
 
 reg_name
