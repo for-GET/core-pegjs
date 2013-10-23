@@ -88,7 +88,13 @@ IP_literal
   = "[" (IPv6address / IPvFuture) "]"
 
 IPvFuture
-  = "v" $(HEXDIG+) "." $(unreserved / sub_delims / ":")+
+  = "v" $(HEXDIG+) "." $( unreserved
+                        /*
+                        // Ignore due to https://github.com/for-GET/core-pegjs/issues/8
+                        / sub_delims
+                        */
+                        / ":"
+                        )+
 
 IPv6address
   = $(                                                            h16_ h16_ h16_ h16_ h16_ h16_ ls32
@@ -126,7 +132,13 @@ dec_octet
      )
 
 reg_name
-  = $(unreserved / pct_encoded / sub_delims)*
+  = $( unreserved
+     / pct_encoded
+     /*
+     // Ignore due to https://github.com/for-GET/core-pegjs/issues/8
+     / sub_delims
+     */
+     )*
 
 
 /* http://tools.ietf.org/html/rfc3986#section-3.2.3 Port */
