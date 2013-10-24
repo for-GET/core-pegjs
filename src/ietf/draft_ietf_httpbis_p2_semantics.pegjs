@@ -15,8 +15,8 @@
  */
 
 /* http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics#section-3.1.1.1 Media Type */
- media_type
-   = type "/" subtype (OWS ";" OWS parameter)*
+media_type
+  = type "/" subtype (OWS ";" OWS parameter)*
 
 type
   = token
