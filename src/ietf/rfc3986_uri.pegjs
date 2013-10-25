@@ -80,8 +80,8 @@ userinfo
 
 /* http://tools.ietf.org/html/rfc3986#section-3.2.2 Host */
 hostname
-  = IP_literal
-  / IPv4address
+  = IP_literal !reg_name
+  / IPv4address !reg_name
   / reg_name
 
 IP_literal
