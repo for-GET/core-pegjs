@@ -11,7 +11,7 @@ IP_literal
   = "[" (IPv6address / IPv6addrz / IPvFuture) "]"
 
 ZoneID
-  = (unreserved / pct_encoded)+
+  = $(unreserved / pct_encoded)+
 
 IPv6addrz
   = IPv6address "%25" ZoneID
