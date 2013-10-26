@@ -69,6 +69,7 @@ scheme
 
 
 /* http://tools.ietf.org/html/rfc3986#section-3.2 Authority */
+// CHANGE host to hostname
 authority
   = (userinfo "@")? hostname (":" port)?
 
@@ -79,6 +80,8 @@ userinfo
 
 
 /* http://tools.ietf.org/html/rfc3986#section-3.2.2 Host */
+// CHANGE host to hostname
+// CHANGE Add forward check for reg_name
 hostname
   = IP_literal !reg_name
   / IPv4address !reg_name
@@ -90,7 +93,7 @@ IP_literal
 IPvFuture
   = "v" $(HEXDIG+) "." $( unreserved
                         /*
-                        // Ignore due to https://github.com/for-GET/core-pegjs/issues/8
+                        // CHANGE Ignore due to https://github.com/for-GET/core-pegjs/issues/8
                         / sub_delims
                         */
                         / ":"
@@ -123,6 +126,7 @@ h16
 IPv4address
   = $(dec_octet "." dec_octet "." dec_octet "." dec_octet)
 
+// CHANGE order in reverse for greedy matching
 dec_octet
   = $( "25" [\x30-\x35]      // 250-255
      / "2" [\x30-\x34] DIGIT // 200-249
@@ -135,7 +139,7 @@ reg_name
   = $( unreserved
      / pct_encoded
      /*
-     // Ignore due to https://github.com/for-GET/core-pegjs/issues/8
+     // CHANGE Ignore due to https://github.com/for-GET/core-pegjs/issues/8
      / sub_delims
      */
      )*

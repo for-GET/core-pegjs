@@ -110,6 +110,7 @@ Accept
 Accept_item_
   = media_range accept_params?
 
+// CHANGE Fix greedy matching by introducing a not_weight_parameter_
 media_range
   = ( "*" "/" "*"
     / type "/" "*"
@@ -181,7 +182,7 @@ product_version
 HTTP_date
   = IMF_fixdate
   /*
-  // Ignore obsolete
+  // CHANGE Ignore obsolete
   / obs_date
   */
 
@@ -218,7 +219,7 @@ second
   = $(DIGIT DIGIT)
 
 /*
-// Ignore obsolete
+// CHANGE Ignore obsolete
 obs_date
   = rfc850_date
   / asctime_date

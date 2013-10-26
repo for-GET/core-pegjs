@@ -68,7 +68,7 @@ reason_phrase
      / SP
      / VCHAR
      /*
-     // Ignore obsolete
+     // CHANGE Ignore obsolete
      / obs_text
      */
      )*
@@ -84,7 +84,7 @@ field_name
 field_value
   = field_content
   /*
-  // Ignore obsolete
+  // CHANGE Ignore obsolete
   = $( field_content
      / obs_fold
      )*
@@ -95,13 +95,13 @@ field_content
      / SP
      / VCHAR
      /*
-     // Ignore obsolete
+     // CHANGE Ignore obsolete
      / obs_text
      */
      )*
 
 /*
-// Ignore obsolete
+// CHANGE Ignore obsolete
 obs_fold
   // obsolete line folding
   = $(CRLF (SP / HTAB))
@@ -183,12 +183,12 @@ qdtext
   / [\x23-\x5B]
   / [\x5D-\x7E]
   /*
-  // Ignore obsolete
+  // CHANGE Ignore obsolete
   / obs_text
   */
 
 /*
-// Ignore obsolete
+// CHANGE Ignore obsolete
 obs_text
   = [\x80-\xFF]
 */
@@ -199,7 +199,7 @@ quoted_pair
     / SP
     / VCHAR
     /*
-    // Ignore obsolete
+    // CHANGE Ignore obsolete
     / obs_text
     */
     )
@@ -214,7 +214,7 @@ ctext
   / [\x2A-\x5B]
   / [\x5D-\x7E]
   /*
-  // Ignore obsolete
+  // CHANGE Ignore obsolete
   / obs_text
   */
 
@@ -224,7 +224,7 @@ quoted_cpair
     / SP
     / VCHAR
     /*
-    // Ignore obsolete
+    // CHANGE Ignore obsolete
     / obs_text
     */
     )
@@ -311,7 +311,7 @@ qdtext_nf
   / [\x23-\x5B]
   / [\x5D-\x7E]
   /*
-  // Ignore obsolete
+  // CHANGE Ignore obsolete
   / obs_text
   */
 
@@ -358,6 +358,7 @@ asterisk_form
 
 
 /* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-5.4 Host */
+// CHANGE uri_host to hostname
 Host
   = hostname (":" port)?
 
@@ -372,6 +373,7 @@ Via_item_
 received_protocol
   = (protocol_name "/")? protocol_version
 
+// CHANGE uri_host to hostname
 received_by
   = hostname (":" port)?
   / pseudonym

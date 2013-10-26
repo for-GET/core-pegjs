@@ -37,7 +37,7 @@ etagc
   = [\x21]
   / [\x23-\x7E]
   /*
-  // Ignore obsolete
+  // CHANGE Ignore obsolete
   / obs_text
   */
 
