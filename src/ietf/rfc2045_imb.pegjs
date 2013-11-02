@@ -7,3 +7,25 @@
  */
 
 // FIXME
+
+/* http://tools.ietf.org/html/rfc2045#section-5.1  Syntax of the Content-Type Header Field */
+
+// Must be in quoted-string,
+// to use within parameter values
+tspecials
+  = "("
+  / ")"
+  / "<"
+  / ">"
+  / "@"
+  / ","
+  / ";"
+  / ":"
+  / "\\"
+  / "\""
+  / "/"
+  / "["
+  / "]"
+  / "?"
+  / "="
+
