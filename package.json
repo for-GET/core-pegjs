@@ -20,7 +20,8 @@
     }
   ],
   "scripts": {
-    "prepublish": "make prepublish"
+    "prepublish": "make prepublish",
+    "test": "make test"
   },
   "dependencies": {
     "glob": "~3.2.6"
