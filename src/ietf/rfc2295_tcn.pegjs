@@ -19,7 +19,7 @@
 In ABNF
 1%rule = rule *( 1*LWS rule )
 // CHANGE PWS to WSP
-1%rule = rule *( 1*WSPrule )
+1%rule = rule *( 1*WSP rule )
 
 In PEGjs
 1%rule = rule (WSP+ rule)?
