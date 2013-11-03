@@ -83,8 +83,8 @@ userinfo
 // CHANGE host to hostname
 // CHANGE Add forward check for reg_name
 hostname
-  = IP_literal !reg_name
-  / IPv4address !reg_name
+  = IP_literal !reg_name_item_
+  / IPv4address !reg_name_item_
   / reg_name
 
 IP_literal
@@ -136,13 +136,14 @@ dec_octet
      )
 
 reg_name
-  = $( unreserved
-     / pct_encoded
-     /*
-     // CHANGE Ignore due to https://github.com/for-GET/core-pegjs/issues/8
-     / sub_delims
-     */
-     )*
+  = $reg_name_item_*
+reg_name_item_
+  = unreserved
+  / pct_encoded
+  /*
+  // CHANGE Ignore due to https://github.com/for-GET/core-pegjs/issues/8
+  / sub_delims
+  */
 
 
 /* http://tools.ietf.org/html/rfc3986#section-3.2.3 Port */
