@@ -8,7 +8,7 @@
     "ISO",
     "ABNF"
   ],
-  "version": "0.1.6",
+  "version": "0.1.7",
   "repository": {
     "type": "git",
     "url": "git://github.com/andreineculau/core-pegjs.git"
