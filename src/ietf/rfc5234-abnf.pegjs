@@ -3,7 +3,7 @@
  *
  * http://tools.ietf.org/html/rfc5234
  *
- * @append ietf/rfc5234_core_abnf.pegjs
+ * @append ietf/rfc5234-core-abnf.pegjs
  */
 
 /* http://tools.ietf.org/html/rfc5234#section-4 ABNF Definition of ABNF */

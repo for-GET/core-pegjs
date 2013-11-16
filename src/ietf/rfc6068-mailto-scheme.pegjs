@@ -4,9 +4,9 @@
  * http://tools.ietf.org/html/rfc6068
  *
  * #append RFC/2396_uri.pegjs is obsoleted by RFC/3986_uri.pegjs
- * @append ietf/rfc3986_uri.pegjs
- * @append ietf/rfc5322_imf.pegjs
- * @append ietf/rfc5234_core_abnf.pegjs
+ * @append ietf/rfc3986-uri.pegjs
+ * @append ietf/rfc5322-imf.pegjs
+ * @append ietf/rfc5234-core-abnf.pegjs
  */
 
 /* http://tools.ietf.org/html/rfc6068#section-2 Syntax of a 'mailto' URI */

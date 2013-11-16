@@ -6,7 +6,7 @@
  * Limitations & cleanup
  * - based on https://github.com/andreineculau/cosmogol-abnf
  *
- * @append ietf/rfc5234_core_abnf.pegjs
+ * @append ietf/rfc5234-core-abnf.pegjs
  */
 
 /* http://tools.ietf.org/html/draft-bortzmeyer-language-state-machines-01#section-4 Grammar */

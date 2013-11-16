@@ -4,7 +4,7 @@
  * https://en.wikipedia.org/wiki/ISO_8601
  * http://tools.ietf.org/html/rfc3339
  *
- * @append ietf/rfc5234_core_abnf.pegjs
+ * @append ietf/rfc5234-core-abnf.pegjs
  */
 
  /* http://tools.ietf.org/html/rfc3339#appendix-A ISO 8601 Collected ABNF */

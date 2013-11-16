@@ -6,13 +6,13 @@
  * Limitations & cleanup
  * - ignoring obsolete rules obs_*`
  *
- * @append ietf/draft_ietf_httpbis_p2_semantics.pegjs
- * @append ietf/draft_ietf_httpbis_p1_messaging.pegjs
- * @append ietf/rfc3986_uri.pegjs
- * @append ietf/rfc5646_language.pegjs
- * @append ietf/rfc4647_language_matching.pegjs
- * @append ietf/rfc5322_imf.pegjs
- * @append ietf/rfc5234_core_abnf.pegjs
+ * @append ietf/draft-ietf-httpbis-p2-semantics.pegjs
+ * @append ietf/draft-ietf-httpbis-p1-messaging.pegjs
+ * @append ietf/rfc3986-uri.pegjs
+ * @append ietf/rfc5646-language.pegjs
+ * @append ietf/rfc4647-language-matching.pegjs
+ * @append ietf/rfc5322-imf.pegjs
+ * @append ietf/rfc5234-core-abnf.pegjs
  */
 
 /* http://tools.ietf.org/html/draft-ietf-httpbis-p4-conditional#section-2.2 Last-Modified */

@@ -4,8 +4,8 @@
  * http://tools.ietf.org/html/rfc3966
  *
  * #append RFC/2396_uri.pegjs is obsoleted by RFC/3986_uri.pegjs
- * @append ietf/rfc3986_uri.pegjs
- * @append ietf/rfc5234_core_abnf.pegjs
+ * @append ietf/rfc3986-uri.pegjs
+ * @append ietf/rfc5234-core-abnf.pegjs
  */
 
 /* http://tools.ietf.org/html/rfc3966#section-3 URI Syntax */

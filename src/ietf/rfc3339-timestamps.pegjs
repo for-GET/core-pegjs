@@ -3,7 +3,7 @@
  *
  * http://tools.ietf.org/html/rfc3339
  *
- * @append ietf/rfc5234_core_abnf.pegjs
+ * @append ietf/rfc5234-core-abnf.pegjs
  */
 
 /* http://tools.ietf.org/html/rfc3339#section-5.6 Internet Date/Time Format */

@@ -3,7 +3,7 @@
  *
  * http://tools.ietf.org/html/rfc3987
  *
- * @append ietf/rfc5234_core_abnf.pegjs
+ * @append ietf/rfc5234-core-abnf.pegjs
  */
 
 // FIXME

@@ -8,8 +8,8 @@
  * element being re_defined with another meaning in RFC/3986_uri
  * - ignoring obsolete rules obs_*`
  *
- * @append ietf/rfc3986_uri.pegjs
- * @append ietf/rfc5234_core_abnf.pegjs
+ * @append ietf/rfc3986-uri.pegjs
+ * @append ietf/rfc5234-core-abnf.pegjs
  */
 
 /* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-2.6 Protocol Versioning */

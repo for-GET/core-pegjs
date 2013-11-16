@@ -3,9 +3,9 @@
  *
  * http://tools.ietf.org/html/rfc6570
  *
- * @append ietf/rfc3986_uri.pegjs
- * @append ietf/rfc3987_iri.pegjs
- * @append ietf/rfc5234_core_abnf.pegjs
+ * @append ietf/rfc3986-uri.pegjs
+ * @append ietf/rfc3987-iri.pegjs
+ * @append ietf/rfc5234-core-abnf.pegjs
  */
 
 /* http://tools.ietf.org/html/rfc6570#section-2 Syntax */
