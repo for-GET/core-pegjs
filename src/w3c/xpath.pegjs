@@ -5,6 +5,7 @@
  *
  * Limitations & cleanup
  * - FIXME left recursion
+ * - tests: https://github.com/retnuh/mochiweb_xpath/blob/master/test/mochiweb_xpath_tests.erl
  *
  * @append w3c/xml.pegjs
  * @append w3c/xml-names.pegjs
