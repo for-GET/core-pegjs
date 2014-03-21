@@ -219,9 +219,8 @@ OperatorName
 MultiplyOperator
   = '*'
 
-// CHANGE remove "- NodeType"
 FunctionName
-  = QName
+  = !NodeType QName
 
 VariableReference
   = '$' QName
