@@ -12,9 +12,9 @@
 /html/body/*/input[@type='hidden'][last()]/@value
 /html/body/*/input[@type='hidden'][position()>1]/@value
 string(//div[@class='normal']/cite)
-name(/html/body/*/input[@type='hidden'][@name=\"id1\"]/..)
-name(/html/body/*/input[@type='hidden'][@name=\"id1\"]/../..)
-name(/html/body/*/input[@type='hidden'][@name=\"id1\"]/../../..)
+name(/html/body/*/input[@type='hidden'][@name="id1"]/..)
+name(/html/body/*/input[@type='hidden'][@name="id1"]/../..)
+name(/html/body/*/input[@type='hidden'][@name="id1"]/../../..)
 /html/body/*/input[position() = 3]/@value
 /html/head/title/text() | /html/body/h1/text()
 /html/body/div/img[contains(@src, 'broken')]/@src
