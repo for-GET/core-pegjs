@@ -6,7 +6,6 @@
  * Limitations & cleanup
  * - included errata
  * - *_str rules are optionally wrapped in quotes
- * - comments are not allowed
  * - doesn't check for arity of statements where "these stmts can appear in any order"
  *
  * @append ietf/rfc3986-uri.pegjs
@@ -1335,9 +1334,21 @@ sep
 optsep
   = $(WSP / line_break)*
 
-// CHANGE DRY
+// CHANGE DRY optsep
+// CHANGE allow comments
 stmtsep
-  = optsep (unknown_statement optsep)*
+  = optsep stmtsep_*
+
+stmtsep_
+  = single_line_comment_
+  / multi_line_comment_
+  / unknown_statement optsep
+
+single_line_comment_
+  = "//" $(!line_break .)* line_break optsep
+
+multi_line_comment_
+  = "/*" $(!"*/" .)+ "*/" optsep
 
 line_break
   = CRLF
