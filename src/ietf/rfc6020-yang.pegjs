@@ -3,6 +3,10 @@
  *
  * http://tools.ietf.org/html/rfc6020
  *
+ * Limitations & cleanup
+ * - included errata
+ * - *_str rules are wrapped in double quotes
+ *
  * @append ietf/rfc3986-uri.pegjs
  * @append ietf/rfc5234-core-abnf.pegjs
  */
@@ -76,7 +80,6 @@ include_stmt
 namespace_stmt
   = namespace_keyword sep uri_str optsep stmtend
 
-// CHANGE add quotes
 uri_str
   = "\"" URI "\""
 
@@ -101,8 +104,12 @@ reference_stmt
 units_stmt
   = units_keyword sep string optsep stmtend
 
+// CHANGE break apart
 revision_stmt
-  = revision_keyword sep revision_date optsep (";" / "{" stmtsep (description_stmt stmtsep)? (reference_stmt stmtsep)? "}")
+  = revision_keyword sep revision_date optsep (";" / "{" stmtsep revision_stmt_ "}")
+
+revision_stmt_
+  = (description_stmt stmtsep)? (reference_stmt stmtsep)?
 
 revision_date
   = date_arg_str
@@ -124,7 +131,6 @@ argument_stmt
 yin_element_stmt
   = yin_element_keyword sep yin_element_arg_str stmtend
 
-// CHANGE add quotes
 yin_element_arg_str
   = "\"" yin_element_arg "\""
 
@@ -182,6 +188,10 @@ type_body_stmts
   / instance_identifier_specification
   / bits_specification
   / union_specification
+  / binary_specification
+
+binary_specification
+  = (length_stmt stmtsep)?
 
 numerical_restrictions
   = range_stmt stmtsep
@@ -201,7 +211,6 @@ decimal64_specification
 fraction_digits_stmt
   = fraction_digits_keyword sep fraction_digits_arg_str stmtend
 
-// CHANGE ADD quotes
 fraction_digits_arg_str
   = "\"" fraction_digits_arg "\""
 
@@ -253,7 +262,6 @@ path_stmt
 require_instance_stmt
   = require_instance_keyword sep require_instance_arg_str stmtend
 
-// CHANGE add quotes
 require_instance_arg_str
   = "\"" require_instance_arg "\""
 
@@ -284,7 +292,6 @@ bit_stmt_
 position_stmt
   = position_keyword sep position_value_arg_str stmtend
 
-// CHANGE add quotes
 position_value_arg_str
   = "\"" position_value_arg "\""
 
@@ -294,7 +301,6 @@ position_value_arg
 status_stmt
   = status_keyword sep status_arg_str stmtend
 
-// CHANGE add quotes
 status_arg_str
   = "\"" status_arg "\""
 
@@ -306,7 +312,6 @@ status_arg
 config_stmt
   = config_keyword sep config_arg_str stmtend
 
-// CHANGE add quotes
 config_arg_str
   = "\"" config_arg "\""
 
@@ -317,7 +322,6 @@ config_arg
 mandatory_stmt
   = mandatory_keyword sep mandatory_arg_str stmtend
 
-// CHANGE add quotes
 mandatory_arg_str
   = "\"" mandatory_arg "\""
 
@@ -331,7 +335,6 @@ presence_stmt
 ordered_by_stmt
   = ordered_by_keyword sep ordered_by_arg_str stmtend
 
-// CHANGE add quotes
 ordered_by_arg_str
   = "\"" ordered_by_arg "\""
 
@@ -356,7 +359,6 @@ error_app_tag_stmt
 min_elements_stmt
   = min_elements_keyword sep min_value_arg_str stmtend
 
-// CHANGE add quotes
 min_value_arg_str
   = "\"" min_value_arg "\""
 
@@ -366,7 +368,6 @@ min_value_arg
 max_elements_stmt
   = max_elements_keyword sep max_value_arg_str stmtend
 
-// CHANGE add quotes
 max_value_arg_str
   = "\"" max_value_arg "\""
 
@@ -375,7 +376,13 @@ max_value_arg
   / positive_integer_value
 
 value_stmt
-  = value_keyword sep integer_value stmtend
+  = value_keyword sep integer_value_arg_str stmtend
+
+integer_value_arg_str
+  = "\"" integer_value_arg "\""
+
+integer_value_arg
+  = integer_value
 
 // CHANGE break apart
 grouping_stmt
@@ -422,7 +429,6 @@ list_stmt_
 key_stmt
   = key_keyword sep key_arg_str stmtend
 
-// CHANGE add quotes
 key_arg_str
   = "\"" key_arg "\""
 
@@ -432,7 +438,6 @@ key_arg
 unique_stmt
   = unique_keyword sep unique_arg_str stmtend
 
-// CHANGE add quotes
 unique_arg_str
   = "\"" unique_arg "\""
 
@@ -498,7 +503,6 @@ refine_stmt_
   / refine_case_stmts
   / refine_anyxml_stmts
 
-// CHANGE add quotes
 refine_arg_str
   = "\"" refine_arg "\""
 
@@ -541,7 +545,6 @@ uses_augment_stmt
 uses_augment_stmt_
   = (when_stmt stmtsep)? (if_feature_stmt stmtsep)* (status_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)? ((data_def_stmt stmtsep) / (case_stmt stmtsep))+
 
-// CHANGE add quotes
 uses_augment_arg_str
   = "\"" uses_augment_arg "\""
 
@@ -556,7 +559,6 @@ augment_stmt
 augment_stmt_
   = (when_stmt stmtsep)? (if_feature_stmt stmtsep)* (status_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)? ((data_def_stmt stmtsep) / (case_stmt stmtsep))+
 
-// CHANGE add quotes
 augment_arg_str
   = "\"" augment_arg "\""
 
@@ -617,7 +619,6 @@ deviation_stmt
 deviation_stmt_
   = (description_stmt stmtsep)? (reference_stmt stmtsep)? (deviate_not_supported_stmt / (deviate_add_stmt / deviate_replace_stmt / deviate_delete_stmt)+)
 
-// CHANGE add quotes
 deviation_arg_str
   = "\"" deviation_arg "\""
 
@@ -632,6 +633,7 @@ deviate_not_supported_stmt
 deviate_add_stmt
   = deviate_keyword sep add_keyword optsep (";" / "{" stmtsep deviate_add_stmt_ "}")
 
+// these stmts can appear in any order
 deviate_add_stmt_
   = (units_stmt stmtsep)? (must_stmt stmtsep)* (unique_stmt stmtsep)* (default_stmt stmtsep)? (config_stmt stmtsep)? (mandatory_stmt stmtsep)? (min_elements_stmt stmtsep)? (max_elements_stmt stmtsep)?
 
@@ -639,6 +641,7 @@ deviate_add_stmt_
 deviate_delete_stmt
   = deviate_keyword sep delete_keyword optsep (";" / "{" stmtsep deviate_delete_stmt_ "}")
 
+// these stmts can appear in any order
 deviate_delete_stmt_
   = (units_stmt stmtsep)? (must_stmt stmtsep)* (unique_stmt stmtsep)* (default_stmt stmtsep)?
 
@@ -646,12 +649,12 @@ deviate_delete_stmt_
 deviate_replace_stmt
   = deviate_keyword sep replace_keyword optsep (";" / "{" stmtsep deviate_replace_stmt_ "}")
 
+// these stmts can appear in any order
 deviate_replace_stmt_
   = (type_stmt stmtsep)? (units_stmt stmtsep)? (default_stmt stmtsep)? (config_stmt stmtsep)? (mandatory_stmt stmtsep)? (min_elements_stmt stmtsep)? (max_elements_stmt stmtsep)?
 
 // Ranges
 
-// CHANGE add quotes
 range_arg_str
   = "\"" range_arg "\""
 
@@ -669,7 +672,6 @@ range_boundary
 
 // Lengths
 
-// CHANGE add quotes
 length_arg_str
   = "\"" length_arg "\""
 
@@ -686,7 +688,6 @@ length_boundary
 
 // Date
 
-// CHANGE add quotes
 date_arg_str
   = "\"" date_arg "\""
 
@@ -724,7 +725,6 @@ pos
 
 // leafref path
 
-// CHANGE add quotes
 path_arg_str
   = "\"" path_arg "\""
 
@@ -923,7 +923,6 @@ current_function_invocation
 
 // Basic Rules
 
-// CHANGE add quotes
 prefix_arg_str
   = "\"" prefix_arg "\""
 
@@ -933,8 +932,9 @@ prefix_arg
 prefix
   = identifier
 
+// CHANGE this rule should NOT be wrapped in quotes
 identifier_arg_str
-  = "\"" identifier_arg "\""
+  = identifier_arg
 
 identifier_arg
   = identifier
@@ -943,14 +943,12 @@ identifier_arg
 identifier
   = (ALPHA / "_") (ALPHA / DIGIT / "_" / "-" / ".")*
 
-// CHANGE add quotes
 identifier_ref_arg_str
   = "\"" identifier_ref_arg "\""
 
 identifier_ref_arg
   = (prefix ":")? identifier
 
-// CHANGE add quotes
 // CHANGE restrict to non " chars
 string
   = "\"" [^"]* "\""
