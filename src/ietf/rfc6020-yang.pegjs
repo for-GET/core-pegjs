@@ -5,8 +5,10 @@
  *
  * Limitations & cleanup
  * - included errata
- * - *_str rules are wrapped in double quotes
+ * - *_str rules are optionally wrapped in quotes
  * - comments are not allowed
+ * - doesn't check for arity of statements where "these stmts can appear in any order"
+ * - doesn't support extensions
  *
  * @append ietf/rfc3986-uri.pegjs
  * @append ietf/rfc5234-core-abnf.pegjs
