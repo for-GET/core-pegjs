@@ -6,6 +6,7 @@
  * Limitations & cleanup
  * - included errata
  * - *_str rules are wrapped in double quotes
+ * - comments are not allowed
  *
  * @append ietf/rfc3986-uri.pegjs
  * @append ietf/rfc5234-core-abnf.pegjs
@@ -18,25 +19,47 @@ submodule_stmt
   = optsep submodule_keyword sep identifier_arg_str optsep "{" stmtsep submodule_header_stmts linkage_stmts meta_stmts revision_stmts body_stmts "}" optsep
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 module_header_stmts
-  = (yang_version_stmt stmtsep)? namespace_stmt stmtsep prefix_stmt stmtsep
+  = (module_header_stmts_ stmtsep)*
+
+module_header_stmts_
+  = yang_version_stmt
+  / namespace_stmt
+  / prefix_stmt
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 submodule_header_stmts
-  = (yang_version_stmt stmtsep)? belongs_to_stmt stmtsep
+  = (submodule_header_stmts_ stmtsep)*
+
+submodule_header_stmts_
+  = yang_version_stmt
+  / belongs_to_stmt
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 meta_stmts
-  = (organization_stmt stmtsep)? (contact_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)?
+  = (meta_stmts_ stmtsep)*
+
+meta_stmts_
+  = organization_stmt
+  / contact_stmt
+  / description_stmt
+  / reference_stmt
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 linkage_stmts
-  = (import_stmt stmtsep)* (include_stmt stmtsep)*
+  = (linkage_stmts_ stmtsep)*
+
+linkage_stmts_
+  = import_stmt
+  / include_stmt
 
 revision_stmts
   = (revision_stmt stmtsep)*
 
-// CHANGE break apart
 body_stmts
   = (body_stmt_ stmtsep)*
 
@@ -82,6 +105,8 @@ namespace_stmt
 
 uri_str
   = "\"" URI "\""
+  / "'" URI "'"
+  / URI
 
 prefix_stmt
   = prefix_keyword sep prefix_arg_str optsep stmtend
@@ -104,7 +129,6 @@ reference_stmt
 units_stmt
   = units_keyword sep string optsep stmtend
 
-// CHANGE break apart
 revision_stmt
   = revision_keyword sep revision_date optsep (";" / "{" stmtsep revision_stmt_ "}")
 
@@ -117,13 +141,19 @@ revision_date
 revision_date_stmt
   = revision_date_keyword sep revision_date stmtend
 
-// CHANGE break apart
 extension_stmt
   = extension_keyword sep identifier_arg_str optsep (";" / "{" stmtsep extension_stmt_ "}")
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 extension_stmt_
-  = (argument_stmt stmtsep)? (status_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)?
+  = (extension_stmt__ stmtsep)*
+
+extension_stmt__
+  = argument_stmt
+  / status_stmt
+  / description_stmt
+  / reference_stmt
 
 argument_stmt
   = argument_keyword sep identifier_arg_str optsep (";" / "{" stmtsep (yin_element_stmt stmtsep)? "}")
@@ -133,51 +163,68 @@ yin_element_stmt
 
 yin_element_arg_str
   = "\"" yin_element_arg "\""
+  / "'" yin_element_arg "'"
+  / yin_element_arg
 
 yin_element_arg
   = true_keyword
   / false_keyword
 
-// CHANGE break apart
 identity_stmt
-  = identity_keyword sep identifier_arg_str optsep
-(";" /
-"{" stmtsep
-identity_stmt_
-"}")
+  = identity_keyword sep identifier_arg_str optsep (";" / "{" stmtsep identity_stmt_ "}")
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 identity_stmt_
-  = (base_stmt stmtsep)? (status_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)?
+  = (identity_stmt__ stmtsep)*
+
+identity_stmt__
+  = base_stmt
+  / status_stmt
+  / description_stmt
+  / reference_stmt
 
 base_stmt
   = base_keyword sep identifier_ref_arg_str optsep stmtend
 
-// CHANGE break apart
 feature_stmt
-  = feature_keyword sep identifier_arg_str optsep
-(";" /
-"{" stmtsep
-"}")
+  = feature_keyword sep identifier_arg_str optsep (";" / "{" stmtsep feature_stmt_ "}")
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 feature_stmt_
-  = (if_feature_stmt stmtsep)* (status_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)?
+  = (feature_stmt__ stmtsep)*
+
+feature_stmt__
+  = if_feature_stmt
+  / status_stmt
+  / description_stmt
+  / reference_stmt
 
 if_feature_stmt
   = if_feature_keyword sep identifier_ref_arg_str optsep stmtend
 
-// CHANGE break apart
 typedef_stmt
   = typedef_keyword sep identifier_arg_str optsep "{" stmtsep typedef_stmt_ "}"
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 typedef_stmt_
-  = type_stmt stmtsep (units_stmt stmtsep)? (default_stmt stmtsep)? (status_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)?
+  = (typedef_stmt__ stmtsep)*
+
+typedef_stmt__
+  = type_stmt
+  / units_stmt
+  / default_stmt
+  / status_stmt
+  / description_stmt
+  / reference_stmt
 
 type_stmt
   = type_keyword sep identifier_ref_arg_str optsep (";" / "{" stmtsep type_body_stmts "}")
 
+// CHANGE add empty body alternative
+// CHANGE to counteract making all *_restrictions/*_specification rule required
 type_body_stmts
   = numerical_restrictions
   / decimal64_specification
@@ -189,22 +236,30 @@ type_body_stmts
   / bits_specification
   / union_specification
   / binary_specification
+  / stmtsep
 
+// CHANGE required
 binary_specification
-  = (length_stmt stmtsep)?
+  = length_stmt stmtsep
 
 numerical_restrictions
   = range_stmt stmtsep
 
-// CHANGE break apart
 range_stmt
   = range_keyword sep range_arg_str optsep (";" / "{" stmtsep range_stmt_ "}")
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 range_stmt_
-  = (error_message_stmt stmtsep)? (error_app_tag_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)?
+  = (range_stmt__ stmtsep)*
 
-  // these stmts can appear in any order
+range_stmt__
+  = error_message_stmt
+  / error_app_tag_stmt
+  / description_stmt
+  / reference_stmt
+
+// these stmts can appear in any order
 decimal64_specification
   = fraction_digits_stmt (range_stmt stmtsep)?
 
@@ -213,17 +268,24 @@ fraction_digits_stmt
 
 fraction_digits_arg_str
   = "\"" fraction_digits_arg "\""
+  / "'" fraction_digits_arg "'"
+  / fraction_digits_arg
 
 // CHANGE simplify ranges
 fraction_digits_arg
-  = "1" ([0-8])?
+  = $("1" ([0-8])?)
   / [2-9]
 
 // these stmts can appear in any order
+// CHANGE required
+// CHANGE don't check arity
 string_restrictions
-  = (length_stmt stmtsep)? (pattern_stmt stmtsep)*
+  = (string_restriction_ stmtsep)+
 
-// CHANGE break apart
+string_restriction_
+  = length_stmt
+  / pattern_stmt
+
 length_stmt
   = length_keyword sep length_arg_str optsep (";" / "{" stmtsep length_stmt_ "}")
 
@@ -231,7 +293,6 @@ length_stmt
 length_stmt_
   = (error_message_stmt stmtsep)? (error_app_tag_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)?
 
-// CHANGE break apart
 pattern_stmt
   = pattern_keyword sep string optsep (";" / "{" stmtsep pattern_stmt_ "}")
 
@@ -245,13 +306,19 @@ default_stmt
 enum_specification
   = (enum_stmt stmtsep)+
 
-// CHANGE break apart
 enum_stmt
   = enum_keyword sep string optsep (";" / "{" stmtsep enum_stmt_ "}")
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 enum_stmt_
-  = (value_stmt stmtsep)? (status_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)?
+  = (enum_stmt__ stmtsep)*
+
+enum_stmt__
+  = value_stmt
+  / status_stmt
+  / description_stmt
+  / reference_stmt
 
 leafref_specification
   = path_stmt
@@ -264,13 +331,16 @@ require_instance_stmt
 
 require_instance_arg_str
   = "\"" require_instance_arg "\""
+  / "'" require_instance_arg "'"
+  / require_instance_arg
 
 require_instance_arg
   = true_keyword
   / false_keyword
 
+// CHANGE required
 instance_identifier_specification
-  = (require_instance_stmt stmtsep)?
+  = require_instance_stmt stmtsep
 
 identityref_specification
   = base_stmt stmtsep
@@ -281,7 +351,6 @@ union_specification
 bits_specification
   = (bit_stmt stmtsep)+
 
-// CHANGE break apart
 bit_stmt
   = bit_keyword sep identifier_arg_str optsep (";" / "{" stmtsep bit_stmt_ "}")
 
@@ -294,6 +363,8 @@ position_stmt
 
 position_value_arg_str
   = "\"" position_value_arg "\""
+  / "'" position_value_arg "'"
+  / position_value_arg
 
 position_value_arg
   = non_negative_integer_value
@@ -303,6 +374,8 @@ status_stmt
 
 status_arg_str
   = "\"" status_arg "\""
+  / "'" status_arg "'"
+  / status_arg
 
 status_arg
   = current_keyword
@@ -314,6 +387,8 @@ config_stmt
 
 config_arg_str
   = "\"" config_arg "\""
+  / "'" config_arg "'"
+  / config_arg
 
 config_arg
   = true_keyword
@@ -324,6 +399,8 @@ mandatory_stmt
 
 mandatory_arg_str
   = "\"" mandatory_arg "\""
+  / "'" mandatory_arg "'"
+  / mandatory_arg
 
 mandatory_arg
   = true_keyword
@@ -337,18 +414,26 @@ ordered_by_stmt
 
 ordered_by_arg_str
   = "\"" ordered_by_arg "\""
+  / "'" ordered_by_arg "'"
+  / ordered_by_arg
 
 ordered_by_arg
   = user_keyword
   / system_keyword
 
-// CHANGE break apart
 must_stmt
   = must_keyword sep string optsep (";" / "{" stmtsep must_stmt_ "}")
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 must_stmt_
-  = (error_message_stmt stmtsep)? (error_app_tag_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)?
+  = (must_stmt__ stmtsep)*
+
+must_stmt__
+  = error_message_stmt
+  / error_app_tag_stmt
+  / description_stmt
+  / reference_stmt
 
 error_message_stmt
   = error_message_keyword sep string stmtend
@@ -361,6 +446,8 @@ min_elements_stmt
 
 min_value_arg_str
   = "\"" min_value_arg "\""
+  / "'" min_value_arg "'"
+  / min_value_arg
 
 min_value_arg
   = non_negative_integer_value
@@ -370,6 +457,8 @@ max_elements_stmt
 
 max_value_arg_str
   = "\"" max_value_arg "\""
+  / "'" max_value_arg "'"
+  / max_value_arg
 
 max_value_arg
   = unbounded_keyword
@@ -380,57 +469,124 @@ value_stmt
 
 integer_value_arg_str
   = "\"" integer_value_arg "\""
+  / "'" integer_value_arg "'"
+  / integer_value_arg
 
 integer_value_arg
   = integer_value
 
-// CHANGE break apart
 grouping_stmt
   = grouping_keyword sep identifier_arg_str optsep (";" / "{" stmtsep grouping_stmt_ "}")
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 grouping_stmt_
-  = (status_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)? ((typedef_stmt / grouping_stmt) stmtsep)* (data_def_stmt stmtsep)*
+  = (grouping_stmt__ stmtsep)*
 
-// CHANGE break apart
+grouping_stmt__
+  = status_stmt
+  / description_stmt
+  / reference_stmt
+  / typedef_stmt
+  / grouping_stmt
+  / data_def_stmt
+
 container_stmt
   = container_keyword sep identifier_arg_str optsep (";" / "{" stmtsep container_stmt_ "}")
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 container_stmt_
-  = (when_stmt stmtsep)? (if_feature_stmt stmtsep)* (must_stmt stmtsep)* (presence_stmt stmtsep)? (config_stmt stmtsep)? (status_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)? ((typedef_stmt / grouping_stmt) stmtsep)* (data_def_stmt stmtsep)*
+  = (container_stmt__ stmtsep)*
 
-// CHANGE break apart
+container_stmt__
+  = when_stmt
+  / if_feature_stmt
+  / must_stmt
+  / presence_stmt
+  / config_stmt
+  / status_stmt
+  / description_stmt
+  / reference_stmt
+  / typedef_stmt
+  / grouping_stmt
+  / data_def_stmt
+
 leaf_stmt
   = leaf_keyword sep identifier_arg_str optsep "{" stmtsep leaf_stmt_ "}"
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 leaf_stmt_
-  = (when_stmt stmtsep)? (if_feature_stmt stmtsep)* type_stmt stmtsep (units_stmt stmtsep)? (must_stmt stmtsep)* (default_stmt stmtsep)?
-(config_stmt stmtsep)? (mandatory_stmt stmtsep)? (status_stmt stmtsep)?
-(description_stmt stmtsep)? (reference_stmt stmtsep)?
+  = (leaf_stmt__ stmtsep)*
 
-// CHANGE break apart
+leaf_stmt__
+  = when_stmt
+  / if_feature_stmt
+  / type_stmt
+  / units_stmt
+  / must_stmt
+  / default_stmt
+  / config_stmt
+  / mandatory_stmt
+  / status_stmt
+  / description_stmt
+  / reference_stmt
+
 leaf_list_stmt
   = leaf_list_keyword sep identifier_arg_str optsep "{" stmtsep leaf_list_stmt_ "}"
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 leaf_list_stmt_
-  = (when_stmt stmtsep)? (if_feature_stmt stmtsep)* type_stmt stmtsep (units_stmt stmtsep)? (must_stmt stmtsep)* (config_stmt stmtsep)? (min_elements_stmt stmtsep)? (max_elements_stmt stmtsep)? (ordered_by_stmt stmtsep)? (status_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)?
+  = (when_stmt stmtsep)*
 
-// CHANGE break apart
+leaf_list_stmt__
+  = when_stmt
+  / if_feature_stmt
+  / type_stmt
+  / units_stmt
+  / must_stmt
+  / config_stmt
+  / min_elements_stmt
+  / max_elements_stmt
+  / ordered_by_stmt
+  / status_stmt
+  / description_stmt
+  / reference_stmt
+
 list_stmt
   = list_keyword sep identifier_arg_str optsep "{" stmtsep list_stmt_ "}"
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 list_stmt_
-  = (when_stmt stmtsep)? (if_feature_stmt stmtsep)* (must_stmt stmtsep)* (key_stmt stmtsep)? (unique_stmt stmtsep)* (config_stmt stmtsep)? (min_elements_stmt stmtsep)? (max_elements_stmt stmtsep)? (ordered_by_stmt stmtsep)? (status_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)? ((typedef_stmt / grouping_stmt) stmtsep)* (data_def_stmt stmtsep)+
+  = (list_stmt__ stmtsep)*
+
+list_stmt__
+  = when_stmt
+  / if_feature_stmt
+  / must_stmt
+  / key_stmt
+  / unique_stmt
+  / config_stmt
+  / min_elements_stmt
+  / max_elements_stmt
+  / ordered_by_stmt
+  / status_stmt
+  / description_stmt
+  / reference_stmt
+  / typedef_stmt
+  / grouping_stmt
+  / data_def_stmt
 
 key_stmt
   = key_keyword sep key_arg_str stmtend
 
 key_arg_str
   = "\"" key_arg "\""
+  / "'" key_arg "'"
+  / key_arg
 
 key_arg
   = node_identifier (sep node_identifier)*
@@ -440,17 +596,31 @@ unique_stmt
 
 unique_arg_str
   = "\"" unique_arg "\""
+  / "'" unique_arg "'"
+  / unique_arg
 
 unique_arg
   = descendant_schema_nodeid (sep descendant_schema_nodeid)*
 
-// CHANGE break apart
 choice_stmt
   = choice_keyword sep identifier_arg_str optsep (";" / "{" stmtsep choice_stmt_ "}")
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 choice_stmt_
-  = (when_stmt stmtsep)? (if_feature_stmt stmtsep)* (default_stmt stmtsep)? (config_stmt stmtsep)? (mandatory_stmt stmtsep)? (status_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)? ((short_case_stmt / case_stmt) stmtsep)*
+  = (choice_stmt__ stmtsep)*
+
+choice_stmt__
+  = when_stmt
+  / if_feature_stmt
+  / default_stmt
+  / config_stmt
+  / mandatory_stmt
+  / status_stmt
+  / description_stmt
+  / reference_stmt
+  / short_case_stmt
+  / case_stmt
 
 short_case_stmt
   = container_stmt
@@ -459,38 +629,57 @@ short_case_stmt
   / list_stmt
   / anyxml_stmt
 
-// CHANGE break apart
 case_stmt
   = case_keyword sep identifier_arg_str optsep (";" / "{" stmtsep case_stmt_ "}")
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 case_stmt_
-  = (when_stmt stmtsep)? (if_feature_stmt stmtsep)* (status_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)? (data_def_stmt stmtsep)*
+  = (case_stmt__ stmtsep)*
 
-// CHANGE break apart
+case_stmt__
+  = when_stmt
+  / if_feature_stmt
+  / status_stmt
+  / description_stmt
+  / reference_stmt
+  / data_def_stmt
+
 anyxml_stmt
   = anyxml_keyword sep identifier_arg_str optsep (";" / "{" stmtsep anyxml_stmt_ "}")
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 anyxml_stmt_
-  = (when_stmt stmtsep)?
-(if_feature_stmt stmtsep)*
-(must_stmt stmtsep)*
-(config_stmt stmtsep)?
-(mandatory_stmt stmtsep)?
-(status_stmt stmtsep)?
-(description_stmt stmtsep)?
-(reference_stmt stmtsep)?
+  = (anyxml_stmt__ stmtsep)*
 
-// CHANGE break apart
+anyxml_stmt__
+  = when_stmt
+  / if_feature_stmt
+  / must_stmt
+  / config_stmt
+  / mandatory_stmt
+  / status_stmt
+  / description_stmt
+  / reference_stmt
+
 uses_stmt
   = uses_keyword sep identifier_ref_arg_str optsep (";" / "{" stmtsep uses_stmt_ "}")
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 uses_stmt_
-  = (when_stmt stmtsep)? (if_feature_stmt stmtsep)* (status_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)? (refine_stmt stmtsep)* (uses_augment_stmt stmtsep)*
+  = (uses_stmt__ stmtsep)*
 
-// CHANGE break apart
+uses_stmt__
+  = when_stmt
+  / if_feature_stmt
+  / status_stmt
+  / description_stmt
+  / reference_stmt
+  / refine_stmt
+  / uses_augment_stmt
+
 refine_stmt
   = refine_keyword sep refine_arg_str optsep (";" / "{" stmtsep refine_stmt_ "}")
 
@@ -505,62 +694,142 @@ refine_stmt_
 
 refine_arg_str
   = "\"" refine_arg "\""
+  / "'" refine_arg "'"
+  / refine_arg
 
 refine_arg
   = descendant_schema_nodeid
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 refine_container_stmts
-  = (must_stmt stmtsep)* (presence_stmt stmtsep)? (config_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)?
+  = (refine_container_stmts_ stmtsep)*
+
+refine_container_stmts_
+  = must_stmt
+  / presence_stmt
+  / config_stmt
+  / description_stmt
+  / reference_stmt
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 refine_leaf_stmts
-  = (must_stmt stmtsep)* (default_stmt stmtsep)? (config_stmt stmtsep)? (mandatory_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)?
+  = (refine_leaf_stmts_ stmtsep)*
+
+refine_leaf_stmts_
+  = must_stmt
+  / default_stmt
+  / config_stmt
+  / mandatory_stmt
+  / description_stmt
+  / reference_stmt
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 refine_leaf_list_stmts
-  = (must_stmt stmtsep)* (config_stmt stmtsep)? (min_elements_stmt stmtsep)? (max_elements_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)?
+  = (refine_leaf_list_stmts_ stmtsep)*
+
+refine_leaf_list_stmts_
+  = must_stmt
+  / config_stmt
+  / min_elements_stmt
+  / max_elements_stmt
+  / description_stmt
+  / reference_stmt
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 refine_list_stmts
   = (must_stmt stmtsep)* (config_stmt stmtsep)? (min_elements_stmt stmtsep)? (max_elements_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)?
 
+refine_list_stmts_
+  = must_stmt
+  / config_stmt
+  / min_elements_stmt
+  / max_elements_stmt
+  / description_stmt
+  / reference_stmt
+
 // these stmts can appear in any order
+// CHANGE don't check arity
 refine_choice_stmts
-  = (default_stmt stmtsep)? (config_stmt stmtsep)? (mandatory_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)?
+  = (refine_choice_stmts_ stmtsep)*
+
+refine_choice_stmts_
+  = default_stmt
+  / config_stmt
+  / mandatory_stmt
+  / description_stmt
+  / reference_stmt
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 refine_case_stmts
-  = (description_stmt stmtsep)? (reference_stmt stmtsep)?
+  = (refine_case_stmts_ stmtsep)*
+
+refine_case_stmts_
+  = description_stmt
+  / reference_stmt
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 refine_anyxml_stmts
-  = (must_stmt stmtsep)* (config_stmt stmtsep)? (mandatory_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)?
+  = (refine_anyxml_stmts_ stmtsep)*
 
-// CHANGE break apart
+refine_anyxml_stmts_
+  = must_stmt
+  / config_stmt
+  / mandatory_stmt
+  / description_stmt
+  / reference_stmt
+
 uses_augment_stmt
   = augment_keyword sep uses_augment_arg_str optsep "{" stmtsep uses_augment_stmt_ "}"
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 uses_augment_stmt_
-  = (when_stmt stmtsep)? (if_feature_stmt stmtsep)* (status_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)? ((data_def_stmt stmtsep) / (case_stmt stmtsep))+
+  = (uses_augment_stmt__ stmtsep)*
+
+uses_augment_stmt__
+  = when_stmt
+  / if_feature_stmt
+  / status_stmt
+  / description_stmt
+  / reference_stmt
+  / data_def_stmt
+  / case_stmt
 
 uses_augment_arg_str
   = "\"" uses_augment_arg "\""
+  / "'" uses_augment_arg "'"
+  / uses_augment_arg
 
 uses_augment_arg
   = descendant_schema_nodeid
 
-// CHANGE break apart
 augment_stmt
   = augment_keyword sep augment_arg_str optsep "{" stmtsep augment_stmt_ "}"
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 augment_stmt_
-  = (when_stmt stmtsep)? (if_feature_stmt stmtsep)* (status_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)? ((data_def_stmt stmtsep) / (case_stmt stmtsep))+
+  = (augment_stmt__ stmtsep)*
+
+augment_stmt__
+  = when_stmt
+  / if_feature_stmt
+  / status_stmt
+  / description_stmt
+  / reference_stmt
+  / data_def_stmt
+  / case_stmt
 
 augment_arg_str
   = "\"" augment_arg "\""
+  / "'" augment_arg "'"
+  / augment_arg
 
 augment_arg
   = absolute_schema_nodeid
@@ -571,56 +840,99 @@ unknown_statement
 unknown_statement2
   = [prefix ":"] identifier [sep string] optsep (";" / "{" *unknown_statement2 "}")
 
-// CHANGE break apart
 when_stmt
   = when_keyword sep string optsep (";" / "{" stmtsep when_stmt_ "}")
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 when_stmt_
-  = (description_stmt stmtsep)? (reference_stmt stmtsep)?
+  = (when_stmt__ stmtsep)*
 
-// CHANGE break apart
+when_stmt__
+  = description_stmt
+  / reference_stmt
+
 rpc_stmt
   = rpc_keyword sep identifier_arg_str optsep (";" / "{" stmtsep rpc_stmt_ "}")
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 rpc_stmt_
-  = (if_feature_stmt stmtsep)* (status_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)? ((typedef_stmt / grouping_stmt) stmtsep)* (input_stmt stmtsep)? (output_stmt stmtsep)?
+  = (rpc_stmt__ stmtsep)*
 
-// CHANGE break apart
+rpc_stmt__
+  = if_feature_stmt
+  / status_stmt
+  / description_stmt
+  / reference_stmt
+  / typedef_stmt
+  / grouping_stmt
+  / input_stmt
+  / output_stmt
+
 input_stmt
   = input_keyword optsep "{" stmtsep input_stmt_ "}"
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 input_stmt_
-  = ((typedef_stmt / grouping_stmt) stmtsep)* (data_def_stmt stmtsep)+
+  = (input_stmt__ stmtsep)*
 
-// CHANGE break apart
+input_stmt__
+  = typedef_stmt
+  / grouping_stmt
+  / data_def_stmt
+
 output_stmt
   = output_keyword optsep "{" stmtsep output_stmt_ "}"
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 output_stmt_
-  = ((typedef_stmt / grouping_stmt) stmtsep)* (data_def_stmt stmtsep)+
+  = (output_stmt__ stmtsep)*
 
-// CHANGE break apart
+output_stmt__
+  = typedef_stmt
+  / grouping_stmt
+  / data_def_stmt
+
 notification_stmt
   = notification_keyword sep identifier_arg_str optsep (";" / "{" stmtsep notification_stmt_ "}")
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 notification_stmt_
-  = (if_feature_stmt stmtsep)* (status_stmt stmtsep)? (description_stmt stmtsep)? (reference_stmt stmtsep)? ((typedef_stmt / grouping_stmt) stmtsep)* (data_def_stmt stmtsep)*
+  = (notification_stmt__ stmtsep)*
 
-// CHANGE break apart
+notification_stmt__
+  = if_feature_stmt
+  / status_stmt
+  / description_stmt
+  / reference_stmt
+  / typedef_stmt
+  / grouping_stmt
+  / data_def_stmt
+
 deviation_stmt
   = deviation_keyword sep deviation_arg_str optsep "{" stmtsep deviation_stmt_ "}"
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 deviation_stmt_
-  = (description_stmt stmtsep)? (reference_stmt stmtsep)? (deviate_not_supported_stmt / (deviate_add_stmt / deviate_replace_stmt / deviate_delete_stmt)+)
+  = (deviation_stmt__ stmtsep)*
+
+deviation_stmt__
+  = description_stmt
+  / reference_stmt
+  / deviate_not_supported_stmt
+  / deviate_add_stmt
+  / deviate_replace_stmt
+  / deviate_delete_stmt
 
 deviation_arg_str
   = "\"" deviation_arg "\""
+  / "'" deviation_arg "'"
+  / deviation_arg
 
 deviation_arg
   = absolute_schema_nodeid
@@ -629,34 +941,61 @@ deviate_not_supported_stmt
   = deviate_keyword sep not_supported_keyword optsep (";" / "{" stmtsep
 "}")
 
-// CHANGE break apart
 deviate_add_stmt
   = deviate_keyword sep add_keyword optsep (";" / "{" stmtsep deviate_add_stmt_ "}")
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 deviate_add_stmt_
-  = (units_stmt stmtsep)? (must_stmt stmtsep)* (unique_stmt stmtsep)* (default_stmt stmtsep)? (config_stmt stmtsep)? (mandatory_stmt stmtsep)? (min_elements_stmt stmtsep)? (max_elements_stmt stmtsep)?
+  = (deviate_add_stmt__ stmtsep)*
 
-// CHANGE break apart
+deviate_add_stmt__
+  = units_stmt
+  / must_stmt
+  / unique_stmt
+  / default_stmt
+  / config_stmt
+  / mandatory_stmt
+  / min_elements_stmt
+  / max_elements_stmt
+
 deviate_delete_stmt
   = deviate_keyword sep delete_keyword optsep (";" / "{" stmtsep deviate_delete_stmt_ "}")
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 deviate_delete_stmt_
-  = (units_stmt stmtsep)? (must_stmt stmtsep)* (unique_stmt stmtsep)* (default_stmt stmtsep)?
+  = (deviate_delete_stmt__ stmtsep)*
 
-// CHANGE break apart
+deviate_delete_stmt__
+  = units_stmt
+  / must_stmt
+  / unique_stmt
+  / default_stmt
+
 deviate_replace_stmt
   = deviate_keyword sep replace_keyword optsep (";" / "{" stmtsep deviate_replace_stmt_ "}")
 
 // these stmts can appear in any order
+// CHANGE don't check arity
 deviate_replace_stmt_
-  = (type_stmt stmtsep)? (units_stmt stmtsep)? (default_stmt stmtsep)? (config_stmt stmtsep)? (mandatory_stmt stmtsep)? (min_elements_stmt stmtsep)? (max_elements_stmt stmtsep)?
+  = (deviate_replace_stmt__ stmtsep)*
+
+deviate_replace_stmt__
+  = type_stmt
+  / units_stmt
+  / default_stmt
+  / config_stmt
+  / mandatory_stmt
+  / min_elements_stmt
+  / max_elements_stmt
 
 // Ranges
 
 range_arg_str
   = "\"" range_arg "\""
+  / "'" range_arg "'"
+  / range_arg
 
 range_arg
   = range_part (optsep "|" optsep range_part)*
@@ -674,6 +1013,8 @@ range_boundary
 
 length_arg_str
   = "\"" length_arg "\""
+  / "'" length_arg "'"
+  / length_arg
 
 length_arg
   = length_part (optsep "|" optsep length_part)*
@@ -690,9 +1031,11 @@ length_boundary
 
 date_arg_str
   = "\"" date_arg "\""
+  / "'" date_arg "'"
+  / date_arg
 
 date_arg
-  = DIGIT DIGIT DIGIT DIGIT "-" DIGIT DIGIT "-" DIGIT DIGIT
+  = $(DIGIT DIGIT DIGIT DIGIT "-" DIGIT DIGIT "-" DIGIT DIGIT)
 
 // Schema Node Identifiers
 
@@ -727,6 +1070,8 @@ pos
 
 path_arg_str
   = "\"" path_arg "\""
+  / "'" path_arg "'"
+  / path_arg
 
 path_arg
   = absolute_path
@@ -925,6 +1270,8 @@ current_function_invocation
 
 prefix_arg_str
   = "\"" prefix_arg "\""
+  / "'" prefix_arg "'"
+  / prefix_arg
 
 prefix_arg
   = prefix
@@ -932,26 +1279,35 @@ prefix_arg
 prefix
   = identifier
 
-// CHANGE this rule should NOT be wrapped in quotes
 identifier_arg_str
-  = identifier_arg
+  = "\"" identifier_arg "\""
+  / "'" identifier_arg "'"
+  / identifier_arg
 
 identifier_arg
   = identifier
 
 // An identifier MUST NOT start with (('X'|'x') ('M'|'m') ('L'|'l'))
 identifier
-  = (ALPHA / "_") (ALPHA / DIGIT / "_" / "-" / ".")*
+  = $((ALPHA / "_") (ALPHA / DIGIT / "_" / "-" / ".")*)
 
 identifier_ref_arg_str
   = "\"" identifier_ref_arg "\""
+  / "'" identifier_ref_arg "'"
+  / identifier_ref_arg
 
 identifier_ref_arg
   = (prefix ":")? identifier
 
-// CHANGE restrict to non " chars
+// CHANGE restrict to non-quote or non-space chars
+// CHANGE allow multiline strings, concatenated by +
 string
-  = "\"" [^"]* "\""
+  = string_
+  / $([^ ]+)
+
+string_
+  = "\"" $([^"]*) "\"" (optsep "+" optsep string_)*
+  / "'" $([^']*) "'" (optsep "+" optsep string_)*
 
 integer_value
   = "-" non_negative_integer_value
@@ -962,10 +1318,10 @@ non_negative_integer_value
   / positive_integer_value
 
 positive_integer_value
-  = non_zero_digit DIGIT*
+  = $(non_zero_digit DIGIT*)
 
 zero_integer_value
-  = DIGIT+
+  = $(DIGIT+)
 
 stmtend
   = ";"
