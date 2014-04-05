@@ -8,7 +8,6 @@
  * - *_str rules are optionally wrapped in quotes
  * - comments are not allowed
  * - doesn't check for arity of statements where "these stmts can appear in any order"
- * - doesn't support extensions
  *
  * @append ietf/rfc3986-uri.pegjs
  * @append ietf/rfc5234-core-abnf.pegjs
@@ -837,10 +836,10 @@ augment_arg
   = absolute_schema_nodeid
 
 unknown_statement
-  = prefix ":" identifier [sep string] optsep (";" / "{" *unknown_statement2 "}")
+  = prefix ":" identifier (sep string)? optsep (";" / "{" unknown_statement2* "}")
 
 unknown_statement2
-  = [prefix ":"] identifier [sep string] optsep (";" / "{" *unknown_statement2 "}")
+  = (prefix ":")? identifier (sep string)? optsep (";" / "{" unknown_statement2* "}")
 
 when_stmt
   = when_keyword sep string optsep (";" / "{" stmtsep when_stmt_ "}")
@@ -1057,7 +1056,7 @@ node_identifier
 // Instance Identifiers
 
 instance_identifier
-  = ("/" (node_identifier *predicate))+
+  = ("/" (node_identifier predicate*))+
 
 predicate
   = "[" WSP* (predicate_expr / pos) WSP* "]"
@@ -1080,7 +1079,7 @@ path_arg
   / relative_path
 
 absolute_path
-  = ("/" (node_identifier *path_predicate))+
+  = ("/" (node_identifier path_predicate*))+
 
 relative_path
   = (".." "/")+ descendant_path
@@ -1098,7 +1097,7 @@ path_key_expr
   = current_function_invocation WSP* "/" WSP* rel_path_keyexpr
 
 rel_path_keyexpr
-  = (".." *WSP "/" *WSP)+ (node_identifier WSP* "/" WSP*)* node_identifier
+  = (".." WSP* "/" WSP*)+ (node_identifier WSP* "/" WSP*)* node_identifier
 
 // Keywords, using abnfgen's syntax for case_sensitive strings
 
@@ -1266,7 +1265,7 @@ user_keyword
   = "user"
 
 current_function_invocation
-  = current_keyword *WSP "(" *WSP ")"
+  = current_keyword WSP* "(" WSP* ")"
 
 // Basic Rules
 
@@ -1336,8 +1335,9 @@ sep
 optsep
   = $(WSP / line_break)*
 
+// CHANGE DRY
 stmtsep
-  = $(WSP / line_break / unknown_statement)*
+  = optsep (unknown_statement optsep)*
 
 line_break
   = CRLF
