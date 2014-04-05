@@ -1112,7 +1112,7 @@ augment_keyword
 base_keyword
   = "base"
 belongs_to_keyword
-  = "belongs_to"
+  = "belongs-to"
 bit_keyword
   = "bit"
 case_keyword
@@ -1132,9 +1132,9 @@ description_keyword
 enum_keyword
   = "enum"
 error_app_tag_keyword
-  = "error_app_tag"
+  = "error-app-tag"
 error_message_keyword
-  = "error_message"
+  = "error-message"
 extension_keyword
   = "extension"
 deviation_keyword
@@ -1144,13 +1144,13 @@ deviate_keyword
 feature_keyword
   = "feature"
 fraction_digits_keyword
-  = "fraction_digits"
+  = "fraction-digits"
 grouping_keyword
   = "grouping"
 identity_keyword
   = "identity"
 if_feature_keyword
-  = "if_feature"
+  = "if-feature"
 import_keyword
   = "import"
 include_keyword
@@ -1162,7 +1162,7 @@ key_keyword
 leaf_keyword
   = "leaf"
 leaf_list_keyword
-  = "leaf_list"
+  = "leaf-list"
 length_keyword
   = "length"
 list_keyword
@@ -1170,9 +1170,9 @@ list_keyword
 mandatory_keyword
   = "mandatory"
 max_elements_keyword
-  = "max_elements"
+  = "max-elements"
 min_elements_keyword
-  = "min_elements"
+  = "min-elements"
 module_keyword
   = "module"
 must_keyword
@@ -1182,7 +1182,7 @@ namespace_keyword
 notification_keyword
   = "notification"
 ordered_by_keyword
-  = "ordered_by"
+  = "ordered-by"
 organization_keyword
   = "organization"
 output_keyword
@@ -1204,11 +1204,11 @@ reference_keyword
 refine_keyword
   = "refine"
 require_instance_keyword
-  = "require_instance"
+  = "require-instance"
 revision_keyword
   = "revision"
 revision_date_keyword
-  = "revision_date"
+  = "revision-date"
 rpc_keyword
   = "rpc"
 status_keyword
@@ -1230,9 +1230,9 @@ value_keyword
 when_keyword
   = "when"
 yang_version_keyword
-  = "yang_version"
+  = "yang-version"
 yin_element_keyword
-  = "yin_element"
+  = "yin-element"
 
 // other keywords
 
