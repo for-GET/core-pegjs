@@ -1331,13 +1331,13 @@ stmtend
 
 // unconditional separator
 sep
-  = (WSP / line_break)+
+  = $(WSP / line_break)+
 
 optsep
-  = (WSP / line_break)*
+  = $(WSP / line_break)*
 
 stmtsep
-  = (WSP / line_break / unknown_statement)*
+  = $(WSP / line_break / unknown_statement)*
 
 line_break
   = CRLF
