@@ -105,8 +105,8 @@ namespace_stmt
   = namespace_keyword sep uri_str optsep stmtend
 
 uri_str
-  = "\"" URI "\""
-  / "'" URI "'"
+  = DQUOTE URI DQUOTE
+  / SQUOTE URI SQUOTE
   / URI
 
 prefix_stmt
@@ -163,8 +163,8 @@ yin_element_stmt
   = yin_element_keyword sep yin_element_arg_str stmtend
 
 yin_element_arg_str
-  = "\"" yin_element_arg "\""
-  / "'" yin_element_arg "'"
+  = DQUOTE yin_element_arg DQUOTE
+  / SQUOTE yin_element_arg SQUOTE
   / yin_element_arg
 
 yin_element_arg
@@ -268,8 +268,8 @@ fraction_digits_stmt
   = fraction_digits_keyword sep fraction_digits_arg_str stmtend
 
 fraction_digits_arg_str
-  = "\"" fraction_digits_arg "\""
-  / "'" fraction_digits_arg "'"
+  = DQUOTE fraction_digits_arg DQUOTE
+  / SQUOTE fraction_digits_arg SQUOTE
   / fraction_digits_arg
 
 // CHANGE simplify ranges
@@ -331,8 +331,8 @@ require_instance_stmt
   = require_instance_keyword sep require_instance_arg_str stmtend
 
 require_instance_arg_str
-  = "\"" require_instance_arg "\""
-  / "'" require_instance_arg "'"
+  = DQUOTE require_instance_arg DQUOTE
+  / SQUOTE require_instance_arg SQUOTE
   / require_instance_arg
 
 require_instance_arg
@@ -363,8 +363,8 @@ position_stmt
   = position_keyword sep position_value_arg_str stmtend
 
 position_value_arg_str
-  = "\"" position_value_arg "\""
-  / "'" position_value_arg "'"
+  = DQUOTE position_value_arg DQUOTE
+  / SQUOTE position_value_arg SQUOTE
   / position_value_arg
 
 position_value_arg
@@ -374,8 +374,8 @@ status_stmt
   = status_keyword sep status_arg_str stmtend
 
 status_arg_str
-  = "\"" status_arg "\""
-  / "'" status_arg "'"
+  = DQUOTE status_arg DQUOTE
+  / SQUOTE status_arg SQUOTE
   / status_arg
 
 status_arg
@@ -387,8 +387,8 @@ config_stmt
   = config_keyword sep config_arg_str stmtend
 
 config_arg_str
-  = "\"" config_arg "\""
-  / "'" config_arg "'"
+  = DQUOTE config_arg DQUOTE
+  / SQUOTE config_arg SQUOTE
   / config_arg
 
 config_arg
@@ -399,8 +399,8 @@ mandatory_stmt
   = mandatory_keyword sep mandatory_arg_str stmtend
 
 mandatory_arg_str
-  = "\"" mandatory_arg "\""
-  / "'" mandatory_arg "'"
+  = DQUOTE mandatory_arg DQUOTE
+  / SQUOTE mandatory_arg SQUOTE
   / mandatory_arg
 
 mandatory_arg
@@ -414,8 +414,8 @@ ordered_by_stmt
   = ordered_by_keyword sep ordered_by_arg_str stmtend
 
 ordered_by_arg_str
-  = "\"" ordered_by_arg "\""
-  / "'" ordered_by_arg "'"
+  = DQUOTE ordered_by_arg DQUOTE
+  / SQUOTE ordered_by_arg SQUOTE
   / ordered_by_arg
 
 ordered_by_arg
@@ -446,8 +446,8 @@ min_elements_stmt
   = min_elements_keyword sep min_value_arg_str stmtend
 
 min_value_arg_str
-  = "\"" min_value_arg "\""
-  / "'" min_value_arg "'"
+  = DQUOTE min_value_arg DQUOTE
+  / SQUOTE min_value_arg SQUOTE
   / min_value_arg
 
 min_value_arg
@@ -457,8 +457,8 @@ max_elements_stmt
   = max_elements_keyword sep max_value_arg_str stmtend
 
 max_value_arg_str
-  = "\"" max_value_arg "\""
-  / "'" max_value_arg "'"
+  = DQUOTE max_value_arg DQUOTE
+  / SQUOTE max_value_arg SQUOTE
   / max_value_arg
 
 max_value_arg
@@ -469,8 +469,8 @@ value_stmt
   = value_keyword sep integer_value_arg_str stmtend
 
 integer_value_arg_str
-  = "\"" integer_value_arg "\""
-  / "'" integer_value_arg "'"
+  = DQUOTE integer_value_arg DQUOTE
+  / SQUOTE integer_value_arg SQUOTE
   / integer_value_arg
 
 integer_value_arg
@@ -585,8 +585,8 @@ key_stmt
   = key_keyword sep key_arg_str stmtend
 
 key_arg_str
-  = "\"" key_arg "\""
-  / "'" key_arg "'"
+  = DQUOTE key_arg DQUOTE
+  / SQUOTE key_arg SQUOTE
   / key_arg
 
 key_arg
@@ -596,8 +596,8 @@ unique_stmt
   = unique_keyword sep unique_arg_str stmtend
 
 unique_arg_str
-  = "\"" unique_arg "\""
-  / "'" unique_arg "'"
+  = DQUOTE unique_arg DQUOTE
+  / SQUOTE unique_arg SQUOTE
   / unique_arg
 
 unique_arg
@@ -694,8 +694,8 @@ refine_stmt_
   / refine_anyxml_stmts
 
 refine_arg_str
-  = "\"" refine_arg "\""
-  / "'" refine_arg "'"
+  = DQUOTE refine_arg DQUOTE
+  / SQUOTE refine_arg SQUOTE
   / refine_arg
 
 refine_arg
@@ -803,8 +803,8 @@ uses_augment_stmt__
   / case_stmt
 
 uses_augment_arg_str
-  = "\"" uses_augment_arg "\""
-  / "'" uses_augment_arg "'"
+  = DQUOTE uses_augment_arg DQUOTE
+  / SQUOTE uses_augment_arg SQUOTE
   / uses_augment_arg
 
 uses_augment_arg
@@ -828,8 +828,8 @@ augment_stmt__
   / case_stmt
 
 augment_arg_str
-  = "\"" augment_arg "\""
-  / "'" augment_arg "'"
+  = DQUOTE augment_arg DQUOTE
+  / SQUOTE augment_arg SQUOTE
   / augment_arg
 
 augment_arg
@@ -931,8 +931,8 @@ deviation_stmt__
   / deviate_delete_stmt
 
 deviation_arg_str
-  = "\"" deviation_arg "\""
-  / "'" deviation_arg "'"
+  = DQUOTE deviation_arg DQUOTE
+  / SQUOTE deviation_arg SQUOTE
   / deviation_arg
 
 deviation_arg
@@ -994,8 +994,8 @@ deviate_replace_stmt__
 // Ranges
 
 range_arg_str
-  = "\"" range_arg "\""
-  / "'" range_arg "'"
+  = DQUOTE range_arg DQUOTE
+  / SQUOTE range_arg SQUOTE
   / range_arg
 
 range_arg
@@ -1013,8 +1013,8 @@ range_boundary
 // Lengths
 
 length_arg_str
-  = "\"" length_arg "\""
-  / "'" length_arg "'"
+  = DQUOTE length_arg DQUOTE
+  / SQUOTE length_arg SQUOTE
   / length_arg
 
 length_arg
@@ -1031,8 +1031,8 @@ length_boundary
 // Date
 
 date_arg_str
-  = "\"" date_arg "\""
-  / "'" date_arg "'"
+  = DQUOTE date_arg DQUOTE
+  / SQUOTE date_arg SQUOTE
   / date_arg
 
 date_arg
@@ -1070,8 +1070,8 @@ pos
 // leafref path
 
 path_arg_str
-  = "\"" path_arg "\""
-  / "'" path_arg "'"
+  = DQUOTE path_arg DQUOTE
+  / SQUOTE path_arg SQUOTE
   / path_arg
 
 path_arg
@@ -1270,8 +1270,8 @@ current_function_invocation
 // Basic Rules
 
 prefix_arg_str
-  = "\"" prefix_arg "\""
-  / "'" prefix_arg "'"
+  = DQUOTE prefix_arg DQUOTE
+  / SQUOTE prefix_arg SQUOTE
   / prefix_arg
 
 prefix_arg
@@ -1281,8 +1281,8 @@ prefix
   = identifier
 
 identifier_arg_str
-  = "\"" identifier_arg "\""
-  / "'" identifier_arg "'"
+  = DQUOTE identifier_arg DQUOTE
+  / SQUOTE identifier_arg SQUOTE
   / identifier_arg
 
 identifier_arg
@@ -1293,8 +1293,8 @@ identifier
   = $((ALPHA / "_") (ALPHA / DIGIT / "_" / "-" / ".")*)
 
 identifier_ref_arg_str
-  = "\"" identifier_ref_arg "\""
-  / "'" identifier_ref_arg "'"
+  = DQUOTE identifier_ref_arg DQUOTE
+  / SQUOTE identifier_ref_arg SQUOTE
   / identifier_ref_arg
 
 identifier_ref_arg
@@ -1307,8 +1307,8 @@ string
   / $([^ ]+)
 
 string_
-  = "\"" $([^"]*) "\"" (optsep "+" optsep string_)*
-  / "'" $([^']*) "'" (optsep "+" optsep string_)*
+  = DQUOTE $([^"]*) DQUOTE (optsep "+" optsep string_)*
+  / SQUOTE $([^']*) SQUOTE (optsep "+" optsep string_)*
 
 integer_value
   = "-" non_negative_integer_value
