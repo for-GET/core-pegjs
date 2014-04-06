@@ -1373,18 +1373,20 @@ optsep
 // CHANGE DRY optsep
 // CHANGE allow comments
 stmtsep
-  = optsep stmtsep_*
+  = optsep (comment_ / unknown_statement)*
 
-stmtsep_
-  = single_line_comment_
-  / multi_line_comment_
-  / unknown_statement optsep
+stmtsep_no_stmt_
+  = optsep comment_*
+
+comment_
+  = single_line_comment_ optsep
+  / multi_line_comment_ optsep
 
 single_line_comment_
-  = "//" $(!line_break .)* line_break optsep
+  = "//" $(!line_break .)* line_break
 
 multi_line_comment_
-  = "/*" $(!"*/" .)+ "*/" optsep
+  = "/*" $(!"*/" .)+ "*/"
 
 line_break
   = CRLF
