@@ -6,7 +6,7 @@
  * Limitations & cleanup
  * - included errata
  * - *_str rules are optionally wrapped in quotes
- * - doesn't check for arity of statements where "these stmts can appear in any order"
+ * - doesn't check for repetition count of statements where "these stmts can appear in any order"
  *
  * @append ietf/rfc3986-uri.pegjs
  * @append ietf/rfc5234-core-abnf.pegjs
@@ -19,7 +19,7 @@ submodule_stmt
   = optsep submodule_keyword sep identifier_arg_str optsep "{" stmtsep submodule_header_stmts linkage_stmts meta_stmts revision_stmts body_stmts "}" optsep
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 module_header_stmts
   = (module_header_stmt_ stmtsep)*
 
@@ -29,7 +29,7 @@ module_header_stmt_
   / prefix_stmt
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 submodule_header_stmts
   = (submodule_header_stmt_ stmtsep)*
 
@@ -38,7 +38,7 @@ submodule_header_stmt_
   / belongs_to_stmt
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 meta_stmts
   = (meta_stmt_ stmtsep)*
 
@@ -49,7 +49,7 @@ meta_stmt_
   / reference_stmt
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 linkage_stmts
   = (linkage_stmt_ stmtsep)*
 
@@ -133,7 +133,7 @@ revision_stmt
   = revision_keyword sep revision_date optsep (";" / "{" stmtsep revision_stmt_subs_ "}")
 
 // CHANGE order doesn't matter
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 revision_stmt_subs_
   = (revision_stmt_sub_ stmtsep)*
 
@@ -151,7 +151,7 @@ extension_stmt
   = extension_keyword sep identifier_arg_str optsep (";" / "{" stmtsep extension_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 extension_stmt_subs_
   = (extension_stmt_sub_ stmtsep)*
 
@@ -180,7 +180,7 @@ identity_stmt
   = identity_keyword sep identifier_arg_str optsep (";" / "{" stmtsep identity_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 identity_stmt_subs_
   = (identity_stmt_sub_ stmtsep)*
 
@@ -197,7 +197,7 @@ feature_stmt
   = feature_keyword sep identifier_arg_str optsep (";" / "{" stmtsep feature_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 feature_stmt_subs_
   = (feature_stmt_sub_ stmtsep)*
 
@@ -214,7 +214,7 @@ typedef_stmt
   = typedef_keyword sep identifier_arg_str optsep "{" stmtsep typedef_stmt_subs_ "}"
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 typedef_stmt_subs_
   = (typedef_stmt_sub_ stmtsep)*
 
@@ -255,7 +255,7 @@ range_stmt
   = range_keyword sep range_arg_str optsep (";" / "{" stmtsep range_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 range_stmt_subs_
   = (range_stmt_sub_ stmtsep)*
 
@@ -284,7 +284,7 @@ fraction_digits_arg
 
 // these stmts can appear in any order
 // CHANGE required
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 string_restrictions
   = (string_restriction_ stmtsep)+
 
@@ -296,7 +296,7 @@ length_stmt
   = length_keyword sep length_arg_str optsep (";" / "{" stmtsep length_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 length_stmt_subs_
   = (length_stmt_sub_ stmtsep)*
 
@@ -310,7 +310,7 @@ pattern_stmt
   = pattern_keyword sep string optsep (";" / "{" stmtsep pattern_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 pattern_stmt_subs_
   = (pattern_stmt_sub_ stmtsep)*
 
@@ -330,7 +330,7 @@ enum_stmt
   = enum_keyword sep string optsep (";" / "{" stmtsep enum_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 enum_stmt_subs_
   = (enum_stmt_sub_ stmtsep)*
 
@@ -375,7 +375,7 @@ bit_stmt
   = bit_keyword sep identifier_arg_str optsep (";" / "{" stmtsep bit_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 bit_stmt_subs_
   = (bit_stmt_sub_ stmtsep)*
 
@@ -452,7 +452,7 @@ must_stmt
   = must_keyword sep string optsep (";" / "{" stmtsep must_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 must_stmt_subs_
   = (must_stmt_sub_ stmtsep)*
 
@@ -506,7 +506,7 @@ grouping_stmt
   = grouping_keyword sep identifier_arg_str optsep (";" / "{" stmtsep grouping_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 grouping_stmt_subs_
   = (grouping_stmt_sub_ stmtsep)*
 
@@ -522,7 +522,7 @@ container_stmt
   = container_keyword sep identifier_arg_str optsep (";" / "{" stmtsep container_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 container_stmt_subs_
   = (container_stmt_sub_ stmtsep)*
 
@@ -543,7 +543,7 @@ leaf_stmt
   = leaf_keyword sep identifier_arg_str optsep "{" stmtsep leaf_stmt_subs_ "}"
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 leaf_stmt_subs_
   = (leaf_stmt_sub_ stmtsep)*
 
@@ -564,7 +564,7 @@ leaf_list_stmt
   = leaf_list_keyword sep identifier_arg_str optsep "{" stmtsep leaf_list_stmt_subs_ "}"
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 leaf_list_stmt_subs_
   = (leaf_list_stmt_sub_ stmtsep)*
 
@@ -586,7 +586,7 @@ list_stmt
   = list_keyword sep identifier_arg_str optsep "{" stmtsep list_stmt_subs_ "}"
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 list_stmt_subs_
   = (list_stmt_sub_ stmtsep)*
 
@@ -633,7 +633,7 @@ choice_stmt
   = choice_keyword sep identifier_arg_str optsep (";" / "{" stmtsep choice_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 choice_stmt_subs_
   = (choice_stmt_sub_ stmtsep)*
 
@@ -660,7 +660,7 @@ case_stmt
   = case_keyword sep identifier_arg_str optsep (";" / "{" stmtsep case_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 case_stmt_subs_
   = (case_stmt_sub_ stmtsep)*
 
@@ -676,7 +676,7 @@ anyxml_stmt
   = anyxml_keyword sep identifier_arg_str optsep (";" / "{" stmtsep anyxml_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 anyxml_stmt_subs_
   = (anyxml_stmt_sub_ stmtsep)*
 
@@ -694,7 +694,7 @@ uses_stmt
   = uses_keyword sep identifier_ref_arg_str optsep (";" / "{" stmtsep uses_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 uses_stmt_subs_
   = (uses_stmt_sub_ stmtsep)*
 
@@ -728,7 +728,7 @@ refine_arg
   = descendant_schema_nodeid
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 refine_container_stmts
   = (refine_container_stmt_ stmtsep)*
 
@@ -740,7 +740,7 @@ refine_container_stmt_
   / reference_stmt
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 refine_leaf_stmts
   = (refine_leaf_stmt_ stmtsep)*
 
@@ -753,7 +753,7 @@ refine_leaf_stmt_
   / reference_stmt
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 refine_leaf_list_stmts
   = (refine_leaf_list_stmt_ stmtsep)*
 
@@ -766,7 +766,7 @@ refine_leaf_list_stmt_
   / reference_stmt
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 refine_list_stmts
   = (refine_list_stmt_ stmtsep)*
 
@@ -779,7 +779,7 @@ refine_list_stmt_
   / reference_stmt
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 refine_choice_stmts
   = (refine_choice_stmt_ stmtsep)*
 
@@ -791,7 +791,7 @@ refine_choice_stmt_
   / reference_stmt
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 refine_case_stmts
   = (refine_case_stmt_ stmtsep)*
 
@@ -800,7 +800,7 @@ refine_case_stmt_
   / reference_stmt
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 refine_anyxml_stmts
   = (refine_anyxml_stmt_ stmtsep)*
 
@@ -815,7 +815,7 @@ uses_augment_stmt
   = augment_keyword sep uses_augment_arg_str optsep "{" stmtsep uses_augment_stmt_subs_ "}"
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 uses_augment_stmt_subs_
   = (uses_augment_stmt_sub_ stmtsep)*
 
@@ -840,7 +840,7 @@ augment_stmt
   = augment_keyword sep augment_arg_str optsep "{" stmtsep augment_stmt_subs_ "}"
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 augment_stmt_subs_
   = (augment_stmt_sub_ stmtsep)*
 
@@ -871,7 +871,7 @@ when_stmt
   = when_keyword sep string optsep (";" / "{" stmtsep when_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 when_stmt_subs_
   = (when_stmt_sub_ stmtsep)*
 
@@ -883,7 +883,7 @@ rpc_stmt
   = rpc_keyword sep identifier_arg_str optsep (";" / "{" stmtsep rpc_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 rpc_stmt_subs_
   = (rpc_stmt_sub_ stmtsep)*
 
@@ -901,7 +901,7 @@ input_stmt
   = input_keyword optsep "{" stmtsep input_stmt_subs_ "}"
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 input_stmt_subs_
   = (input_stmt_sub_ stmtsep)*
 
@@ -914,7 +914,7 @@ output_stmt
   = output_keyword optsep "{" stmtsep output_stmt_subs_ "}"
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 output_stmt_subs_
   = (output_stmt_sub_ stmtsep)*
 
@@ -927,7 +927,7 @@ notification_stmt
   = notification_keyword sep identifier_arg_str optsep (";" / "{" stmtsep notification_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 notification_stmt_subs_
   = (notification_stmt_sub_ stmtsep)*
 
@@ -944,7 +944,7 @@ deviation_stmt
   = deviation_keyword sep deviation_arg_str optsep "{" stmtsep deviation_stmt_subs_ "}"
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 deviation_stmt_subs_
   = (deviation_stmt_sub_ stmtsep)*
 
@@ -972,7 +972,7 @@ deviate_add_stmt
   = deviate_keyword sep add_keyword optsep (";" / "{" stmtsep deviate_add_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 deviate_add_stmt_subs_
   = (deviate_add_stmt_sub_ stmtsep)*
 
@@ -990,7 +990,7 @@ deviate_delete_stmt
   = deviate_keyword sep delete_keyword optsep (";" / "{" stmtsep deviate_delete_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 deviate_delete_stmt_subs_
   = (deviate_delete_stmt_sub_ stmtsep)*
 
@@ -1004,7 +1004,7 @@ deviate_replace_stmt
   = deviate_keyword sep replace_keyword optsep (";" / "{" stmtsep deviate_replace_stmt_subs_ "}")
 
 // these stmts can appear in any order
-// CHANGE don't check arity
+// CHANGE don't check repetition count
 deviate_replace_stmt_subs_
   = (deviate_replace_stmt_sub_ stmtsep)*
 
