@@ -1331,7 +1331,8 @@ identifier_ref_arg_str
 identifier_ref_arg
   = (prefix ":")? identifier
 
-// CHANGE restrict to non-quote or non-space chars
+// CHANGE restrict quoted to non-quote (even escaped)
+// CHANGE restrict unquoted without space, semicolon, open curly bracket
 // CHANGE allow multiline strings, concatenated by +
 string
   = string_quoted_
@@ -1342,7 +1343,7 @@ string_quoted_
   / SQUOTE $[^']* SQUOTE (optsep "+" optsep string_quoted_)*
 
 string_unquoted_
-  = $[^ ]+
+  = $[^ ;{]+
 
 integer_value
   = "-" non_negative_integer_value
