@@ -8,6 +8,7 @@
  * - *_str rules are optionally wrapped in quotes
  * - doesn't check for repetition count of statements where "these stmts can appear in any order"
  *
+ * @append ietf/rfc6020-yang-generic.pegjs
  * @append ietf/rfc3986-uri.pegjs
  * @append ietf/rfc5234-core-abnf.pegjs
  */
@@ -861,13 +862,9 @@ augment_arg_str
 augment_arg
   = absolute_schema_nodeid
 
-// CHANGE allow stmtsep before and after
-unknown_statement
-  = prefix ":" identifier (sep string)? optsep (";" / "{" stmtsep_no_stmt_ (unknown_statement2 stmtsep_no_stmt_)* "}") optsep
-
-// CHANGE allow stmtsep before and after
-unknown_statement2
-  = (prefix ":")? identifier (sep string)? optsep (";" / "{" stmtsep_no_stmt_ (unknown_statement2 stmtsep_no_stmt_)* "}") optsep
+// CHANGED moved to yang-generic
+// unknown_statement
+// unknown_statement2
 
 when_stmt
   = when_keyword sep string optsep (";" / "{" stmtsep when_stmt_subs_ "}")
@@ -1304,8 +1301,8 @@ prefix_arg_str
 prefix_arg
   = prefix
 
-prefix
-  = identifier
+// CHANGED moved to yang-generic
+// prefix
 
 identifier_arg_str
   = DQUOTE identifier_arg DQUOTE
@@ -1315,13 +1312,8 @@ identifier_arg_str
 identifier_arg
   = identifier
 
-// An identifier MUST NOT start with (('X'|'x') ('M'|'m') ('L'|'l'))
-// CHANGE added grammar to check for xml prefix
-identifier
-  = $(!identifier_xml_ (ALPHA / "_") (ALPHA / DIGIT / "_" / "-" / ".")*)
-
-identifier_xml_
-  = [Xx][Mm][Ll]
+// CHANGED moved to yang-generic
+// identifier
 
 identifier_ref_arg_str
   = DQUOTE identifier_ref_arg DQUOTE
@@ -1331,19 +1323,8 @@ identifier_ref_arg_str
 identifier_ref_arg
   = (prefix ":")? identifier
 
-// CHANGE restrict quoted to non-quote (even escaped)
-// CHANGE restrict unquoted without space, semicolon, open curly bracket
-// CHANGE allow multiline strings, concatenated by +
-string
-  = string_quoted_
-  / string_unquoted_
-
-string_quoted_
-  = DQUOTE $[^"]* DQUOTE (optsep "+" optsep string_quoted_)*
-  / SQUOTE $[^']* SQUOTE (optsep "+" optsep string_quoted_)*
-
-string_unquoted_
-  = $[^ ;{]+
+// CHANGED moved to yang-generic
+// string
 
 integer_value
   = "-" non_negative_integer_value
@@ -1363,34 +1344,11 @@ stmtend
   = ";"
   / "{" unknown_statement* "}"
 
-// unconditional separator
-sep
-  = $(WSP / line_break)+
-
-optsep
-  = $(WSP / line_break)*
-
-// CHANGE DRY optsep
-// CHANGE allow comments
-stmtsep
-  = optsep (comment_ / unknown_statement)*
-
-stmtsep_no_stmt_
-  = optsep comment_*
-
-comment_
-  = single_line_comment_ optsep
-  / multi_line_comment_ optsep
-
-single_line_comment_
-  = "//" $(!line_break .)* line_break
-
-multi_line_comment_
-  = "/*" $(!"*/" .)+ "*/"
-
-line_break
-  = CRLF
-  / LF
+// CHANGED moved to yang-generic
+// sep
+// optsep
+// stmtsep
+// line_break
 
 non_zero_digit
   = [1-9]
@@ -1398,6 +1356,5 @@ non_zero_digit
 decimal_value
   = integer_value ("." zero_integer_value)
 
-// ' (Single Quote)
-SQUOTE
-  = "'"
+// CHANGED moved to yang-generic
+// SQUOTE
