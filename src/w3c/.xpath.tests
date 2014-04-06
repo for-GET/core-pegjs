@@ -1,0 +1,52 @@
+/html/head/title/text()
+/html/head/meta[2]/@content
+/html/body/div[@id='first']/@class
+/html/body/div[contains(concat(' ', @class, ' '), ' cd ')]/text()
+/html/body/form/input[@name='id3']/@value
+/html/body/*/input[@name='id3']/@value
+/html/head/title/text() = 'Title'
+/html/head[non_existent/no_existent]/title/text()
+/html/body/*/input[position() = 3]/@value
+/html/body/*/input[position() > 3]/@value
+/html/body/*/input[@type='hidden']/@value
+/html/body/*/input[@type='hidden'][last()]/@value
+/html/body/*/input[@type='hidden'][position()>1]/@value
+string(//div[@class='normal']/cite)
+name(/html/body/*/input[@type='hidden'][@name="id1"]/..)
+name(/html/body/*/input[@type='hidden'][@name="id1"]/../..)
+name(/html/body/*/input[@type='hidden'][@name="id1"]/../../..)
+/html/body/*/input[position() = 3]/@value
+/html/head/title/text() | /html/body/h1/text()
+/html/body/div/img[contains(@src, 'broken')]/@src
+concat(//div[@id='last']/@class, 'txt1', 2)
+not(1=2)
+not(1=1)
+not(/html/head/title)
+not(/html/blablabla)
+not('123')
+-1
+-count(/html/*)
+count(/html/body/form/*)
+/html/body/form/@*
+/html/head/title
+/html/head/meta/@name
+count(/html/body/form/node())
+/html/body/ul[1]/li/text()
+/html/body/comment()
+/html/body/processing-instruction('php')
+/html/body/processing-instruction('erl')
+count(/html/body/ul/descendant::*)
+/html/body/div[@id='desc_or_self']/descendant::*
+count(/html/body/ul/descendant-or-self::*)
+/html/body/div[@id='desc_or_self']/descendant-or-self::*
+/html/body/div[@id='desc_or_self']/descendant-or-self::*/text()
+count(/html/body/ul/li/parent::*)
+/html/body/form/input/parent::form/@method
+count(/html/body/*/input[position() = 3]/following-sibling::*)
+/html/body/*/input[position() = 3]/following-sibling::input/@value
+/html/body/*/input[position() = 3]/following-sibling::*/@value
+count(/html/body/*/input[position() = 3]/preceding-sibling::*)
+/html/body/*/input[position() = 3]/preceding-sibling::input/@value
+/html/body/form/input[1]/attribute::*
+/html/body/form/input[1]/attribute::node()
+/html/body/form/input[1]/attribute::value
