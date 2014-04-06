@@ -861,11 +861,13 @@ augment_arg_str
 augment_arg
   = absolute_schema_nodeid
 
+// CHANGE allow stmtsep before and after
 unknown_statement
-  = prefix ":" identifier (sep string)? optsep (";" / "{" unknown_statement2* "}")
+  = prefix ":" identifier (sep string)? optsep (";" / "{" stmtsep_no_stmt_ (unknown_statement2 stmtsep_no_stmt_)* "}") optsep
 
+// CHANGE allow stmtsep before and after
 unknown_statement2
-  = (prefix ":")? identifier (sep string)? optsep (";" / "{" unknown_statement2* "}")
+  = (prefix ":")? identifier (sep string)? optsep (";" / "{" stmtsep_no_stmt_ (unknown_statement2 stmtsep_no_stmt_)* "}") optsep
 
 when_stmt
   = when_keyword sep string optsep (";" / "{" stmtsep when_stmt_subs_ "}")
