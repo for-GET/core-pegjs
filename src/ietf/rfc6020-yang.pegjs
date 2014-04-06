@@ -965,8 +965,7 @@ deviation_arg
   = absolute_schema_nodeid
 
 deviate_not_supported_stmt
-  = deviate_keyword sep not_supported_keyword optsep (";" / "{" stmtsep
-"}")
+  = deviate_keyword sep not_supported_keyword optsep (";" / "{" stmtsep "}")
 
 deviate_add_stmt
   = deviate_keyword sep add_keyword optsep (";" / "{" stmtsep deviate_add_stmt_subs_ "}")
