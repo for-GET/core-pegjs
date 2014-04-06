@@ -10,10 +10,12 @@
  */
 
 // CHANGE allow stmtsep before and after
+// CHANGE allow optsep after
 unknown_statement
   = prefix ":" identifier (sep string)? optsep (";" / "{" stmtsep_no_stmt_ (unknown_statement2 stmtsep_no_stmt_)* "}") optsep
 
 // CHANGE allow stmtsep before and after
+// CHANGE allow optsep after
 unknown_statement2
   = (prefix ":")? identifier (sep string)? optsep (";" / "{" stmtsep_no_stmt_ (unknown_statement2 stmtsep_no_stmt_)* "}") optsep
 
