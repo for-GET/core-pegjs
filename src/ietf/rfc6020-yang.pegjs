@@ -1316,8 +1316,12 @@ identifier_arg
   = identifier
 
 // An identifier MUST NOT start with (('X'|'x') ('M'|'m') ('L'|'l'))
+// CHANGE added grammar to check for xml prefix
 identifier
-  = $((ALPHA / "_") (ALPHA / DIGIT / "_" / "-" / ".")*)
+  = $(!identifier_xml_ (ALPHA / "_") (ALPHA / DIGIT / "_" / "-" / ".")*)
+
+identifier_xml_
+  = [Xx][Mm][Ll]
 
 identifier_ref_arg_str
   = DQUOTE identifier_ref_arg DQUOTE
