@@ -31,7 +31,7 @@ identifier_xml_
   = [Xx][Mm][Ll]
 
 // CHANGE restrict quoted to non-quote (even escaped)
-// CHANGE restrict unquoted without space, semicolon, open curly bracket
+// CHANGE restrict unquoted semicolon, open curly bracket
 // CHANGE allow multiline strings, concatenated by +
 string
   = string_quoted_
@@ -42,7 +42,7 @@ string_quoted_
   / SQUOTE $[^']* SQUOTE (optsep "+" optsep string_quoted_)*
 
 string_unquoted_
-  = $[^ ;{]+
+  = $[^;{]+
 
 // unconditional separator
 sep
