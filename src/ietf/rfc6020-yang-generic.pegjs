@@ -11,8 +11,9 @@
 
 // CHANGE allow stmtsep before and after
 // CHANGE allow optsep after
+// CHANGE group "prefix:" for action simplification
 unknown_statement
-  = prefix ":" identifier (sep string)? optsep (";" / "{" stmtsep_no_stmt_ (unknown_statement2 stmtsep_no_stmt_)* "}") optsep
+  = (prefix ":") identifier (sep string)? optsep (";" / "{" stmtsep_no_stmt_ (unknown_statement2 stmtsep_no_stmt_)* "}") optsep
 
 // CHANGE allow stmtsep before and after
 // CHANGE allow optsep after
@@ -30,8 +31,8 @@ identifier
 identifier_xml_
   = [Xx][Mm][Ll]
 
-// CHANGE restrict quoted to non-quote (even escaped)
-// CHANGE restrict unquoted semicolon, open curly bracket
+// CHANGE restrict quoted: no inner quote (even escaped)
+// CHANGE restrict unquoted: no inner quote, no semicolon, open curly bracket
 // CHANGE allow multiline strings, concatenated by +
 string
   = string_quoted_
@@ -42,7 +43,7 @@ string_quoted_
   / SQUOTE $[^']* SQUOTE (optsep "+" optsep string_quoted_)*
 
 string_unquoted_
-  = $[^;{]+
+  = $(!(sep [";{]) [^";{])+
 
 // unconditional separator
 sep

@@ -4,8 +4,8 @@
  * http://tools.ietf.org/html/rfc6020
  *
  * Limitations & cleanup
- * - included errata
- * - *_str rules are optionally wrapped in quotes
+ * - errata grammar is included
+ * - <*_str> rules do not allow concatenation (only <string> does)
  * - doesn't check for repetition count of statements where "these stmts can appear in any order"
  *
  * @append ietf/rfc6020-yang-generic.pegjs
