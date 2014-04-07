@@ -48,8 +48,9 @@ string_unquoted_
 sep
   = $(WSP / line_break)+
 
+// CHANGE accept comments as well
 optsep
-  = $(WSP / line_break)*
+  = $(WSP / line_break / comment_)*
 
 // CHANGE DRY optsep
 // CHANGE allow comments
