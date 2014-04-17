@@ -4,8 +4,7 @@
  * http://tools.ietf.org/html/rfc6020
  *
  * Limitations & cleanup
- * - errata grammar is included
- * - <*_str> rules do not allow concatenation (only <string> does)
+ * - included errata
  * - doesn't check for repetition count of statements where "these stmts can appear in any order"
  *
  * @append ietf/rfc6020-yang-generic.pegjs
@@ -89,7 +88,9 @@ yang_version_stmt
   = yang_version_keyword sep yang_version_arg_str optsep stmtend
 
 yang_version_arg_str
-  = yang_version_arg
+  = string_quoted_
+  { parse(text(), 'yang_version_arg'); return text(); }
+  / yang_version_arg
 
 yang_version_arg
   = "1"
@@ -105,8 +106,8 @@ namespace_stmt
   = namespace_keyword sep uri_str optsep stmtend
 
 uri_str
-  = DQUOTE URI DQUOTE
-  / SQUOTE URI SQUOTE
+  = string_quoted_
+  { parse(text(), 'URI') }
   / URI
 
 prefix_stmt
@@ -169,8 +170,8 @@ yin_element_stmt
   = yin_element_keyword sep yin_element_arg_str stmtend
 
 yin_element_arg_str
-  = DQUOTE yin_element_arg DQUOTE
-  / SQUOTE yin_element_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'yin_element_arg'); return text(); }
   / yin_element_arg
 
 yin_element_arg
@@ -274,8 +275,8 @@ fraction_digits_stmt
   = fraction_digits_keyword sep fraction_digits_arg_str stmtend
 
 fraction_digits_arg_str
-  = DQUOTE fraction_digits_arg DQUOTE
-  / SQUOTE fraction_digits_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'fraction_digits_arg'); return text(); }
   / fraction_digits_arg
 
 // CHANGE simplify ranges
@@ -351,8 +352,8 @@ require_instance_stmt
   = require_instance_keyword sep require_instance_arg_str stmtend
 
 require_instance_arg_str
-  = DQUOTE require_instance_arg DQUOTE
-  / SQUOTE require_instance_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'require_instance_arg'); return text(); }
   / require_instance_arg
 
 require_instance_arg
@@ -390,8 +391,8 @@ position_stmt
   = position_keyword sep position_value_arg_str stmtend
 
 position_value_arg_str
-  = DQUOTE position_value_arg DQUOTE
-  / SQUOTE position_value_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'position_value_arg'); return text(); }
   / position_value_arg
 
 position_value_arg
@@ -401,8 +402,8 @@ status_stmt
   = status_keyword sep status_arg_str stmtend
 
 status_arg_str
-  = DQUOTE status_arg DQUOTE
-  / SQUOTE status_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'status_arg'); return text(); }
   / status_arg
 
 status_arg
@@ -414,8 +415,8 @@ config_stmt
   = config_keyword sep config_arg_str stmtend
 
 config_arg_str
-  = DQUOTE config_arg DQUOTE
-  / SQUOTE config_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'config_arg'); return text(); }
   / config_arg
 
 config_arg
@@ -426,8 +427,8 @@ mandatory_stmt
   = mandatory_keyword sep mandatory_arg_str stmtend
 
 mandatory_arg_str
-  = DQUOTE mandatory_arg DQUOTE
-  / SQUOTE mandatory_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'mandatory_arg'); return text(); }
   / mandatory_arg
 
 mandatory_arg
@@ -441,8 +442,8 @@ ordered_by_stmt
   = ordered_by_keyword sep ordered_by_arg_str stmtend
 
 ordered_by_arg_str
-  = DQUOTE ordered_by_arg DQUOTE
-  / SQUOTE ordered_by_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'ordered_by_arg'); return text(); }
   / ordered_by_arg
 
 ordered_by_arg
@@ -473,8 +474,8 @@ min_elements_stmt
   = min_elements_keyword sep min_value_arg_str stmtend
 
 min_value_arg_str
-  = DQUOTE min_value_arg DQUOTE
-  / SQUOTE min_value_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'min_value_arg'); return text(); }
   / min_value_arg
 
 min_value_arg
@@ -484,8 +485,8 @@ max_elements_stmt
   = max_elements_keyword sep max_value_arg_str stmtend
 
 max_value_arg_str
-  = DQUOTE max_value_arg DQUOTE
-  / SQUOTE max_value_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'max_value_arg'); return text(); }
   / max_value_arg
 
 max_value_arg
@@ -496,8 +497,8 @@ value_stmt
   = value_keyword sep integer_value_arg_str stmtend
 
 integer_value_arg_str
-  = DQUOTE integer_value_arg DQUOTE
-  / SQUOTE integer_value_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'integer_value_arg'); return text(); }
   / integer_value_arg
 
 integer_value_arg
@@ -612,8 +613,8 @@ key_stmt
   = key_keyword sep key_arg_str stmtend
 
 key_arg_str
-  = DQUOTE key_arg DQUOTE
-  / SQUOTE key_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'key_arg'); return text(); }
   / key_arg
 
 key_arg
@@ -623,8 +624,8 @@ unique_stmt
   = unique_keyword sep unique_arg_str stmtend
 
 unique_arg_str
-  = DQUOTE unique_arg DQUOTE
-  / SQUOTE unique_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'unique_arg'); return text(); }
   / unique_arg
 
 unique_arg
@@ -721,8 +722,8 @@ refine_stmt_subs_
   / refine_anyxml_stmts
 
 refine_arg_str
-  = DQUOTE refine_arg DQUOTE
-  / SQUOTE refine_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'refine_arg'); return text(); }
   / refine_arg
 
 refine_arg
@@ -830,8 +831,8 @@ uses_augment_stmt_sub_
   / case_stmt
 
 uses_augment_arg_str
-  = DQUOTE uses_augment_arg DQUOTE
-  / SQUOTE uses_augment_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'uses_augment_arg'); return text(); }
   / uses_augment_arg
 
 uses_augment_arg
@@ -855,8 +856,8 @@ augment_stmt_sub_
   / case_stmt
 
 augment_arg_str
-  = DQUOTE augment_arg DQUOTE
-  / SQUOTE augment_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'augment_arg'); return text(); }
   / augment_arg
 
 augment_arg
@@ -956,8 +957,8 @@ deviation_stmt_sub_
   / deviate_delete_stmt
 
 deviation_arg_str
-  = DQUOTE deviation_arg DQUOTE
-  / SQUOTE deviation_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'deviation_arg'); return text(); }
   / deviation_arg
 
 deviation_arg
@@ -1018,8 +1019,8 @@ deviate_replace_stmt_sub_
 // Ranges
 
 range_arg_str
-  = DQUOTE range_arg DQUOTE
-  / SQUOTE range_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'range_arg'); return text(); }
   / range_arg
 
 range_arg
@@ -1037,8 +1038,8 @@ range_boundary
 // Lengths
 
 length_arg_str
-  = DQUOTE length_arg DQUOTE
-  / SQUOTE length_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'length_arg'); return text(); }
   / length_arg
 
 length_arg
@@ -1055,8 +1056,8 @@ length_boundary
 // Date
 
 date_arg_str
-  = DQUOTE date_arg DQUOTE
-  / SQUOTE date_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'date_arg'); return text(); }
   / date_arg
 
 date_arg
@@ -1085,8 +1086,9 @@ instance_identifier
 predicate
   = "[" WSP* (predicate_expr / pos) WSP* "]"
 
+// CHANGE simplify/reuse reference for quoted string
 predicate_expr
-  = (node_identifier / ".") WSP* "=" WSP* ((DQUOTE string DQUOTE) / (SQUOTE string SQUOTE))
+  = (node_identifier / ".") WSP* "=" WSP* string_quoted_
 
 pos
   = non_negative_integer_value
@@ -1094,8 +1096,8 @@ pos
 // leafref path
 
 path_arg_str
-  = DQUOTE path_arg DQUOTE
-  / SQUOTE path_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'path_arg'); return text(); }
   / path_arg
 
 path_arg
@@ -1294,8 +1296,8 @@ current_function_invocation
 // Basic Rules
 
 prefix_arg_str
-  = DQUOTE prefix_arg DQUOTE
-  / SQUOTE prefix_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'prefix_arg'); return text(); }
   / prefix_arg
 
 prefix_arg
@@ -1305,8 +1307,8 @@ prefix_arg
 // prefix
 
 identifier_arg_str
-  = DQUOTE identifier_arg DQUOTE
-  / SQUOTE identifier_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'identifier_arg'); return text(); }
   / identifier_arg
 
 identifier_arg
@@ -1316,8 +1318,8 @@ identifier_arg
 // identifier
 
 identifier_ref_arg_str
-  = DQUOTE identifier_ref_arg DQUOTE
-  / SQUOTE identifier_ref_arg SQUOTE
+  = string_quoted_
+  { parse(text(), 'identifier_ref_arg'); return text(); }
   / identifier_ref_arg
 
 identifier_ref_arg

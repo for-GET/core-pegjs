@@ -39,8 +39,22 @@ string
   / string_unquoted_
 
 string_quoted_
-  = DQUOTE $[^"]* DQUOTE (optsep "+" optsep string_quoted_)*
-  / SQUOTE $[^']* SQUOTE (optsep "+" optsep string_quoted_)*
+  = DQUOTE head:$(!DQUOTE .)* DQUOTE tail:(optsep "+" optsep string_quoted_)* {
+    string = [head];
+    tail = tail || [];
+    tail.forEach(function(item) {
+      string.push(item[3]);
+    });
+    return tail.join('');
+  }
+  / SQUOTE head:$(!SQUOTE .)* SQUOTE tail:(optsep "+" optsep string_quoted_)* {
+    string = [head];
+    tail = tail || [];
+    tail.forEach(function(item) {
+      string.push(item[3]);
+    });
+    return tail.join('');
+  }
 
 string_unquoted_
   = $(!(sep [";{]) [^";{])+
