@@ -28,7 +28,7 @@
   },
   "optionalDependencies": {
     "coffee-script": "~1.6.3",
-    "pegjs": "git://github.com/andreineculau/pegjs.git#master"
+    "pegjs": "git://github.com/andreineculau/pegjs.git#master-0.8.0"
   },
   "devDependencies": {
     "chai": "~1.8.1",
