@@ -54,7 +54,7 @@
  */
 
 Start
-  = __ program:Program __
+  = __ Program __
 
 /* ----- A.1 Lexical Grammar ----- */
 
@@ -94,16 +94,16 @@ SingleLineComment
   = "//" (!LineTerminator SourceCharacter)*
 
 Identifier
-  = !ReservedWord name:IdentifierName
+  = !ReservedWord IdentifierName
 
 IdentifierName "identifier"
-  = first:IdentifierStart rest:IdentifierPart*
+  = IdentifierStart IdentifierPart*
 
 IdentifierStart
   = UnicodeLetter
   / "$"
   / "_"
-  / "\\" sequence:UnicodeEscapeSequence
+  / "\\" UnicodeEscapeSequence
 
 IdentifierPart
   = IdentifierStart
@@ -193,8 +193,8 @@ BooleanLiteral
  * grammar, it comes from text in section 7.8.3.
  */
 NumericLiteral "number"
-  = literal:HexIntegerLiteral !(IdentifierStart / DecimalDigit)
-  / literal:DecimalLiteral !(IdentifierStart / DecimalDigit)
+  = HexIntegerLiteral !(IdentifierStart / DecimalDigit)
+  / DecimalLiteral !(IdentifierStart / DecimalDigit)
 
 DecimalLiteral
   = DecimalIntegerLiteral "." DecimalDigit* ExponentPart?
@@ -221,23 +221,23 @@ SignedInteger
   = [+-]? DecimalDigit+
 
 HexIntegerLiteral
-  = "0x"i digits:$HexDigit+
+  = "0x"i $HexDigit+
 
 HexDigit
   = [0-9a-f]i
 
 StringLiteral "string"
-  = '"' chars:DoubleStringCharacter* '"'
-  / "'" chars:SingleStringCharacter* "'"
+  = '"' DoubleStringCharacter* '"'
+  / "'" SingleStringCharacter* "'"
 
 DoubleStringCharacter
   = !('"' / "\\" / LineTerminator) SourceCharacter
-  / "\\" sequence:EscapeSequence
+  / "\\" EscapeSequence
   / LineContinuation
 
 SingleStringCharacter
   = !("'" / "\\" / LineTerminator) SourceCharacter
-  / "\\" sequence:EscapeSequence
+  / "\\" EscapeSequence
   / LineContinuation
 
 LineContinuation
@@ -274,13 +274,13 @@ EscapeCharacter
   / "u"
 
 HexEscapeSequence
-  = "x" digits:$(HexDigit HexDigit)
+  = "x" $(HexDigit HexDigit)
 
 UnicodeEscapeSequence
-  = "u" digits:$(HexDigit HexDigit HexDigit HexDigit)
+  = "u" $(HexDigit HexDigit HexDigit HexDigit)
 
 RegularExpressionLiteral "regular expression"
-  = "/" pattern:$RegularExpressionBody "/" flags:$RegularExpressionFlags
+  = "/" $RegularExpressionBody "/" $RegularExpressionFlags
 
 RegularExpressionBody
   = RegularExpressionFirstChar RegularExpressionChar*
@@ -441,40 +441,40 @@ PrimaryExpression
   / Literal
   / ArrayLiteral
   / ObjectLiteral
-  / "(" __ expression:Expression __ ")"
+  / "(" __ Expression __ ")"
 
 ArrayLiteral
-  = "[" __ elision:(Elision __)? "]"
-  / "[" __ elements:ElementList __ "]"
-  / "[" __ elements:ElementList __ "," __ elision:(Elision __)? "]"
+  = "[" __ (Elision __)? "]"
+  / "[" __ ElementList __ "]"
+  / "[" __ ElementList __ "," __ (Elision __)? "]"
 
 ElementList
-  = first:(
-      elision:(Elision __)? element:AssignmentExpression
+  = (
+      (Elision __)? AssignmentExpression
     )
-    rest:(
-      __ "," __ elision:(Elision __)? element:AssignmentExpression
+    (
+      __ "," __ (Elision __)? AssignmentExpression
     )*
 
 Elision
-  = "," commas:(__ ",")*
+  = "," (__ ",")*
 
 ObjectLiteral
   = "{" __ "}"
-  / "{" __ properties:PropertyNameAndValueList __ "}"
-  / "{" __ properties:PropertyNameAndValueList __ "," __ "}"
+  / "{" __ PropertyNameAndValueList __ "}"
+  / "{" __ PropertyNameAndValueList __ "," __ "}"
 
 PropertyNameAndValueList
-  = first:PropertyAssignment rest:(__ "," __ PropertyAssignment)*
+  = PropertyAssignment (__ "," __ PropertyAssignment)*
 
 PropertyAssignment
-  = key:PropertyName __ ":" __ value:AssignmentExpression
-  / GetToken __ key:PropertyName __
+  = PropertyName __ ":" __ AssignmentExpression
+  / GetToken __ PropertyName __
     "(" __ ")" __
-    "{" __ body:FunctionBody __ "}"
-  / SetToken __ key:PropertyName __
-    "(" __ params:PropertySetParameterList __ ")" __
-    "{" __ body:FunctionBody __ "}"
+    "{" __ FunctionBody __ "}"
+  / SetToken __ PropertyName __
+    "(" __ PropertySetParameterList __ ")" __
+    "{" __ FunctionBody __ "}"
 
 PropertyName
   = IdentifierName
@@ -482,45 +482,45 @@ PropertyName
   / NumericLiteral
 
 PropertySetParameterList
-  = id:Identifier
+  = Identifier
 
 MemberExpression
-  = first:(
+  = (
         PrimaryExpression
       / FunctionExpression
-      / NewToken __ callee:MemberExpression __ args:Arguments
+      / NewToken __ MemberExpression __ Arguments
     )
-    rest:(
-        __ "[" __ property:Expression __ "]"
-      / __ "." __ property:IdentifierName
+    (
+        __ "[" __ Expression __ "]"
+      / __ "." __ IdentifierName
     )*
 
 NewExpression
   = MemberExpression
-  / NewToken __ callee:NewExpression
+  / NewToken __ NewExpression
 
 CallExpression
-  = first:(
-      callee:MemberExpression __ args:Arguments
+  = (
+      MemberExpression __ Arguments
     )
-    rest:(
-        __ args:Arguments
-      / __ "[" __ property:Expression __ "]"
-      / __ "." __ property:IdentifierName
+    (
+        __ Arguments
+      / __ "[" __ Expression __ "]"
+      / __ "." __ IdentifierName
     )*
 
 Arguments
-  = "(" __ args:(ArgumentList __)? ")"
+  = "(" __ (ArgumentList __)? ")"
 
 ArgumentList
-  = first:AssignmentExpression rest:(__ "," __ AssignmentExpression)*
+  = AssignmentExpression (__ "," __ AssignmentExpression)*
 
 LeftHandSideExpression
   = CallExpression
   / NewExpression
 
 PostfixExpression
-  = argument:LeftHandSideExpression _ operator:PostfixOperator
+  = LeftHandSideExpression _ PostfixOperator
   / LeftHandSideExpression
 
 PostfixOperator
@@ -529,7 +529,7 @@ PostfixOperator
 
 UnaryExpression
   = PostfixExpression
-  / operator:UnaryOperator __ argument:UnaryExpression
+  / UnaryOperator __ UnaryExpression
 
 UnaryOperator
   = $DeleteToken
@@ -543,8 +543,8 @@ UnaryOperator
   / "!"
 
 MultiplicativeExpression
-  = first:UnaryExpression
-    rest:(__ MultiplicativeOperator __ UnaryExpression)*
+  = UnaryExpression
+    (__ MultiplicativeOperator __ UnaryExpression)*
 
 MultiplicativeOperator
   = $("*" !"=")
@@ -552,16 +552,16 @@ MultiplicativeOperator
   / $("%" !"=")
 
 AdditiveExpression
-  = first:MultiplicativeExpression
-    rest:(__ AdditiveOperator __ MultiplicativeExpression)*
+  = MultiplicativeExpression
+    (__ AdditiveOperator __ MultiplicativeExpression)*
 
 AdditiveOperator
   = $("+" ![+=])
   / $("-" ![-=])
 
 ShiftExpression
-  = first:AdditiveExpression
-    rest:(__ ShiftOperator __ AdditiveExpression)*
+  = AdditiveExpression
+    (__ ShiftOperator __ AdditiveExpression)*
 
 ShiftOperator
   = $("<<"  !"=")
@@ -569,8 +569,8 @@ ShiftOperator
   / $(">>"  !"=")
 
 RelationalExpression
-  = first:ShiftExpression
-    rest:(__ RelationalOperator __ ShiftExpression)*
+  = ShiftExpression
+    (__ RelationalOperator __ ShiftExpression)*
 
 RelationalOperator
   = "<="
@@ -581,8 +581,8 @@ RelationalOperator
   / $InToken
 
 RelationalExpressionNoIn
-  = first:ShiftExpression
-    rest:(__ RelationalOperatorNoIn __ ShiftExpression)*
+  = ShiftExpression
+    (__ RelationalOperatorNoIn __ ShiftExpression)*
 
 RelationalOperatorNoIn
   = "<="
@@ -592,12 +592,12 @@ RelationalOperatorNoIn
   / $InstanceofToken
 
 EqualityExpression
-  = first:RelationalExpression
-    rest:(__ EqualityOperator __ RelationalExpression)*
+  = RelationalExpression
+    (__ EqualityOperator __ RelationalExpression)*
 
 EqualityExpressionNoIn
-  = first:RelationalExpressionNoIn
-    rest:(__ EqualityOperator __ RelationalExpressionNoIn)*
+  = RelationalExpressionNoIn
+    (__ EqualityOperator __ RelationalExpressionNoIn)*
 
 EqualityOperator
   = "==="
@@ -606,88 +606,88 @@ EqualityOperator
   / "!="
 
 BitwiseANDExpression
-  = first:EqualityExpression
-    rest:(__ BitwiseANDOperator __ EqualityExpression)*
+  = EqualityExpression
+    (__ BitwiseANDOperator __ EqualityExpression)*
 
 BitwiseANDExpressionNoIn
-  = first:EqualityExpressionNoIn
-    rest:(__ BitwiseANDOperator __ EqualityExpressionNoIn)*
+  = EqualityExpressionNoIn
+    (__ BitwiseANDOperator __ EqualityExpressionNoIn)*
 
 BitwiseANDOperator
   = $("&" ![&=])
 
 BitwiseXORExpression
-  = first:BitwiseANDExpression
-    rest:(__ BitwiseXOROperator __ BitwiseANDExpression)*
+  = BitwiseANDExpression
+    (__ BitwiseXOROperator __ BitwiseANDExpression)*
 
 BitwiseXORExpressionNoIn
-  = first:BitwiseANDExpressionNoIn
-    rest:(__ BitwiseXOROperator __ BitwiseANDExpressionNoIn)*
+  = BitwiseANDExpressionNoIn
+    (__ BitwiseXOROperator __ BitwiseANDExpressionNoIn)*
 
 BitwiseXOROperator
   = $("^" !"=")
 
 BitwiseORExpression
-  = first:BitwiseXORExpression
-    rest:(__ BitwiseOROperator __ BitwiseXORExpression)*
+  = BitwiseXORExpression
+    (__ BitwiseOROperator __ BitwiseXORExpression)*
 
 BitwiseORExpressionNoIn
-  = first:BitwiseXORExpressionNoIn
-    rest:(__ BitwiseOROperator __ BitwiseXORExpressionNoIn)*
+  = BitwiseXORExpressionNoIn
+    (__ BitwiseOROperator __ BitwiseXORExpressionNoIn)*
 
 BitwiseOROperator
   = $("|" ![|=])
 
 LogicalANDExpression
-  = first:BitwiseORExpression
-    rest:(__ LogicalANDOperator __ BitwiseORExpression)*
+  = BitwiseORExpression
+    (__ LogicalANDOperator __ BitwiseORExpression)*
 
 LogicalANDExpressionNoIn
-  = first:BitwiseORExpressionNoIn
-    rest:(__ LogicalANDOperator __ BitwiseORExpressionNoIn)*
+  = BitwiseORExpressionNoIn
+    (__ LogicalANDOperator __ BitwiseORExpressionNoIn)*
 
 LogicalANDOperator
   = "&&"
 
 LogicalORExpression
-  = first:LogicalANDExpression
-    rest:(__ LogicalOROperator __ LogicalANDExpression)*
+  = LogicalANDExpression
+    (__ LogicalOROperator __ LogicalANDExpression)*
 
 LogicalORExpressionNoIn
-  = first:LogicalANDExpressionNoIn
-    rest:(__ LogicalOROperator __ LogicalANDExpressionNoIn)*
+  = LogicalANDExpressionNoIn
+    (__ LogicalOROperator __ LogicalANDExpressionNoIn)*
 
 LogicalOROperator
   = "||"
 
 ConditionalExpression
-  = test:LogicalORExpression __
-    "?" __ consequent:AssignmentExpression __
-    ":" __ alternate:AssignmentExpression
+  = LogicalORExpression __
+    "?" __ AssignmentExpression __
+    ":" __ AssignmentExpression
   / LogicalORExpression
 
 ConditionalExpressionNoIn
-  = test:LogicalORExpressionNoIn __
-    "?" __ consequent:AssignmentExpression __
-    ":" __ alternate:AssignmentExpressionNoIn
+  = LogicalORExpressionNoIn __
+    "?" __ AssignmentExpression __
+    ":" __ AssignmentExpressionNoIn
   / LogicalORExpressionNoIn
 
 AssignmentExpression
-  = left:LeftHandSideExpression __
+  = LeftHandSideExpression __
     "=" !"=" __
-    right:AssignmentExpression
-  / left:LeftHandSideExpression __
-    operator:AssignmentOperator __
-    right:AssignmentExpression
+    AssignmentExpression
+  / LeftHandSideExpression __
+    AssignmentOperator __
+    AssignmentExpression
   / ConditionalExpression
 
 AssignmentExpressionNoIn
-  = left:LeftHandSideExpression __
+  = LeftHandSideExpression __
     "=" !"=" __
-    right:AssignmentExpressionNoIn
-  / left:LeftHandSideExpression __
-    operator:AssignmentOperator __
-    right:AssignmentExpressionNoIn
+    AssignmentExpressionNoIn
+  / LeftHandSideExpression __
+    AssignmentOperator __
+    AssignmentExpressionNoIn
   / ConditionalExpressionNoIn
 
 AssignmentOperator
@@ -704,10 +704,10 @@ AssignmentOperator
   / "|="
 
 Expression
-  = first:AssignmentExpression rest:(__ "," __ AssignmentExpression)*
+  = AssignmentExpression (__ "," __ AssignmentExpression)*
 
 ExpressionNoIn
-  = first:AssignmentExpressionNoIn rest:(__ "," __ AssignmentExpressionNoIn)*
+  = AssignmentExpressionNoIn (__ "," __ AssignmentExpressionNoIn)*
 
 /* ----- A.4 Statements ----- */
 
@@ -729,133 +729,133 @@ Statement
   / DebuggerStatement
 
 Block
-  = "{" __ body:(StatementList __)? "}"
+  = "{" __ (StatementList __)? "}"
 
 StatementList
-  = first:Statement rest:(__ Statement)*
+  = Statement (__ Statement)*
 
 VariableStatement
-  = VarToken __ declarations:VariableDeclarationList EOS
+  = VarToken __ VariableDeclarationList EOS
 
 VariableDeclarationList
-  = first:VariableDeclaration rest:(__ "," __ VariableDeclaration)*
+  = VariableDeclaration (__ "," __ VariableDeclaration)*
 
 VariableDeclarationListNoIn
-  = first:VariableDeclarationNoIn rest:(__ "," __ VariableDeclarationNoIn)*
+  = VariableDeclarationNoIn (__ "," __ VariableDeclarationNoIn)*
 
 VariableDeclaration
-  = id:Identifier init:(__ Initialiser)?
+  = Identifier (__ Initialiser)?
 
 VariableDeclarationNoIn
-  = id:Identifier init:(__ InitialiserNoIn)?
+  = Identifier (__ InitialiserNoIn)?
 
 Initialiser
-  = "=" !"=" __ expression:AssignmentExpression
+  = "=" !"=" __ AssignmentExpression
 
 InitialiserNoIn
-  = "=" !"=" __ expression:AssignmentExpressionNoIn
+  = "=" !"=" __ AssignmentExpressionNoIn
 
 EmptyStatement
   = ";"
 
 ExpressionStatement
-  = !("{" / FunctionToken) expression:Expression EOS
+  = !("{" / FunctionToken) Expression EOS
 
 IfStatement
-  = IfToken __ "(" __ test:Expression __ ")" __
-    consequent:Statement __
+  = IfToken __ "(" __ Expression __ ")" __
+    Statement __
     ElseToken __
-    alternate:Statement
-  / IfToken __ "(" __ test:Expression __ ")" __
-    consequent:Statement
+    Statement
+  / IfToken __ "(" __ Expression __ ")" __
+    Statement
 
 IterationStatement
   = DoToken __
-    body:Statement __
-    WhileToken __ "(" __ test:Expression __ ")" EOS
-  / WhileToken __ "(" __ test:Expression __ ")" __
-    body:Statement
+    Statement __
+    WhileToken __ "(" __ Expression __ ")" EOS
+  / WhileToken __ "(" __ Expression __ ")" __
+    Statement
   / ForToken __
     "(" __
-    init:(ExpressionNoIn __)? ";" __
-    test:(Expression __)? ";" __
-    update:(Expression __)?
+    (ExpressionNoIn __)? ";" __
+    (Expression __)? ";" __
+    (Expression __)?
     ")" __
-    body:Statement
+    Statement
   / ForToken __
     "(" __
-    VarToken __ declarations:VariableDeclarationListNoIn __ ";" __
-    test:(Expression __)? ";" __
-    update:(Expression __)?
+    VarToken __ VariableDeclarationListNoIn __ ";" __
+    (Expression __)? ";" __
+    (Expression __)?
     ")" __
-    body:Statement
+    Statement
   / ForToken __
     "(" __
-    left:LeftHandSideExpression __
+    LeftHandSideExpression __
     InToken __
-    right:Expression __
+    Expression __
     ")" __
-    body:Statement
+    Statement
   / ForToken __
     "(" __
-    VarToken __ declarations:VariableDeclarationListNoIn __
+    VarToken __ VariableDeclarationListNoIn __
     InToken __
-    right:Expression __
+    Expression __
     ")" __
-    body:Statement
+    Statement
 
 ContinueStatement
   = ContinueToken EOS
-  / ContinueToken _ label:Identifier EOS
+  / ContinueToken _ Identifier EOS
 
 BreakStatement
   = BreakToken EOS
-  / BreakToken _ label:Identifier EOS
+  / BreakToken _ Identifier EOS
 
 ReturnStatement
   = ReturnToken EOS
-  / ReturnToken _ argument:Expression EOS
+  / ReturnToken _ Expression EOS
 
 WithStatement
-  = WithToken __ "(" __ object:Expression __ ")" __
-    body:Statement
+  = WithToken __ "(" __ Expression __ ")" __
+    Statement
 
 SwitchStatement
-  = SwitchToken __ "(" __ discriminant:Expression __ ")" __
-    cases:CaseBlock
+  = SwitchToken __ "(" __ Expression __ ")" __
+    CaseBlock
 
 CaseBlock
-  = "{" __ clauses:(CaseClauses __)? "}"
+  = "{" __ (CaseClauses __)? "}"
   / "{" __
-    before:(CaseClauses __)?
+    (CaseClauses __)?
     default_:DefaultClause __
-    after:(CaseClauses __)? "}"
+    (CaseClauses __)? "}"
 
 CaseClauses
-  = first:CaseClause rest:(__ CaseClause)*
+  = CaseClause (__ CaseClause)*
 
 CaseClause
-  = CaseToken __ test:Expression __ ":" consequent:(__ StatementList)?
+  = CaseToken __ Expression __ ":" (__ StatementList)?
 
 DefaultClause
-  = DefaultToken __ ":" consequent:(__ StatementList)?
+  = DefaultToken __ ":" (__ StatementList)?
 
 LabelledStatement
-  = label:Identifier __ ":" __ body:Statement
+  = Identifier __ ":" __ Statement
 
 ThrowStatement
-  = ThrowToken _ argument:Expression EOS
+  = ThrowToken _ Expression EOS
 
 TryStatement
-  = TryToken __ block:Block __ handler:Catch __ finalizer:Finally
-  / TryToken __ block:Block __ handler:Catch
-  / TryToken __ block:Block __ finalizer:Finally
+  = TryToken __ Block __ Catch __ Finally
+  / TryToken __ Block __ Catch
+  / TryToken __ Block __ Finally
 
 Catch
-  = CatchToken __ "(" __ param:Identifier __ ")" __ body:Block
+  = CatchToken __ "(" __ Identifier __ ")" __ Block
 
 Finally
-  = FinallyToken __ block:Block
+  = FinallyToken __ Block
 
 DebuggerStatement
   = DebuggerToken EOS
@@ -863,26 +863,26 @@ DebuggerStatement
 /* ----- A.5 Functions and Programs ----- */
 
 FunctionDeclaration
-  = FunctionToken __ id:Identifier __
-    "(" __ params:(FormalParameterList __)? ")" __
-    "{" __ body:FunctionBody __ "}"
+  = FunctionToken __ Identifier __
+    "(" __ (FormalParameterList __)? ")" __
+    "{" __ FunctionBody __ "}"
 
 FunctionExpression
-  = FunctionToken __ id:(Identifier __)?
-    "(" __ params:(FormalParameterList __)? ")" __
-    "{" __ body:FunctionBody __ "}"
+  = FunctionToken __ (Identifier __)?
+    "(" __ (FormalParameterList __)? ")" __
+    "{" __ FunctionBody __ "}"
 
 FormalParameterList
-  = first:Identifier rest:(__ "," __ Identifier)*
+  = Identifier (__ "," __ Identifier)*
 
 FunctionBody
-  = body:SourceElements?
+  = SourceElements?
 
 Program
-  = body:SourceElements?
+  = SourceElements?
 
 SourceElements
-  = first:SourceElement rest:(__ SourceElement)*
+  = SourceElement (__ SourceElement)*
 
 SourceElement
   = Statement
