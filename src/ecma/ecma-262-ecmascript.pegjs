@@ -467,14 +467,15 @@ ObjectLiteral
 PropertyNameAndValueList
   = PropertyAssignment (__ "," __ PropertyAssignment)*
 
+// CHANGE (optimization) prioritize tokens
 PropertyAssignment
-  = PropertyName __ ":" __ AssignmentExpression
-  / GetToken __ PropertyName __
+  = GetToken __ PropertyName __
     "(" __ ")" __
     "{" __ FunctionBody __ "}"
   / SetToken __ PropertyName __
     "(" __ PropertySetParameterList __ ")" __
     "{" __ FunctionBody __ "}"
+  / PropertyName __ ":" __ AssignmentExpression
 
 PropertyName
   = IdentifierName
@@ -484,25 +485,25 @@ PropertyName
 PropertySetParameterList
   = Identifier
 
+// CHANGE (optimization) prioritize tokens
 MemberExpression
   = (
-        PrimaryExpression
+       NewToken __ MemberExpression __ Arguments
+      / PrimaryExpression
       / FunctionExpression
-      / NewToken __ MemberExpression __ Arguments
     )
     (
         __ "[" __ Expression __ "]"
       / __ "." __ IdentifierName
     )*
 
+// CHANGE (optimization) prioritize tokens
 NewExpression
-  = MemberExpression
-  / NewToken __ NewExpression
+  = NewToken __ NewExpression
+  / MemberExpression
 
 CallExpression
-  = (
-      MemberExpression __ Arguments
-    )
+  = MemberExpression __ Arguments
     (
         __ Arguments
       / __ "[" __ Expression __ "]"
@@ -672,26 +673,25 @@ ConditionalExpressionNoIn
     ":" __ AssignmentExpressionNoIn
   / LogicalORExpressionNoIn
 
+// CHANGE (optimization) AssignmentOperator covers "="
+// CHANGE (optimization) order ConditionalExpression first
 AssignmentExpression
-  = LeftHandSideExpression __
-    "=" !"=" __
-    AssignmentExpression
+  = ConditionalExpression
   / LeftHandSideExpression __
     AssignmentOperator __
     AssignmentExpression
-  / ConditionalExpression
 
+// CHANGE (optimization) AssignmentOperator covers "="
+// CHANGE (optimization) order ConditionalExpression first
 AssignmentExpressionNoIn
-  = LeftHandSideExpression __
-    "=" !"=" __
-    AssignmentExpressionNoIn
+  = ConditionalExpressionNoIn
   / LeftHandSideExpression __
     AssignmentOperator __
     AssignmentExpressionNoIn
-  / ConditionalExpressionNoIn
 
 AssignmentOperator
-  = "*="
+  = $("=" !"=")
+  / "*="
   / "/="
   / "%="
   / "+="
@@ -761,14 +761,16 @@ EmptyStatement
 ExpressionStatement
   = !("{" / FunctionToken) Expression EOS
 
+// CHANGE (optimization) use optional
 IfStatement
   = IfToken __ "(" __ Expression __ ")" __
-    Statement __
-    ElseToken __
     Statement
-  / IfToken __ "(" __ Expression __ ")" __
-    Statement
+    (
+      ElseToken __
+      Statement
+    )?
 
+// CHANGE (optimization) use IterationStatementForCondition_
 IterationStatement
   = DoToken __
     Statement __
@@ -777,32 +779,25 @@ IterationStatement
     Statement
   / ForToken __
     "(" __
-    (ExpressionNoIn __)? ";" __
+    IterationStatementForCondition_
+    ")" __
+    Statement
+
+// CHANGE (optimization) prioritize tokens
+IterationStatementForCondition_
+  = VarToken __ VariableDeclarationListNoIn __ ";" __
     (Expression __)? ";" __
     (Expression __)?
-    ")" __
-    Statement
-  / ForToken __
-    "(" __
-    VarToken __ VariableDeclarationListNoIn __ ";" __
+  / VarToken __ VariableDeclarationListNoIn __
+    InToken __
+    Expression __
+  / (ExpressionNoIn __)? ";" __
     (Expression __)? ";" __
     (Expression __)?
-    ")" __
-    Statement
-  / ForToken __
-    "(" __
-    LeftHandSideExpression __
+  / LeftHandSideExpression __
     InToken __
     Expression __
-    ")" __
-    Statement
-  / ForToken __
-    "(" __
-    VarToken __ VariableDeclarationListNoIn __
-    InToken __
-    Expression __
-    ")" __
-    Statement
+
 
 ContinueStatement
   = ContinueToken EOS
