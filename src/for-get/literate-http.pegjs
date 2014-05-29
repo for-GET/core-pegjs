@@ -1,116 +1,117 @@
 /*
- * HTTP transcript
+ * Literate HTTP
+ *
+ * Definition: A `.litHTTP` file is a text file that
+ * 1) uses "fenced blocks" to mark one or more HTTP messages
+ * 2) only contains one or more HTTP messages
+ *
+ * Similarities
+ * - this is a follow-up fork of the format of https://github.com/apiaryio/blueprint-parser and https://github.com/for-GET/katt-blueprint-parser-js
+ * - this allows for direct copy-paste of curl's verbose output `curl -v` (FYI request payload is now printed by curl)
+ *
+ * Discrepancies from HTTP
+ * - allows request_line to skip HTTP_version
+ * - allows status_line to skip HTTP_version and reason_phrase
+ * - allows {, } in request_target for KATT/handlebars expressions
+ * - allows for LF line endings, instead of just CRLF
  *
  * @append ietf/draft-ietf-httpbis-p1-messaging.pegjs
+ * @append ietf/rfc3986-uri.pegjs
  * @append ietf/rfc5234-core-abnf.pegjs
  */
 
-/* SCENARIO */
+litHTTP
+  = (OWS EOL)* litHTTP_messages
+  / litHTTP_text (litHTTP_fenced_block litHTTP_text)+
 
-transcript
-  = (OWS EOL)* transcript_header
-    (OWS EOL)+ transcript_messages
+litHTTP_text
+  = $(!litHTTP_ticks .)*
 
-transcript_header
-  = transcript_katt_name_block (&(OWS EOL transcript_katt_description_block) OWS EOL transcript_katt_description_block)?
-  / transcript_name
+litHTTP_fenced_block
+  = litHTTP_ticks_start (OWS EOL)+ litHTTP_messages litHTTP_ticks
 
-transcript_katt_name_block
-  = "---" SP transcript_katt_name SP "---"
+litHTTP_ticks_start
+  = litHTTP_ticks (!EOL .)*
 
-transcript_katt_name
-  = $(!(RWS "---") .)+
+litHTTP_ticks
+  = "```"
 
-transcript_katt_description_block
-  = "---" EOL transcript_katt_description EOL "---"
-
-transcript_katt_description
-  = $(!(EOL "---") .)+
-
-transcript_name
-  = $(!EOL .)+
 
 /* MESSAGES */
 
-transcript_messages
-  = (transcript_message (OWS EOL)*)+
+litHTTP_messages
+  = (litHTTP_message (OWS EOL)*)+
 
-transcript_message
-  = transcript_message_description? (OWS EOL)*
-    transcript_request
-    transcript_response
+litHTTP_message
+  = litHTTP_request
+    litHTTP_response
+    EOL*
 
-transcript_message_description
-  = !(transcript_request_mark / transcript_known_method) $(!EOL .)+
 
 /* REQUEST */
 
-transcript_request
-  = transcript_request_line EOL
-    transcript_request_headers
-    (EOL transcript_body)?
+litHTTP_request
+  = litHTTP_request_line
+    litHTTP_request_headers
+    litHTTP_request_body?
 
-transcript_request_line
-  = transcript_request_mark? method SP $(request_target) (SP $(HTTP_version))?
-  / transcript_known_method SP $(request_target) (SP $(HTTP_version))?
+litHTTP_request_line
+  = litHTTP_request_mark? method SP $(request_target) (SP $(HTTP_version))? EOL
 
-/* Assembled from RFC 2616, 5323, 5789. */
-transcript_known_method
-  = "GET"
-  / "POST"
-  / "PUT"
-  / "DELETE"
-  / "OPTIONS"
-  / "PATCH"
-  / "PROPPATCH"
-  / "LOCK"
-  / "UNLOCK"
-  / "COPY"
-  / "MOVE"
-  / "MKCOL"
-  / "HEAD"
+litHTTP_request_headers
+  = (litHTTP_request_header EOL)*
 
-transcript_request_headers
-  = transcript_request_header? (EOL transcript_request_header)*
+litHTTP_request_header
+  = litHTTP_request_mark header_field?
 
-transcript_request_header
-  = transcript_request_mark header_field
+litHTTP_request_body
+  = $(litHTTP_request_body_line (EOL litHTTP_request_body_line)*)
+
+litHTTP_request_body_line
+  = !litHTTP_request_body_end (!EOL OCTET)+
+
+litHTTP_request_body_end
+  = litHTTP_response_line
+
 
 /* RESPONSE */
 
-transcript_response
-  = transcript_response_line EOL
-    transcript_response_headers
-    (EOL transcript_body)?
+litHTTP_response
+  = litHTTP_response_line
+    litHTTP_response_headers
+    litHTTP_response_body?
 
-transcript_response_line
-  = transcript_response_mark ($(HTTP_version) SP)? status_code (SP reason_phrase)?
+litHTTP_response_line
+  = litHTTP_response_mark ($(HTTP_version) SP)? status_code (SP reason_phrase)? EOL
 
-transcript_response_headers
-  = transcript_response_header? (EOL transcript_response_header)*
+litHTTP_response_headers
+  = (litHTTP_response_header EOL)*
 
-transcript_response_header
-  = transcript_response_mark header_field
+litHTTP_response_header
+  = litHTTP_response_mark header_field?
 
-/* BODY */
+litHTTP_response_body
+  = $(litHTTP_response_body_line (EOL litHTTP_response_body_line)*)
 
-transcript_body
-  = transcript_body_line+
+litHTTP_response_body_line
+  = !litHTTP_response_body_end (!EOL OCTET)+
 
-transcript_body_line
-  = !transcript_response_mark $(!EOL .)+ EOL
-  / !((OWS EOL)* transcript_message) $(!EOL .)+ EOL
+litHTTP_response_body_end
+  = (OWS EOL)* litHTTP_message
+  / (OWS EOL)* litHTTP_ticks
+
 
 /* MISC */
 
-transcript_request_mark
-  = ">" RWS
+litHTTP_request_mark
+  = ">" OWS
 
-transcript_response_mark
-  = "<" RWS
+litHTTP_response_mark
+  = "<" OWS
 
 EOL
   = CR? LF
+
 
 /* OVERRIDE */
 
