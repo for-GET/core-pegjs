@@ -8,7 +8,8 @@ module.exports = (id) ->
   srcGrammarFile = "#{__dirname}/src/#{id}.pegjs"
   if fs.existsSync srcGrammarFile
     if fs.statSync(srcGrammarFile).mtime.getTime() > fs.statSync(grammarFile).mtime.getTime()
-      throw new Error "Source grammar #{srcGrammarFile} is newer than the compiled one #{grammarFile}. Please recompile!"
+      throw new Error "Source grammar #{srcGrammarFile} is newer than
+        the compiled one #{grammarFile}. Please recompile!"
   grammar = module.exports.cache[id] = fs.readFileSync grammarFile, 'utf8'
   grammar
 
