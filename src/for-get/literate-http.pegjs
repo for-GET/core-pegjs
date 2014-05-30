@@ -56,16 +56,16 @@ litHTTP_request
     litHTTP_request_body?
 
 litHTTP_request_line
-  = litHTTP_request_mark? method SP $(request_target) (SP $(HTTP_version))? EOL
+  = litHTTP_request_mark method SP $(request_target) (SP $(HTTP_version))? EOL
 
 litHTTP_request_headers
   = (litHTTP_request_header EOL)*
 
 litHTTP_request_header
-  = litHTTP_request_mark header_field?
+  = litHTTP_request_mark header_field
 
 litHTTP_request_body
-  = $(litHTTP_request_body_line (EOL litHTTP_request_body_line)*)
+  = (litHTTP_request_mark EOL)? $(litHTTP_request_body_line (EOL litHTTP_request_body_line)*)
 
 litHTTP_request_body_line
   = !litHTTP_request_body_end (!EOL OCTET)+
@@ -88,10 +88,10 @@ litHTTP_response_headers
   = (litHTTP_response_header EOL)*
 
 litHTTP_response_header
-  = litHTTP_response_mark header_field?
+  = litHTTP_response_mark header_field
 
 litHTTP_response_body
-  = $(litHTTP_response_body_line (EOL litHTTP_response_body_line)*)
+  = (litHTTP_response_mark EOL)? $(litHTTP_response_body_line (EOL litHTTP_response_body_line)*)
 
 litHTTP_response_body_line
   = !litHTTP_response_body_end (!EOL OCTET)+
