@@ -15,8 +15,8 @@
   },
   "licenses": [
     {
-      "type": "Apache-2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+      "type": "Unlicense",
+      "url": "http://unlicense.org/UNLICENSE"
     }
   ],
   "scripts": {
@@ -24,19 +24,18 @@
     "test": "make test"
   },
   "dependencies": {
-    "glob": "~3.2.6"
+    "glob": "~4.0.0"
   },
   "optionalDependencies": {
-    "coffee-script": "~1.6.3",
+    "coffee-script": "~1.7.1",
     "pegjs": "git://github.com/andreineculau/pegjs.git#master-0.8.0"
   },
   "devDependencies": {
-    "chai": "~1.8.1",
-    "coffeelint": "~0.6.1",
-    "growl": "~1.7.0",
-    "lodash": "~2.2.1",
-    "mocha": "~1.13.0",
-    "testem": "~0.5.4"
+    "chai": "~1.9.1",
+    "coffeelint": "~1.5.1",
+    "lodash": "~2.4.1",
+    "mocha": "~1.20.0",
+    "testem": "~0.6.16"
   },
   "publishConfig": {
     "optionalDependencies": {}
