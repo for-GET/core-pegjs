@@ -23,9 +23,7 @@
     "prepublish": "make prepublish",
     "test": "make test"
   },
-  "dependencies": {
-    "glob": "~4.0.0"
-  },
+  "dependencies": {},
   "optionalDependencies": {
     "coffee-script": "~1.7.1",
     "pegjs": "git://github.com/andreineculau/pegjs.git#master-0.8.0"
