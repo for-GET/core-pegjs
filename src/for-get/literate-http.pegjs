@@ -91,7 +91,8 @@ litHTTP_request_body_line
   = !litHTTP_request_body_end (!EOL OCTET)+
 
 litHTTP_request_body_end
-  = litHTTP_response_line
+  = (OWS EOL)* litHTTP_response_line
+  / (OWS EOL)* litHTTP_ticks
 
 
 /* RESPONSE */
