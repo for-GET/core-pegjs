@@ -24,19 +24,20 @@
 
 litHTTP
   = (OWS EOL)* litHTTP_transactions
-  / litHTTP_text litHTTP_fenced_blocks
+  / litHTTP_markdown litHTTP_fenced_blocks
+
 
 /* MARKDOWN */
 
-litHTTP_text
+litHTTP_markdown
   = $(!litHTTP_ticks_start .)*
 
 litHTTP_fenced_blocks
   = litHTTP_fenced_block+
 
 litHTTP_fenced_block
-  = litHTTP_fenced_transactions litHTTP_text
-  / litHTTP_fenced_transactions_request litHTTP_text litHTTP_fenced_response_transactions litHTTP_text
+  = litHTTP_fenced_transactions litHTTP_markdown
+  / litHTTP_fenced_transactions_request litHTTP_markdown litHTTP_fenced_response_transactions litHTTP_markdown
 
 litHTTP_fenced_transactions
   = litHTTP_ticks_start (OWS EOL)+ litHTTP_transactions litHTTP_ticks
@@ -62,7 +63,6 @@ litHTTP_transactions
 litHTTP_transaction
   = litHTTP_request
     litHTTP_response
-
 
 /* REQUEST */
 
