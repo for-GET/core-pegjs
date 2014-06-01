@@ -41,7 +41,7 @@ litHTTP_fenced_transactions_request
   = litHTTP_ticks_start (OWS EOL)+ litHTTP_transactions? litHTTP_request litHTTP_ticks
 
 litHTTP_fenced_response_transactions
-  = litHTTP_ticks_start (OWS EOL)+ litHTTP_response litHTTP_transactions? litHTTP_ticks
+  = litHTTP_ticks_start (OWS EOL)+ litHTTP_response litHTTP_transaction_separator litHTTP_transactions? litHTTP_ticks
 
 litHTTP_ticks_start
   = litHTTP_ticks "http"? (!EOL .)*
@@ -53,7 +53,10 @@ litHTTP_ticks
 /* TRANSACTIONS */
 
 litHTTP_transactions
-  = (litHTTP_transaction (OWS EOL)*)+
+  = (litHTTP_transaction litHTTP_transaction_separator)+
+
+litHTTP_transaction_separator
+  = (OWS EOL)+
 
 litHTTP_transaction
   = litHTTP_request
