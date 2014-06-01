@@ -127,8 +127,9 @@ litHTTP_response_body_end
 
 /* MISC */
 
+// NOTE: the empty string match is needed
 litHTTP_request_line_mark
-  = litHTTP_request_mark
+  = "" litHTTP_request_mark
 
 litHTTP_request_mark
   = ""
