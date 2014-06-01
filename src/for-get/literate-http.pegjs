@@ -35,16 +35,16 @@ litHTTP_fenced_block
   / litHTTP_fenced_transactions_request litHTTP_markdown litHTTP_fenced_response_transactions litHTTP_markdown
 
 litHTTP_fenced_transactions
-  = litHTTP_ticks_start (OWS EOL)+ litHTTP_transactions (OWS EOL)+ litHTTP_ticks
+  = litHTTP_ticks_start (OWS EOL)* litHTTP_transactions (OWS EOL)* litHTTP_ticks
 
 litHTTP_fenced_transactions_request
-  = litHTTP_ticks_start (OWS EOL)+ (litHTTP_transactions litHTTP_transaction_separator)? litHTTP_request (OWS EOL)+ litHTTP_ticks
+  = litHTTP_ticks_start (OWS EOL)* (litHTTP_transactions litHTTP_transaction_separator)? litHTTP_request (OWS EOL)* litHTTP_ticks
 
 litHTTP_fenced_response_transactions
-  = litHTTP_ticks_start (OWS EOL)+ litHTTP_response (litHTTP_transaction_separator litHTTP_transactions)? (OWS EOL)+ litHTTP_ticks
+  = litHTTP_ticks_start (OWS EOL)* litHTTP_response (litHTTP_transaction_separator litHTTP_transactions)? (OWS EOL)* litHTTP_ticks
 
 litHTTP_ticks_start
-  = litHTTP_ticks "http"? (!EOL .)*
+  = litHTTP_ticks "http"? (!EOL .)* EOL
 
 litHTTP_ticks
   = "```"
