@@ -12,7 +12,7 @@
 /* OVERRIDE */
 
 litHTTP
-  = (!litHTTP_apib_request_line .)* litHTTP_transactions
+  =  ((OWS EOL)* "---" !litHTTP_apib_request_line .)* litHTTP_transactions
   / litHTTP_markdown litHTTP_fenced_blocks
 
 litHTTP_ticks_start
