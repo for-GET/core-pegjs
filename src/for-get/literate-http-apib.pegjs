@@ -26,6 +26,7 @@ litHTTP_response_body_separator
 
 litHTTP_response_body_end
   = EOL EOL
+  / (OWS EOL)* litHTTP_ticks
 
 litHTTP_request_line_mark
   = ""
