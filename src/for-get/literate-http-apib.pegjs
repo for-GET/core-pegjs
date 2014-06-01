@@ -1,5 +1,5 @@
 /*
- * Literate HTTP (Apiary)
+ * Literate HTTP (Apiary blueprint)
  *
  * Parse output of Apiary's original blueprint format
  *
@@ -24,7 +24,7 @@ litHTTP_response_body_end
   = EOL EOL
 
 litHTTP_request_line_mark
-  = ''
+  = ""
 
 litHTTP_request_mark
   = ">" OWS
