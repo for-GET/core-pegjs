@@ -12,7 +12,7 @@
 /* OVERRIDE */
 
 litHTTP
-  = (!litHTTP_request_line .)* litHTTP_transactions
+  = (!litHTTP_apib_request_line .)* litHTTP_transactions
   / litHTTP_markdown litHTTP_fenced_blocks
 
 litHTTP_ticks_start
@@ -35,3 +35,22 @@ litHTTP_request_mark
 
 litHTTP_response_mark
   = "<" OWS
+
+litHTTP_apib_request_line
+  = litHTTP_request_line_mark litHTTP_apib_method SP litHTTP_request_target (SP $HTTP_version)? EOL
+
+litHTTP_apib_method
+  = "GET"
+  / "POST"
+  / "PUT"
+  / "DELETE"
+  / "OPTIONS"
+  / "PATCH"
+  / "PROPPATCH"
+  / "LOCK"
+  / "UNLOCK"
+  / "COPY"
+  / "MOVE"
+  / "MKCOL"
+  / "HEAD"
+
