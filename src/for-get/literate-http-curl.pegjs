@@ -20,13 +20,13 @@ litHTTP_request_line
   = litHTTP_request_line_mark method SP litHTTP_request_target (SP $HTTP_version) EOL
 
 litHTTP_request_body_separator
-  = ">" EOL
+  = litHTTP_request_mark EOL
 
 litHTTP_status_line
   = litHTTP_response_mark ($HTTP_version SP) status_code (SP reason_phrase) EOL
 
 litHTTP_response_body_separator
-  = "<" EOL
+  = litHTTP_response_mark EOL
 
 litHTTP_request_line_mark
   = ("*" (!EOL .)+ EOL)* litHTTP_request_mark
