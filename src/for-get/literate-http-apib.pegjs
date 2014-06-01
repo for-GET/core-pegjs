@@ -11,6 +11,10 @@
 
 /* OVERRIDE */
 
+litHTTP
+  = (!litHTTP_request_line .)* litHTTP_transactions
+  / litHTTP_markdown litHTTP_fenced_blocks
+
 litHTTP_ticks_start
   = litHTTP_ticks "apib"? (!EOL .)*
 
