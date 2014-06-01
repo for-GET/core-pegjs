@@ -131,10 +131,10 @@ litHTTP_request_line_mark
   = litHTTP_request_mark
 
 litHTTP_request_mark
-  = ''
+  = ""
 
 litHTTP_response_mark
-  = ''
+  = ""
 
 EOL
   = CR? LF
