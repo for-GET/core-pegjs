@@ -2,7 +2,6 @@
  * Literate HTTP (curl)
  *
  * Parse output of
- * curl -s -v ... 2>&1
  * curl -s -v ... 2>&1 | sed '/^[star]/d' | sed '/data not shown/d'
  *
  * @append for-get/literate-http.pegjs
