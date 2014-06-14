@@ -12,7 +12,7 @@ QName
   / UnprefixedName
 
 PrefixedName
-  = Prefix ':' LocalPart
+  = Prefix ":" LocalPart
 
 UnprefixedName
   = LocalPart
