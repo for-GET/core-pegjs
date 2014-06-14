@@ -50,7 +50,7 @@ start_line
 
 /* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-3.1.1 Request Line */
 request_line
-  = method SP $(request_target) SP $(HTTP_version) CRLF
+  = method SP request_target SP HTTP_version CRLF
 
 method
   = token
@@ -58,7 +58,7 @@ method
 
 /* http://tools.ietf.org/html/draft-ietf-httpbis-p1-messaging#section-3.1.2 Status Line */
 status_line
-  = $(HTTP_version) SP status_code SP reason_phrase CRLF
+  = HTTP_version SP status_code SP reason_phrase CRLF
 
 status_code
   = $(DIGIT DIGIT DIGIT)

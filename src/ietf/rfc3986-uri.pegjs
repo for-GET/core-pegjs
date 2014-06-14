@@ -136,7 +136,8 @@ dec_octet
      )
 
 reg_name
-  = $reg_name_item_*
+  = reg_name_item_*
+
 reg_name_item_
   = unreserved
   / pct_encoded
@@ -160,16 +161,16 @@ path
   / path_empty    // zero characters
 
 path_abempty
-  = $("/" segment)*
+  = ("/" segment)*
 
 path_absolute
-  = $("/" (segment_nz ("/" segment)*)?)
+  = "/" (segment_nz ("/" segment)*)?
 
 path_noscheme
-  = $(segment_nz_nc ("/" segment)*)
+  = segment_nz_nc ("/" segment)*
 
 path_rootless
-  = $(segment_nz ("/" segment)*)
+  = segment_nz ("/" segment)*
 
 path_empty
   = ""

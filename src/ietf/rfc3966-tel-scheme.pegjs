@@ -41,10 +41,10 @@ descriptor
   / global_number_digits
 
 global_number_digits
-  = "+" $(phonedigit*) DIGIT $(phonedigit*)
+  = "+" $(phonedigit* DIGIT phonedigit*)
 
 local_number_digits
-  = $(phonedigit_hex*) $(HEXDIG / "*" / "#")* phonedigit_hex
+  = $(phonedigit_hex* (HEXDIG / "*" / "#")* phonedigit_hex)
 
 domainname
   = (domainlabel ".")* toplabel ["."]

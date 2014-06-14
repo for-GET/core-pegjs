@@ -38,7 +38,7 @@ litHTTP_response_mark
   = "<" OWS
 
 litHTTP_apib_request_line
-  = litHTTP_request_line_mark litHTTP_apib_method SP litHTTP_request_target (SP $HTTP_version)? EOL
+  = litHTTP_request_line_mark litHTTP_apib_method SP litHTTP_request_target (SP HTTP_version)? EOL
 
 litHTTP_apib_method
   = "GET"
