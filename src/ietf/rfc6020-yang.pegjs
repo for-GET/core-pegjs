@@ -281,7 +281,7 @@ fraction_digits_arg_str
 
 // CHANGE simplify ranges
 fraction_digits_arg
-  = $("1" ([0-8])?)
+  = $("1" [0-8]?)
   / [2-9]
 
 // these stmts can appear in any order
