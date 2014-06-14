@@ -1340,7 +1340,7 @@ positive_integer_value
   = $(non_zero_digit DIGIT*)
 
 zero_integer_value
-  = $DIGIT+
+  = $(DIGIT+)
 
 stmtend
   = ";"
