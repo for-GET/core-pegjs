@@ -25,15 +25,15 @@
   },
   "dependencies": {},
   "optionalDependencies": {
-    "coffee-script": "~1.7.1",
+    "coffee-script": "~1.8.0",
     "pegjs": "git://github.com/andreineculau/pegjs.git#master-0.8.0"
   },
   "devDependencies": {
-    "chai": "~1.9.1",
-    "coffeelint": "~1.5.1",
+    "chai": "~1.9.2",
+    "coffeelint": "~1.6.0",
     "lodash": "~2.4.1",
-    "mocha": "~1.20.0",
-    "testem": "~0.6.16"
+    "mocha": "~1.21.4",
+    "testem": "~0.6.22"
   },
   "publishConfig": {
     "optionalDependencies": {}
