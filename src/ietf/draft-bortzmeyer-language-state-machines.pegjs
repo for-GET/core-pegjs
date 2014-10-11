@@ -17,7 +17,8 @@ statement
   = (transition / declaration / assignment) semicolon
 
 declaration
-  = coordnames colon value
+  = coordnames colon "state"
+  / names colon value
 // ALTERNATIVE: indicate the possible values in the grammar:
 // declaration = names colon type
 // type = "state" / "message" / "action"
@@ -104,7 +105,7 @@ vertical_dir
 coordnames
   = coordname (comma coordname)*
 coordname
-  = name (":" coord)?
+  = name ":" coord / name
 coord
   = $(ALPHA+) $(DIGIT+)
 
