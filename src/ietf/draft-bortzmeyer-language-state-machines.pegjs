@@ -14,38 +14,16 @@ state_machine
   = comment_nl* statement (statement / comment_nl)+
 
 statement
-  = (transition / declaration / assignment) CRLFWSP ";" CRLFWSP
-
-colon
-  = CRLFWSP ":" CRLFWSP
-comma
-  = CRLFWSP "," CRLFWSP
-equal
-  = CRLFWSP "=" CRLFWSP
-arrow
-  = CRLFWSP "->" CRLFWSP
+  = (transition / declaration / assignment) semicolon
 
 declaration
-  = names colon value
+  = coordnames colon value
 // ALTERNATIVE: indicate the possible values in the grammar:
 // declaration = names colon type
 // type = "state" / "message" / "action"
 
 assignment
   = name equal value
-
-names
-  = name (comma name)*
-
-name
-  = quoted_name
-  / regular_identifier
-
-quoted_name
-  = DQUOTE $(identifier_chars+) DQUOTE
-
-regular_identifier
-  = $((ALPHA / DIGIT) (("-" / "_")? (ALPHA / DIGIT))*)
 
 transition
   = current_states colon messages arrow next_state (colon action)?
@@ -80,10 +58,18 @@ next_state
   = name
 action
   = name
-
 value
   = name
 
+names
+  = name (comma name)*
+name
+  = quoted_name
+  / regular_identifier
+quoted_name
+  = DQUOTE $(identifier_chars+) DQUOTE
+regular_identifier
+  = $((ALPHA / DIGIT) (("-" / "_")? (ALPHA / DIGIT))*)
 identifier_chars
   = ALPHA
   / DIGIT
@@ -104,9 +90,28 @@ identifier_chars
 // All letters and digits and
 // some (a bit arbitrary) chars
 
+coords
+  = coord (comma coord)*
+coordnames
+  = coordname (comma coordname)*
+coordname
+  = name (":" coord)?
+coord
+  = $(ALPHA+) $(DIGIT+)
+
+semicolon
+  = CRLFWSP ";" CRLFWSP
+colon
+  = CRLFWSP ":" CRLFWSP
+comma
+  = CRLFWSP "," CRLFWSP
+equal
+  = CRLFWSP "=" CRLFWSP
+arrow
+  = CRLFWSP "-" coords? ">" CRLFWSP
+
 comment
   = $("#" (WSP / VCHAR)* CR? LF)
-
 comment_nl
   = comment
   / CR? LF
