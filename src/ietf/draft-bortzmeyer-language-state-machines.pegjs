@@ -90,8 +90,17 @@ identifier_chars
 // All letters and digits and
 // some (a bit arbitrary) chars
 
-coords
-  = coord (comma coord)*
+dircoords
+  = (dir comma)? coord (comma coord)* (comma dir)?
+dir
+  = vertical_dir horizontal_dir?
+  / vertical_dir? horizontal_dir
+horizontal_dir
+  = "left"
+  / "right"
+vertical_dir
+  = "top"
+  / "bottom"
 coordnames
   = coordname (comma coordname)*
 coordname
@@ -108,7 +117,7 @@ comma
 equal
   = CRLFWSP "=" CRLFWSP
 arrow
-  = CRLFWSP "-" coords? ">" CRLFWSP
+  = CRLFWSP "-" (dircoords "-")? ">" CRLFWSP
 
 comment
   = $("#" (WSP / VCHAR)* CR? LF)
