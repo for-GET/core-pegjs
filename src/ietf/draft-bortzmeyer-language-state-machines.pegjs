@@ -17,7 +17,7 @@ statement
   = (transition / declaration / assignment) semicolon
 
 declaration
-  = coordnames colon "state"
+  = coordnames colon "state"i "s"i? &semicolon
   / names colon value
 // ALTERNATIVE: indicate the possible values in the grammar:
 // declaration = names colon type
