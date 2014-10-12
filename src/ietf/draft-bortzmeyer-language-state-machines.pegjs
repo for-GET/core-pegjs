@@ -90,21 +90,14 @@ identifier_chars
 // All letters and digits and
 // some (a bit arbitrary) chars
 
-dircoords
-  = (dir comma)? coord (comma coord)* (comma dir)?
-dir
-  = vertical_dir horizontal_dir?
-  / vertical_dir? horizontal_dir
-horizontal_dir
-  = "left"
-  / "right"
-vertical_dir
-  = "top"
-  / "bottom"
+coords
+  = coord (comma coord)*
 coordnames
   = coordname (comma coordname)*
 coordname
-  = name ":" coord / name
+  = name ":" coord ":" coord
+  / name ":" coord
+  / name
 coord
   = $(ALPHA+) $(DIGIT+)
 
@@ -117,7 +110,7 @@ comma
 equal
   = CRLFWSP "=" CRLFWSP
 arrow
-  = CRLFWSP "-" (dircoords "-")? ">" CRLFWSP
+  = CRLFWSP "-" (coords "-")? ">" CRLFWSP
 
 comment
   = $("#" (WSP / VCHAR)* CR? LF)
