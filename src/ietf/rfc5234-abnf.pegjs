@@ -41,7 +41,7 @@ comment
   = ";" $(WSP / VCHAR)* CRLF
 
 alternation
-  = concatenation (c_wsp* "/" c_wsp concatenation*)*
+  = concatenation (c_wsp* "/" c_wsp* concatenation)*
 
 concatenation
   = repetition (c_wsp+ repetition)*
