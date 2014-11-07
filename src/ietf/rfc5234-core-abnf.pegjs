@@ -34,12 +34,12 @@ DQUOTE
 
 HEXDIG
   = DIGIT
-  / "A"
-  / "B"
-  / "C"
-  / "D"
-  / "E"
-  / "F"
+  / "A"i
+  / "B"i
+  / "C"i
+  / "D"i
+  / "E"i
+  / "F"i
 
 HTAB
   = "\x09"
