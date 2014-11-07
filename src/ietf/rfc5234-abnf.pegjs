@@ -49,9 +49,10 @@ concatenation
 repetition
   = repeat? element
 
+// CHANGE order in reverse for greedy matching
 repeat
-  = $(DIGIT+)
-  / $(DIGIT*) "*" $(DIGIT*)
+  = $(DIGIT*) "*" $(DIGIT*)
+  / $(DIGIT+)
 
 element
   = rulename
