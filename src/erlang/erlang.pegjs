@@ -96,9 +96,8 @@ top_type_300
 top_type_400
   = top_type_500 (mult_op top_type_500)*
 
-// CHANGE use ? operator
 top_type_500
-  = prefix_op? top_type
+  = prefix_op top_type
 
 type
   = "(" top_type ")"
@@ -267,9 +266,8 @@ bin_elements
 bin_element
   = bit_expr opt_bit_size_expr opt_bit_type_list
 
-// CHANGE use ? operator
 bit_expr
-  = prefix_op? expr_max
+  = prefix_op expr_max
 
 // CHANGE use ? operator
 opt_bit_size_expr
